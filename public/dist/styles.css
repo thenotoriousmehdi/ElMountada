@@ -124,7 +124,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: currentColor;
+  border-color: #e5e7eb;
   /* 2 */
 }
 
@@ -554,12 +554,28 @@ video {
   display: none;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.inset-0 {
+  inset: 0px;
+}
+
 .z-20 {
   z-index: 20;
 }
 
+.z-10 {
+  z-index: 10;
+}
+
 .m-8 {
   margin: 2rem;
+}
+
+.m-\[25px\] {
+  margin: 25px;
 }
 
 .mb-4 {
@@ -582,10 +598,6 @@ video {
   height: 100vh;
 }
 
-.w-\[52\%\] {
-  width: 52%;
-}
-
 .w-auto {
   width: auto;
 }
@@ -598,16 +610,8 @@ video {
   flex-direction: column;
 }
 
-.items-start {
-  align-items: flex-start;
-}
-
 .items-center {
   align-items: center;
-}
-
-.justify-start {
-  justify-content: flex-start;
 }
 
 .justify-center {
@@ -626,47 +630,84 @@ video {
   gap: 60px;
 }
 
-.rounded-\[15px\] {
-  border-radius: 15px;
+.rounded-\[10px\] {
+  border-radius: 10px;
+}
+
+.rounded-\[12px\] {
+  border-radius: 12px;
+}
+
+.rounded-\[20px\] {
+  border-radius: 20px;
 }
 
 .rounded-\[25px\] {
   border-radius: 25px;
 }
 
-.rounded-\[30px\] {
-  border-radius: 30px;
+.rounded-\[6px\] {
+  border-radius: 6px;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .border {
   border-width: 1px;
 }
 
-.border-BorderWithoutAction {
-  --tw-border-opacity: 1;
-  border-color: rgb(224 225 226 / var(--tw-border-opacity, 1));
+.border-primary\/30 {
+  border-color: rgb(231 111 81 / 0.3);
 }
 
-.bg-PrimaryBlack {
+.border-transparent {
+  border-color: transparent;
+}
+
+.bg-bg {
   --tw-bg-opacity: 1;
-  background-color: rgb(29 28 28 / var(--tw-bg-opacity, 1));
+  background-color: rgb(244 241 222 / var(--tw-bg-opacity, 1));
 }
 
-.bg-white {
+.bg-primary {
   --tw-bg-opacity: 1;
-  background-color: rgb(254 254 254 / var(--tw-bg-opacity, 1));
+  background-color: rgb(231 111 81 / var(--tw-bg-opacity, 1));
 }
 
-.bg-cover {
-  background-size: cover;
+.bg-transparent {
+  background-color: transparent;
 }
 
-.bg-no-repeat {
-  background-repeat: no-repeat;
+.bg-\[\#0F5012\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 80 18 / var(--tw-bg-opacity, 1));
 }
 
-.p-4 {
-  padding: 1rem;
+.bg-principale {
+  --tw-bg-opacity: 1;
+  background-color: rgb(42 42 42 / var(--tw-bg-opacity, 1));
+}
+
+.bg-principale\/20 {
+  background-color: rgb(42 42 42 / 0.2);
+}
+
+.bg-principale\/50 {
+  background-color: rgb(42 42 42 / 0.5);
+}
+
+.bg-principale\/90 {
+  background-color: rgb(42 42 42 / 0.9);
+}
+
+.bg-principale\/60 {
+  background-color: rgb(42 42 42 / 0.6);
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
 }
 
 .p-\[12px\] {
@@ -675,6 +716,14 @@ video {
 
 .p-\[15px\] {
   padding: 15px;
+}
+
+.p-\[1px\] {
+  padding: 1px;
+}
+
+.p-\[10px\] {
+  padding: 10px;
 }
 
 .p-\[25px\] {
@@ -695,8 +744,8 @@ video {
   text-align: center;
 }
 
-.text-start {
-  text-align: start;
+.text-\[14px\] {
+  font-size: 14px;
 }
 
 .text-\[16px\] {
@@ -711,10 +760,6 @@ video {
   font-size: 24px;
 }
 
-.text-\[14px\] {
-  font-size: 14px;
-}
-
 .font-medium {
   font-weight: 500;
 }
@@ -723,26 +768,27 @@ video {
   font-weight: 600;
 }
 
-.text-white {
+.text-text {
   --tw-text-opacity: 1;
-  color: rgb(254 254 254 / var(--tw-text-opacity, 1));
+  color: rgb(38 70 83 / var(--tw-text-opacity, 1));
 }
 
-.text-PrimaryBlack\/80 {
-  color: rgb(29 28 28 / 0.8);
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .text-opacity-80 {
   --tw-text-opacity: 0.8;
 }
 
-.focus-within\:border-PrimaryBlack:focus-within {
+.focus-within\:border-primary:focus-within {
   --tw-border-opacity: 1;
-  border-color: rgb(29 28 28 / var(--tw-border-opacity, 1));
+  border-color: rgb(231 111 81 / var(--tw-border-opacity, 1));
 }
 
-.hover\:bg-PrimaryBlack\/80:hover {
-  background-color: rgb(29 28 28 / 0.8);
+.hover\:bg-primary\/80:hover {
+  background-color: rgb(231 111 81 / 0.8);
 }
 
 .focus\:outline-none:focus {
@@ -773,8 +819,16 @@ video {
 }
 
 @media (min-width: 1280px) {
+  .xl\:relative {
+    position: relative;
+  }
+
   .xl\:m-0 {
     margin: 0px;
+  }
+
+  .xl\:block {
+    display: block;
   }
 
   .xl\:flex {
@@ -805,9 +859,9 @@ video {
     overflow: hidden;
   }
 
-  .xl\:bg-white {
+  .xl\:bg-bg {
     --tw-bg-opacity: 1;
-    background-color: rgb(254 254 254 / var(--tw-bg-opacity, 1));
+    background-color: rgb(244 241 222 / var(--tw-bg-opacity, 1));
   }
 
   .xl\:p-\[25px\] {
