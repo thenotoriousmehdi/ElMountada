@@ -9,6 +9,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
+        openSans: ['Open Sans', 'sans-serif'],
+        nunito: ['Nunito', 'sans-serif'],
+      },
       screens: {
         sm: '640px',
         md: '768px',

@@ -13,7 +13,7 @@ class Auth
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ElMountada</title>
-         <script src="https://cdn.tailwindcss.com"></script>
+            <script src="https://cdn.tailwindcss.com"></script>
             <link href="public/dist/styles.css" rel="stylesheet">
         </head>
 
@@ -23,10 +23,16 @@ class Auth
 
 
                 <div class=" hidden xl:block  xl:relative  xl:p-[25px] xl:w-[52%] ">
-                <div class="absolute inset-0 m-[25px] rounded-[25px] bg-principale/60 bg-opacity-50 z-10"> </div>  
+                    <div
+                        class="absolute flex justify-center items-center inset-0 m-[25px] rounded-[25px] bg-principale/60 bg-opacity-50 z-10">
+                        <div>
+                        <img src="public/assets/ElMountada1.svg" alt="Logo" class=" size-80" />
+                        </div>
+
+                    </div>
                     <img src="public/assets/charity2.jpg" alt="Login Image" class="rounded-[25px] h-full w-auto" />
                 </div>
-                
+
                 <div
                     class="w-full xl:w-[48%] xl:m-0 m-8 flex flex-col justify-center bg-bg px-[25px] sm:px-[50px] md:px-[107px] gap-[60px] xl:overflow-hidden xl:h-full z-20">
 
@@ -54,10 +60,8 @@ class Auth
                             <div>
                                 <div
                                     class="flex sm:p-[20px] p-[15px] w-full text-[16px] rounded-[10px] font-openSans font-regular border border-primary/30 focus-within:border-primary justify-between">
-                                    <input class="bg-transparent border-transparent "
-                                    type="password"
-                                    id="password" name="password" minLength={8}
-                                        maxLength={20} placeholder="Mot de passe" />
+                                    <input class="bg-transparent border-transparent " type="password" id="password"
+                                        name="password" minLength={8} maxLength={20} placeholder="Mot de passe" />
                                 </div>
                             </div>
 
@@ -78,7 +82,7 @@ class Auth
 
 
         </body>
-     
+
 
         </html>
         <?php
