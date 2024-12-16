@@ -558,6 +558,13 @@ video {
   display: none;
 }
 
+body{
+  margin-left: 1.5rem !important;
+  margin-right: 1.5rem !important;
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(244 241 222 / var(--tw-bg-opacity, 1)) !important;
+}
+
 .absolute{
   position: absolute;
 }
@@ -594,12 +601,20 @@ video {
   z-index: 20;
 }
 
+.m-4{
+  margin: 1rem;
+}
+
 .m-8{
   margin: 2rem;
 }
 
 .m-\[25px\]{
   margin: 25px;
+}
+
+.m-6{
+  margin: 1.5rem;
 }
 
 .mb-4{
@@ -623,8 +638,8 @@ video {
   height: 20rem;
 }
 
-.h-\[500px\]{
-  height: 500px;
+.h-\[550px\]{
+  height: 550px;
 }
 
 .h-full{
@@ -633,22 +648,6 @@ video {
 
 .h-screen{
   height: 100vh;
-}
-
-.h-\[700px\]{
-  height: 700px;
-}
-
-.h-\[px\]{
-  height: px;
-}
-
-.h-\[600px\]{
-  height: 600px;
-}
-
-.h-\[550px\]{
-  height: 550px;
 }
 
 .w-auto{
@@ -661,10 +660,6 @@ video {
 
 .flex-shrink-0{
   flex-shrink: 0;
-}
-
-.transform{
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .flex-col{
@@ -681,6 +676,10 @@ video {
 
 .justify-between{
   justify-content: space-between;
+}
+
+.gap-6{
+  gap: 1.5rem;
 }
 
 .gap-\[25px\]{
@@ -733,8 +732,8 @@ video {
   background-color: rgb(231 111 81 / var(--tw-bg-opacity, 1));
 }
 
-.bg-primary\/50{
-  background-color: rgb(231 111 81 / 0.5);
+.bg-primary\/75{
+  background-color: rgb(231 111 81 / 0.75);
 }
 
 .bg-principale\/60{
@@ -743,10 +742,6 @@ video {
 
 .bg-transparent{
   background-color: transparent;
-}
-
-.bg-primary\/70{
-  background-color: rgb(231 111 81 / 0.7);
 }
 
 .bg-opacity-50{
@@ -778,6 +773,16 @@ video {
 .px-\[30px\]{
   padding-left: 30px;
   padding-right: 30px;
+}
+
+.px-\[45px\]{
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.py-\[20px\]{
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .text-center{
@@ -830,6 +835,11 @@ video {
   font-weight: 600;
 }
 
+.text-\[\#fdeeee\]{
+  --tw-text-opacity: 1;
+  color: rgb(253 238 238 / var(--tw-text-opacity, 1));
+}
+
 .text-text{
   --tw-text-opacity: 1;
   color: rgb(38 70 83 / var(--tw-text-opacity, 1));
@@ -844,12 +854,8 @@ video {
   --tw-text-opacity: 0.8;
 }
 
-.opacity-40{
-  opacity: 0.4;
-}
-
-.opacity-20{
-  opacity: 0.2;
+.opacity-30{
+  opacity: 0.3;
 }
 
 .transition-transform{
@@ -873,6 +879,10 @@ video {
 
 .hover\:bg-primary\/80:hover{
   background-color: rgb(231 111 81 / 0.8);
+}
+
+.hover\:text-principale\/80:hover{
+  color: rgb(42 42 42 / 0.8);
 }
 
 .focus\:outline-none:focus{

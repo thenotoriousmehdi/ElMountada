@@ -14,7 +14,9 @@ $authController=new AuthController();
         // $authController->showLoginPage();
         // $authController->showRegisterPage();
 $accueilController=new AccueilController();
+$accueilController->showHead();
+$accueilController->showNavBar();
 $accueilController->showDiaporama();
-
+$accueilController->showFooter();
 ?>
 

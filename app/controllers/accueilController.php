@@ -17,5 +17,22 @@ class AccueilController{
         }
     }  
 
+    public function showNavBar(){
+      
+            $this->accueilView->navBar();
+    }
+
+    public function showHead(){
+      
+        $this->accueilView->Head();
+}
+
+public function showFooter(){
+      
+    $this->accueilView->Footer();
+}
+
+
+
 }
 ?>
