@@ -10,7 +10,6 @@ class NewsModel {
 
         $query = "SELECT n.id, n.title, n.description, n.image_path
                   FROM news n
-                  LEFT JOIN imagesnews i ON n.id = i.idNews
                   ORDER BY n.created_at DESC
                   ";
 
