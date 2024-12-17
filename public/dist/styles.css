@@ -565,12 +565,50 @@ body{
   background-color: rgb(244 241 222 / var(--tw-bg-opacity, 1)) !important;
 }
 
+.container{
+  width: 100%;
+}
+
+@media (min-width: 640px){
+  .container{
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px){
+  .container{
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px){
+  .container{
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px){
+  .container{
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px){
+  .container{
+    max-width: 1536px;
+  }
+}
+
 .absolute{
   position: absolute;
 }
 
 .relative{
   position: relative;
+}
+
+.sticky{
+  position: sticky;
 }
 
 .inset-0{
@@ -601,8 +639,12 @@ body{
   z-index: 20;
 }
 
-.m-4{
-  margin: 1rem;
+.z-50{
+  z-index: 50;
+}
+
+.m-6{
+  margin: 1.5rem;
 }
 
 .m-8{
@@ -613,12 +655,17 @@ body{
   margin: 25px;
 }
 
-.m-6{
-  margin: 1.5rem;
+.mx-auto{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mb-4{
   margin-bottom: 1rem;
+}
+
+.mb-8{
+  margin-bottom: 2rem;
 }
 
 .mt-2{
@@ -638,6 +685,14 @@ body{
   height: 20rem;
 }
 
+.h-16{
+  height: 4rem;
+}
+
+.h-8{
+  height: 2rem;
+}
+
 .h-\[550px\]{
   height: 550px;
 }
@@ -648,6 +703,18 @@ body{
 
 .h-screen{
   height: 100vh;
+}
+
+.h-\[600px\]{
+  height: 600px;
+}
+
+.w-44{
+  width: 11rem;
+}
+
+.w-8{
+  width: 2rem;
 }
 
 .w-auto{
@@ -662,8 +729,16 @@ body{
   flex-shrink: 0;
 }
 
+.transform{
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .flex-col{
   flex-direction: column;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
 }
 
 .items-center{
@@ -682,12 +757,22 @@ body{
   gap: 1.5rem;
 }
 
+.gap-8{
+  gap: 2rem;
+}
+
 .gap-\[25px\]{
   gap: 25px;
 }
 
 .gap-\[60px\]{
   gap: 60px;
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .overflow-hidden{
@@ -727,6 +812,11 @@ body{
   background-color: rgb(244 241 222 / var(--tw-bg-opacity, 1));
 }
 
+.bg-bg2{
+  --tw-bg-opacity: 1;
+  background-color: rgb(233 196 106 / var(--tw-bg-opacity, 1));
+}
+
 .bg-primary{
   --tw-bg-opacity: 1;
   background-color: rgb(231 111 81 / var(--tw-bg-opacity, 1));
@@ -734,6 +824,10 @@ body{
 
 .bg-primary\/75{
   background-color: rgb(231 111 81 / 0.75);
+}
+
+.bg-primary\/80{
+  background-color: rgb(231 111 81 / 0.8);
 }
 
 .bg-principale\/60{
@@ -744,8 +838,30 @@ body{
   background-color: transparent;
 }
 
+.bg-black{
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
+.bg-bg2\/20{
+  background-color: rgb(233 196 106 / 0.2);
+}
+
+.bg-bg2\/15{
+  background-color: rgb(233 196 106 / 0.15);
+}
+
+.bg-opacity-10{
+  --tw-bg-opacity: 0.1;
+}
+
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
+}
+
+.object-contain{
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .object-cover{
@@ -765,6 +881,11 @@ body{
   padding: 15px;
 }
 
+.px-4{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .px-\[25px\]{
   padding-left: 25px;
   padding-right: 25px;
@@ -780,9 +901,19 @@ body{
   padding-right: 45px;
 }
 
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .py-\[20px\]{
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.py-\[25px\]{
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .text-center{
@@ -818,9 +949,18 @@ body{
   font-size: 24px;
 }
 
+.text-\[32px\]{
+  font-size: 32px;
+}
+
 .text-lg{
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-sm{
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .font-bold{
@@ -838,6 +978,11 @@ body{
 .text-\[\#fdeeee\]{
   --tw-text-opacity: 1;
   color: rgb(253 238 238 / var(--tw-text-opacity, 1));
+}
+
+.text-primary{
+  --tw-text-opacity: 1;
+  color: rgb(231 111 81 / var(--tw-text-opacity, 1));
 }
 
 .text-text{
@@ -883,6 +1028,10 @@ body{
 
 .hover\:text-principale\/80:hover{
   color: rgb(42 42 42 / 0.8);
+}
+
+.hover\:underline:hover{
+  text-decoration-line: underline;
 }
 
 .focus\:outline-none:focus{

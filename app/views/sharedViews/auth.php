@@ -5,20 +5,6 @@ class Auth
     public function login()
     {
         ?>
-
-        <!DOCTYPE html>
-        <html lang="en">
-
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>ElMountada</title>
-            <script src="https://cdn.tailwindcss.com"></script>
-            <link href="public/dist/styles.css" rel="stylesheet">
-        </head>
-
-        <body>
-
             <div class="flex h-screen  justify-center xl:bg-bg">
 
 
@@ -79,12 +65,6 @@ class Auth
                 </div>
 
             </div>
-
-
-        </body>
-
-
-        </html>
         <?php
     }
 

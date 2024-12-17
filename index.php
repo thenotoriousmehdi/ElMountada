@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 
 require_once("./app/controllers/authController.php");
 require_once("./app/controllers/accueilController.php");
+require_once './app/controllers/partnersController.php';
 
 
 
@@ -15,8 +16,11 @@ $authController=new AuthController();
         // $authController->showRegisterPage();
 $accueilController=new AccueilController();
 $accueilController->showHead();
-$accueilController->showNavBar();
+//$accueilController->showNavBar();
+$accueilController->showHeader();
 $accueilController->showDiaporama();
+$accueilController->showPartners();
 $accueilController->showFooter();
+$accueilController->showFoot();
 ?>
 
