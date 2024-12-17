@@ -22,7 +22,7 @@ module.exports = {
         '2xl': '1536px',
       },
       colors: {
-        text: '#264653',
+          text: '#264653',
           bg2: '#E9C46A',
           primary: '#E76F51',
           bg: '#F4F1DE',

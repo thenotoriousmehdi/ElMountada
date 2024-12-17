@@ -1,26 +1,45 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+session_start();
 
-require_once("./app/controllers/authController.php");
-require_once("./app/controllers/accueilController.php");
-require_once './app/controllers/partnersController.php';
+spl_autoload_register(function ($class) {
+    require "./app/controllers/" . $class . ".php";
+});
 
+function route($url) {
+        
+    // Your base URL is '/ElMountada'
+    $baseURL = "/Elmountada"; 
+    
+    // Remove the base URL from the request URI if it exists
+    $url = strtolower(str_replace($baseURL, '', $url)); // Normalize URL
+    
 
+    
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'home';
+    // Routing logic
+    switch ($url) {
+        case '/':  // If the URL is empty or '/'
+            $accueilController = new AccueilController();
+            $accueilController->showHead();
+            $accueilController->showHeader();
+            $accueilController->showDiaporama();
+            $accueilController->showOffers();
+            $accueilController->showPartners();
+            $accueilController->showFooter();
+            $accueilController->showFoot();
+            break;
+        case '/auth':  // If the URL is '/auth'
+            $authController = new AuthController();
+            $authController->showLoginPage();
+            break;   
+        default:
+            // If no matching route, show 404
+            http_response_code(404);
+            echo "Page nogtre";
+            break;
+    }
+}
 
-$authController=new AuthController();
-
-        // $authController->showLoginPage();
-        // $authController->showRegisterPage();
-$accueilController=new AccueilController();
-$accueilController->showHead();
-//$accueilController->showNavBar();
-$accueilController->showHeader();
-$accueilController->showDiaporama();
-$accueilController->showPartners();
-$accueilController->showFooter();
-$accueilController->showFoot();
-?>
-
+// Get the request URI and pass it to the route function
+$url = $_SERVER['REQUEST_URI'];
+route($url);

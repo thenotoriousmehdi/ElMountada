@@ -33,7 +33,7 @@ class Accueil
             <!-- Navbar -->
             <div class="flex justify-center items-center m-6">
                 <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Accueil">Accueil</a>
+                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="http://localhost:8888/Elmountada/">Accueil</a>
                     </li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/News">News</a></li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
@@ -42,7 +42,7 @@ class Accueil
                     </li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Aides">Aides</a></li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                            href="/S'authentifier">S'authentifier</a></li>
+                            href="http://localhost:8888/Elmountada/auth">S'authentifier</a></li>
                 </ul>
             </div>
 
@@ -71,11 +71,11 @@ class Accueil
     {
 
         ?>
-        <div class="relative overflow-hidden w-full rounded-[15px] h-[600px] mb-8">
+        <div class="relative overflow-hidden w-full rounded-[15px] h-[650px] mb-8">
             <div id="diaporama" class="flex transition-transform duration-1000 ease-in-out">
                 <?php
                 foreach ($latestNews as $item) {
-                    echo "<div class='w-full h-[600px] flex-shrink-0 relative'>";
+                    echo "<div class='w-full h-[650px] flex-shrink-0 relative'>";
                     echo "<img src='" . $item['image_path'] . "' alt='" . $item['title'] . "' class='w-full h-full object-cover'>";
                     echo "<div class='absolute top-0 left-0 bottom-0 right-0 bg-primary opacity-30'></div>";
                     echo "<div class='absolute top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center text-white p-4'>";
@@ -95,7 +95,7 @@ class Accueil
     public function partners($partners = [])
     {
         ?>
-        <div class="mb-8 bg-primary bg-opacity-10 py-[25px] rounded-[15px]">
+        <div class="mb-8 bg-primary bg-opacity-5 py-[25px] rounded-[15px]">
             <h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>
             <div class="overflow-hidden">
                 <div class="flex gap-8 animate-slide" style="animation: slide 5s linear infinite;">
@@ -171,6 +171,55 @@ class Accueil
         <?php
     }
 
+
+    public function offers($offers) {
+        echo '<div class="bg-text/10 p-5 rounded-[15px] mb-8">';
+        echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8  text-text">Avantages</h2>';
+        if (empty($offers)) {
+            echo "<p class='text-center text-lg text-gray-500'>No offers available at the moment.</p>";
+        } else {
+
+            echo '<div class="flex flex-col items-end gap-4">';
+
+
+            echo '<table class="min-w-full bg-bg border border-primary rounded-[15px] overflow-hidden">';
+            echo '<thead class="bg-primary">';
+            echo '<tr>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Categorie</th>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom</th>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Abonnement</th>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Reduction</th>
+                  </tr>';
+            echo '</thead>';
+            
+            echo '<tbody>';
+            foreach ($offers as $offer) {
+                echo "<tr class='border-t border-primary/5  hover:bg-primary/10'>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['ville']) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['categorie']) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['establishment']) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['membership_type']) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['reduction']) . "%</td>";
+                echo "</tr>";
+            }
+            echo '</tbody>';
+            echo '</table>';
+
+            echo '<div class="pr-2">';
+            echo '<a href="" class="font-poppins underline text-lg font-semibold text-text">Plus de détails</a>';
+            echo '</div>';
+
+
+            echo '</div>';
+
+
+
+        }
+
+        echo '</div>';
+    }
+    
 
 
 
