@@ -15,20 +15,31 @@ class AccueilController {
         $db = (new Database())->connectDb();
         $this->partnerModel = new PartnerModel($db);
         $this->contentModel = new ContentModel($db);
-        $this->offersModel = new Offers($db); // Add OffersModel
+        $this->offersModel = new Offers($db); 
     }
 
     public function showDiaporama() {
-        $latestNews = $this->contentModel->getNews();
+        $News = $this->contentModel->getNews();
 
-        if (empty($latestNews)) {
+        if (empty($News)) {
             $this->accueilView->diaporama([], "No news available at the moment.");
         } else {
-            $this->accueilView->diaporama($latestNews);
+            $this->accueilView->diaporama($News);
+        }
+    }
+    
+
+    public function showLatest() {
+        $Latest = $this->contentModel->getLatest();
+
+        if (empty($Latest)) {
+            $this->accueilView->latest([], "No news available at the moment.");
+        } else {
+            $this->accueilView->latest($Latest);
         }
     }
 
-    public function showNavBar() {
+    public function showNavBar(){
         $this->accueilView->navBar();
     }
 

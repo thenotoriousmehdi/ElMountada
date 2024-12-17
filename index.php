@@ -18,28 +18,31 @@ function route($url) {
 
     // Routing logic
     switch ($url) {
-        case '/':  // If the URL is empty or '/'
+        case '/':  
             $accueilController = new AccueilController();
             $accueilController->showHead();
             $accueilController->showHeader();
             $accueilController->showDiaporama();
+            $accueilController->showLatest();
             $accueilController->showOffers();
             $accueilController->showPartners();
             $accueilController->showFooter();
             $accueilController->showFoot();
             break;
-        case '/auth':  // If the URL is '/auth'
+        case '/auth':  
+        $accueilController = new AccueilController();
+       
             $authController = new AuthController();
+            $accueilController->showHead();
             $authController->showLoginPage();
+            $accueilController->showFoot();
             break;   
         default:
-            // If no matching route, show 404
             http_response_code(404);
             echo "Page nogtre";
             break;
     }
 }
 
-// Get the request URI and pass it to the route function
 $url = $_SERVER['REQUEST_URI'];
 route($url);

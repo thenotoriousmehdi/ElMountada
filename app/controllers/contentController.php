@@ -6,13 +6,18 @@ class ContentController {
     private $contenuModel;
 
     public function __construct($pdo) {
-        $this->contenuModel = new ContenuModel($pdo);
+        $this->contenuModel = new ContentModel($pdo);
     }
 
-    // Function to get all "nouvelles"
+    
     public function getNews() {
-        $latestNews = $this->contenuModel->getNews();
-        return $latestNews;
+        $News = $this->contenuModel->getNews();
+        return $News;
+    }
+
+    public function getLatest() {
+        $latest = $this->contenuModel->getLatest();
+        return $latest;
     }
 }
 ?>
