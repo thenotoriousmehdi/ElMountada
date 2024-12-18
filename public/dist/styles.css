@@ -684,6 +684,10 @@ body{
   margin-top: 0.5rem;
 }
 
+.mt-4{
+  margin-top: 1rem;
+}
+
 .mt-auto{
   margin-top: auto;
 }
@@ -741,6 +745,10 @@ body{
   height: 100vh;
 }
 
+.h-\[600px\]{
+  height: 600px;
+}
+
 .w-4{
   width: 1rem;
 }
@@ -751,6 +759,10 @@ body{
 
 .w-8{
   width: 2rem;
+}
+
+.w-\[300px\]{
+  width: 300px;
 }
 
 .w-auto{
@@ -797,6 +809,10 @@ body{
   align-items: center;
 }
 
+.justify-start{
+  justify-content: flex-start;
+}
+
 .justify-end{
   justify-content: flex-end;
 }
@@ -807,6 +823,10 @@ body{
 
 .justify-between{
   justify-content: space-between;
+}
+
+.gap-2{
+  gap: 0.5rem;
 }
 
 .gap-4{
@@ -837,6 +857,10 @@ body{
 
 .overflow-hidden{
   overflow: hidden;
+}
+
+.overflow-y-auto{
+  overflow-y: auto;
 }
 
 .rounded{
@@ -932,6 +956,11 @@ body{
   background-color: rgb(42 42 42 / 0.6);
 }
 
+.bg-text{
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 70 83 / var(--tw-bg-opacity, 1));
+}
+
 .bg-text\/10{
   background-color: rgb(38 70 83 / 0.1);
 }
@@ -945,12 +974,24 @@ body{
   background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
 }
 
+.bg-text\/5{
+  background-color: rgb(38 70 83 / 0.05);
+}
+
+.bg-opacity-10{
+  --tw-bg-opacity: 0.1;
+}
+
 .bg-opacity-20{
   --tw-bg-opacity: 0.2;
 }
 
 .bg-opacity-50{
   --tw-bg-opacity: 0.5;
+}
+
+.bg-opacity-5{
+  --tw-bg-opacity: 0.05;
 }
 
 .object-contain{
@@ -1048,6 +1089,10 @@ body{
 
 .text-center{
   text-align: center;
+}
+
+.text-start{
+  text-align: start;
 }
 
 .font-openSans{

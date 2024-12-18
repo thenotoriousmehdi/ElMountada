@@ -7,7 +7,6 @@ class Offers {
         $this->db = $db;
     }
 
-    // Fetch all offers
     public function getAllOffers() {
         $query = "SELECT 
     o.ville, 

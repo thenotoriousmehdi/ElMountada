@@ -31,7 +31,6 @@ class Auth
                             connexion avec vos informations personnelles.
                         </p>
                     </div>
-                    <!-- Form inputs  -->
                     <form method="post">
                         <div class="flex flex-col gap-[25px]">
                             <div>

@@ -22,7 +22,7 @@ class AccueilController {
         $News = $this->contentModel->getNews();
 
         if (empty($News)) {
-            $this->accueilView->diaporama([], "No news available at the moment.");
+            $this->accueilView->diaporama([], "Rien a afficher");
         } else {
             $this->accueilView->diaporama($News);
         }
@@ -33,7 +33,7 @@ class AccueilController {
         $Latest = $this->contentModel->getLatest();
 
         if (empty($Latest)) {
-            $this->accueilView->latest([], "No news available at the moment.");
+            $this->accueilView->latest([], "Rien a afficher");
         } else {
             $this->accueilView->latest($Latest);
         }

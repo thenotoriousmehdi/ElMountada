@@ -7,8 +7,10 @@ class PartnersController
     private $partnerModel;
     private $partnersView;
 
-    public function __construct($db)
+    public function __construct()
     {
+        $this->partnersView = new Partners();
+        $db = (new Database())->connectDb();
         $this->partnerModel = new PartnerModel($db); 
     }
 
@@ -16,36 +18,34 @@ class PartnersController
     {
         $partners = $this->partnerModel->getAllPartnersLogos();
         require './app/views/sharedViews/partners.php';
-        require 'views/accueil.php';
+        require './app/views/sharedViews/accueil.php';
     }
 
     public function partnersHotels()
     {
-        $partners = $this->partnerModel->getAllHotels();
-        require './app/views/sharedViews/partners.php';
+        $partnersH = $this->partnerModel->getAllHotels();
+        $this->partnersView->Hotels($partnersH);
+     
     }
 
     public function partnersCliniques()
     {
-        $partners = $this->partnerModel->getAllCliniques();
-        require './app/views/sharedViews/partners.php';
+        $partnersC = $this->partnerModel->getAllCliniques();
+        $this->partnersView->Cliniques($partnersC);
+       
     }
 
     public function partnersEcoles()
     {
-        $partners = $this->partnerModel->getAllEcoles();
-        require './app/views/sharedViews/partners.php';
+        $partnersE = $this->partnerModel->getAllEcoles();
+        $this->partnersView->Ecoles($partnersE);
         
     }
 
     public function partnersAgencesDeVoyage()
     {
-        $partners = $this->partnerModel->getAllAgencesDeVoyage();
-        require './app/views/sharedViews/partners.php';
+        $partnersA = $this->partnerModel->getAllAgencesDeVoyage();
+        $this->partnersView->AgencesDeVoyages($partnersA);
        
     }
-
-
-
-
 }

@@ -21,8 +21,8 @@ public function handleLogout(){
         session_start();
     }
 
-    if (isset($_SESSION)) unset($_SESSION['user']);;
-    header("Location: ./index.php?action=home");
+    // if (isset($_SESSION)) unset($_SESSION['user']);;
+    // header("Location: ./index.php?action=home");
 
 }
 }
