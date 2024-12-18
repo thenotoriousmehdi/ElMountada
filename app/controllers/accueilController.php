@@ -47,9 +47,9 @@ class AccueilController {
         $this->accueilView->header();
     }
 
-    public function showPartners() {
-        $partners = $this->partnerModel->getAllPartnersLogos();
-        $this->accueilView->partners($partners);
+    public function showPartnersLogos() {
+        $partnersLogos = $this->partnerModel->getAllPartnersLogos();
+        $this->accueilView->partnersLogos($partnersLogos);
     }
 
     public function showFooter() {

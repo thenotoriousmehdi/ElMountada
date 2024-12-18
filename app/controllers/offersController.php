@@ -9,10 +9,7 @@ class OffersController {
     }
 
     public function index() {
-        // Fetch all offers
         $offers = $this->offersModel->getAllOffers();
-
-        // Load the Offers view
         require_once "views/offers.php";
         require_once "app/views/accueil.php";
     }

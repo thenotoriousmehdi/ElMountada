@@ -1,48 +1,37 @@
 <?php
-session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-spl_autoload_register(function ($class) {
-    require "./app/controllers/" . $class . ".php";
-});
+require_once("./app/controllers/authController.php");
+require_once("./app/controllers/accueilController.php");
+require_once './app/controllers/partnersController.php';
+require_once './app/controllers/partnersController.php';
 
-function route($url) {
-        
-    // Your base URL is '/ElMountada'
-    $baseURL = "/Elmountada"; 
-    
-    // Remove the base URL from the request URI if it exists
-    $url = strtolower(str_replace($baseURL, '', $url)); // Normalize URL
-    
+$accueilController=new AccueilController();
+$authController=new AuthController();
+//$partnersController=new PartnersController($db);
 
-    
 
-    // Routing logic
-    switch ($url) {
-        case '/':  
-            $accueilController = new AccueilController();
-            $accueilController->showHead();
-            $accueilController->showHeader();
-            $accueilController->showDiaporama();
-            $accueilController->showLatest();
-            $accueilController->showOffers();
-            $accueilController->showPartners();
-            $accueilController->showFooter();
-            $accueilController->showFoot();
-            break;
-        case '/auth':  
-        $accueilController = new AccueilController();
-       
-            $authController = new AuthController();
-            $accueilController->showHead();
-            $authController->showLoginPage();
-            $accueilController->showFoot();
-            break;   
-        default:
-            http_response_code(404);
-            echo "Page nogtre";
-            break;
-    }
-}
+//Home Page
+ $accueilController->showHead();
+ $accueilController->showHeader();
+ $accueilController->showDiaporama();
+ $accueilController->showLatest();
+ $accueilController->showOffers();
+ $accueilController->showPartnersLogos();
+ $accueilController->showFooter();
+ $accueilController->showFoot();
 
-$url = $_SERVER['REQUEST_URI'];
-route($url);
+//Login page
+// $accueilController->showHead();
+// $authController->showLoginPage();
+// $accueilController->showFoot();
+
+//Partners page
+// $accueilController->showHead();
+// $accueilController->showHeader();
+//  $partnersController->showLoginPage();
+//  $accueilController->showFoot();
+
+
+?>
