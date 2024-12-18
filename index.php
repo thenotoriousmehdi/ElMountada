@@ -1,4 +1,5 @@
 <?php
+require_once "./app/controllers/offersController.php";
 session_start();
 
 spl_autoload_register(function ($class) {
@@ -7,14 +8,11 @@ spl_autoload_register(function ($class) {
 
 function route($url) {
 
-    // Your base URL is '/ElMountada'
+
     $baseURL = "/ElMountada"; 
 
-    // Remove the base URL from the request URI if it exists
     $url = strtolower(str_replace($baseURL, '', $url)); 
 
-
-    // Routing logic
     switch ($url) {
         case '/':  
             $accueilController = new AccueilController();
@@ -46,6 +44,15 @@ function route($url) {
                 $partnersController ->partnersAgencesDeVoyage();
                 $accueilController->showFoot();
                 break; 
+
+                case '/offers':  
+                    $accueilController = new AccueilController();
+                    $offersController = new OffersController();
+                    $accueilController->showHead();
+                    $accueilController->showHeader();
+                    $offersController->showOffers();
+                    $accueilController->showFoot();
+                    break; 
 
         default:
             http_response_code(404);

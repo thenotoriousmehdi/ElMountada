@@ -15,7 +15,7 @@ class AccueilController {
         $db = (new Database())->connectDb();
         $this->partnerModel = new PartnerModel($db);
         $this->contentModel = new ContentModel($db);
-        $this->offersModel = new Offers($db); 
+        $this->offersModel = new OffersModel($db); 
     }
 
     public function showDiaporama() {

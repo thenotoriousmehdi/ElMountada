@@ -39,7 +39,7 @@ class Accueil
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/News">News</a></li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
                             href="/ElMountada/partners">Partenaires</a></li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Remises">Remises</a>
+                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/ElMountada/offers">Remises</a>
                     </li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Aides">Aides</a></li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a

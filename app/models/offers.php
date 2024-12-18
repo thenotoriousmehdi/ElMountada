@@ -1,6 +1,6 @@
 <?php
 require_once("server/db.php");
-class Offers {
+class OffersModel {
     private $db;
 
     public function __construct($db) {
