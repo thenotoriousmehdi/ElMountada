@@ -733,8 +733,8 @@ body{
   height: 2rem;
 }
 
-.h-\[650px\]{
-  height: 650px;
+.h-\[600px\]{
+  height: 600px;
 }
 
 .h-full{
@@ -743,10 +743,6 @@ body{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-\[600px\]{
-  height: 600px;
 }
 
 .w-4{
@@ -859,10 +855,6 @@ body{
   overflow: hidden;
 }
 
-.overflow-y-auto{
-  overflow-y: auto;
-}
-
 .rounded{
   border-radius: 0.25rem;
 }
@@ -910,6 +902,10 @@ body{
 
 .border-primary\/5{
   border-color: rgb(231 111 81 / 0.05);
+}
+
+.border-text\/20{
+  border-color: rgb(38 70 83 / 0.2);
 }
 
 .border-transparent{
@@ -961,10 +957,6 @@ body{
   background-color: rgb(38 70 83 / var(--tw-bg-opacity, 1));
 }
 
-.bg-text\/10{
-  background-color: rgb(38 70 83 / 0.1);
-}
-
 .bg-transparent{
   background-color: transparent;
 }
@@ -974,24 +966,16 @@ body{
   background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
 }
 
-.bg-text\/5{
-  background-color: rgb(38 70 83 / 0.05);
-}
-
-.bg-opacity-10{
-  --tw-bg-opacity: 0.1;
-}
-
 .bg-opacity-20{
   --tw-bg-opacity: 0.2;
 }
 
-.bg-opacity-50{
-  --tw-bg-opacity: 0.5;
-}
-
 .bg-opacity-5{
   --tw-bg-opacity: 0.05;
+}
+
+.bg-opacity-50{
+  --tw-bg-opacity: 0.5;
 }
 
 .object-contain{
@@ -1002,6 +986,10 @@ body{
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.p-2{
+  padding: 0.5rem;
 }
 
 .p-4{
@@ -1027,6 +1015,11 @@ body{
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.px-6{
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .px-\[25px\]{

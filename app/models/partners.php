@@ -59,4 +59,20 @@ class PartnerModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+public function getAllCities()
+{
+    $query = "SELECT DISTINCT ville FROM partners";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+
+public function getPartnersByVille($ville)
+{
+    $query = "SELECT * FROM partners WHERE ville = :ville";
+    $stmt = $this->db->prepare($query);
+    $stmt->execute([':ville' => $ville]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

@@ -38,6 +38,7 @@ function route($url) {
                 $partnersController = new PartnersController();
                 $accueilController->showHead();
                 $accueilController->showHeader();
+                $partnersController ->filterPartners();
                 $partnersController ->partnersHotels();
                 $partnersController ->partnersCliniques();
                 $partnersController ->partnersEcoles();

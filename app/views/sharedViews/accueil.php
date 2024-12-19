@@ -112,7 +112,7 @@ class Accueil
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Categorie</th>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom</th>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Abonnement</th>
-                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Reduction</th>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Réduction</th>
                   </tr>';
             echo '</thead>';
 
@@ -130,7 +130,7 @@ class Accueil
             echo '</table>';
 
             echo '<div class="pr-2">';
-            echo '<a href="" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
+            echo '<a href="/ElMountada/offers" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
             echo '</div>';
 
 
