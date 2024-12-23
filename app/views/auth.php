@@ -7,10 +7,9 @@ class Auth
         ?>
             <div class="flex h-screen  justify-center xl:bg-bg">
 
-
-                <div class=" hidden xl:block  xl:relative  xl:p-[25px] xl:w-[52%] ">
+                <div class=" hidden xl:block  xl:relative  xl:py-[25px] xl:pr-[25px] xl:w-[52%] ">
                     <div
-                        class="absolute flex justify-center items-center inset-0 m-[25px] rounded-[25px] bg-principale/60 bg-opacity-50 z-10">
+                        class="absolute flex justify-center items-center inset-0 xl:my-[25px] xl:mr-[25px] rounded-[25px] bg-principale/60 bg-opacity-50 z-10">
                         <div>
                         <img src="public/assets/ElMountada1.svg" alt="Logo" class=" size-80" />
                         </div>

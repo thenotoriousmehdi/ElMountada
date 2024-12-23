@@ -692,6 +692,14 @@ body{
   margin-top: auto;
 }
 
+.mb-0{
+  margin-bottom: 0px;
+}
+
+.mt-0{
+  margin-top: 0px;
+}
+
 .inline-block{
   display: inline-block;
 }
@@ -1328,6 +1336,15 @@ body{
     margin: 0px;
   }
 
+  .xl\:my-\[25px\]{
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  .xl\:mr-\[25px\]{
+    margin-right: 25px;
+  }
+
   .xl\:block{
     display: block;
   }
@@ -1355,5 +1372,14 @@ body{
 
   .xl\:p-\[25px\]{
     padding: 25px;
+  }
+
+  .xl\:py-\[25px\]{
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .xl\:pr-\[25px\]{
+    padding-right: 25px;
   }
 }

@@ -1,5 +1,5 @@
 <?php
-require_once("./app/views/sharedViews/auth.php");
+require_once("./app/views/auth.php");
 
 
 class AuthController{

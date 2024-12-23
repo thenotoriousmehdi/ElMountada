@@ -1,6 +1,6 @@
 <?php
 require_once './app/models/partners.php';
-require_once './app/views/sharedViews/partners.php';
+require_once './app/views/partners.php';
 
 class PartnersController
 {
@@ -17,8 +17,8 @@ class PartnersController
     public function partnersLogos()
     {
         $partners = $this->partnerModel->getAllPartnersLogos();
-        require './app/views/sharedViews/partners.php';
-        require './app/views/sharedViews/accueil.php';
+        require './app/views/partners.php';
+        require './app/views/accueil.php';
     }
 
     // In PartnersController

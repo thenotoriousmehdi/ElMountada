@@ -1,5 +1,5 @@
 <?php
-require_once("./app/views/sharedViews/accueil.php");
+require_once("./app/views/accueil.php");
 require_once("app/models/content.php");
 require_once("app/models/partners.php");
 require_once("app/models/offers.php");
@@ -39,30 +39,14 @@ class AccueilController {
         }
     }
 
-    public function showNavBar(){
-        $this->accueilView->navBar();
-    }
-
-    public function showHeader() {
-        $this->accueilView->header();
-    }
+   
 
     public function showPartnersLogos() {
         $partnersLogos = $this->partnerModel->getAllPartnersLogos();
         $this->accueilView->partnersLogos($partnersLogos);
     }
 
-    public function showFooter() {
-        $this->accueilView->Footer();
-    }
-
-    public function showHead() {
-        $this->accueilView->Head();
-    }
-
-    public function showFoot() {
-        $this->accueilView->Foot();
-    }
+   
 
     public function showOffers() {
         $offers = $this->offersModel->getAllOffers();

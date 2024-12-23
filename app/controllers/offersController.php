@@ -1,6 +1,6 @@
 <?php
 require_once "app/models/offers.php";
-require_once "app/views/sharedViews/offers.php";
+require_once "app/views/offers.php";
 
 class OffersController {
     private $offersModel;
