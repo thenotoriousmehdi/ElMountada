@@ -7,12 +7,17 @@ class Partners
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
 
-            <div class="bg-text bg-opacity-5 w-full rounded-[15px] p-6">
+            <div class="bg-text bg-opacity-5 w-full h-[400px] overflow-y-auto rounded-[15px] p-6">
                 <div class="flex flex-wrap gap-4 justify-start">
                     <?php
                     foreach ($partners as $partner) {
                         echo "
-                        <div class='w-[300px] flex flex-col justify-center items-center bg-bg p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg'>
+                        <div class='w-[300px] flex flex-col justify-center items-center bg-bg p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative'>
+                            <div class='absolute top-2 right-2'>
+                                <button onclick='addToFavorites(" . htmlspecialchars($partner['id']) . ")' class='p-2 bg-bg border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 '>
+                                   <img src='./public/assets/star.svg' alt='Add to Favorites' class='h-6 w-6'>
+                                </button>
+                            </div>
                             <img src='" . htmlspecialchars($partner['logo_path']) . "' alt='Partner Logo' class='h-16  object-contain'>
                             <h3 class='font-poppins font-bold text-lg mb-2'>" . htmlspecialchars($partner['name']) . "</h3>
                             <p class='font-openSans font-semibold'> <span class='font-bold'>Ville</span>  " . htmlspecialchars($partner['ville']) . "</p>
@@ -20,6 +25,7 @@ class Partners
                             <button class='bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80' onclick='viewDetails(" . htmlspecialchars($partner['id']) . ")'>Voir plus</button>
                         </div>
                         ";
+                        
                     }
                     ?>
                 </div>
