@@ -52,7 +52,7 @@ class ContentController {
 
             if ($result) {
                 $_SESSION['success'] = 'Entry created successfully';
-                header('Location: /news');
+                header('Location: /content');
                 exit;
             } else {
                 throw new Exception('Failed to create entry');
@@ -60,7 +60,7 @@ class ContentController {
 
         } catch (Exception $e) {
             $_SESSION['error'] = $e->getMessage();
-            header('Location: /news/create');
+            header('Location: /content');
             exit;
         }
     }

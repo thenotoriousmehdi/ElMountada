@@ -8,7 +8,6 @@ function route($url, $method) {
     $baseURL = "/ElMountada";
     $url = strtolower(str_replace($baseURL, '', $url));
     
-    // Split URL into parts
     $urlParts = explode('/', trim($url, '/'));
     $page = $urlParts[0] ?? '';
     $action = $urlParts[1] ?? '';
@@ -20,9 +19,9 @@ function route($url, $method) {
         $communController->showHeader();
     }
 
-    // Handle both page views and form submissions
+
     switch (true) {
-        // Home page
+        // Home page 
         case $url === '/':
             $accueilController = new AccueilController();
             $accueilController->showDiaporama();

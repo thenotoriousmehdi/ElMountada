@@ -135,9 +135,16 @@ class Accueil
                         <?php endif; ?>
                         <div class="p-6 flex flex-col flex-grow">
                             <div class="flex justify-between items-center mb-2">
-                                <span class="text-sm bg-primary rounded-full px-4 py-1 bg-opacity-20 text-gray-600 uppercase">
-                                    <?php echo htmlspecialchars($item['type']); ?>
-                                </span>
+                            <span class="text-sm rounded-full px-4 py-1 uppercase 
+    <?php echo match(strtolower($item['type'])) {
+        'announce' => 'bg-blue-100 text-blue-800',
+        'nouvelle' => 'bg-green-100 text-green-800',
+        'evenement' => 'bg-yellow-100 text-yellow-800',
+        'activite' => 'bg-purple-100 text-purple-800',
+        default => 'bg-gray-100 text-gray-800'
+    }; ?>">
+    <?php echo htmlspecialchars($item['type']); ?>
+</span>
                                 <?php if (!empty($item['event_date'])): ?>
                                     <span class="text-sm text-gray-500">
                                         <?php echo htmlspecialchars(date('M d, Y', strtotime($item['event_date']))); ?>
