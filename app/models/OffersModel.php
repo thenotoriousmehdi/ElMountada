@@ -1,5 +1,5 @@
 <?php
-require_once("server/db.php");
+
 class OffersModel {
     private $db;
 

@@ -1,12 +1,13 @@
 <?php
-class Accueil
+class AccueilView
 {
 
-
+use View;
     public function diaporama($News)
     {
 
         ?>
+        
         <div class="relative overflow-hidden w-full rounded-[15px] h-[600px] mb-8">
             <div id="diaporama" class="flex transition-transform duration-1000 ease-in-out">
                 <?php

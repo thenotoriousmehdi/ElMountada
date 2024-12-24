@@ -1,27 +1,21 @@
 <?php
-require_once './app/models/partners.php';
-require_once './app/views/partners.php';
 
-class PartnersController
+
+class Partners
 {
     private $partnerModel;
     private $partnersView;
-
+    use Database;
     public function __construct()
     {
-        $this->partnersView = new Partners();
-        $db = (new Database())->connectDb();
-        $this->partnerModel = new PartnerModel($db); 
+        $db = $this->connectDb();
+        $this->partnersView = new PartnersView();
+        $this->partnerModel = new PartnersModel($db); 
     }
 
-    public function partnersLogos()
-    {
-        $partners = $this->partnerModel->getAllPartnersLogos();
-        require './app/views/partners.php';
-        require './app/views/accueil.php';
-    }
+  
 
-    // In PartnersController
+
 public function filterPartners()
 {
     $cities = $this->partnerModel->getAllCities();
@@ -32,10 +26,9 @@ public function filterPartners()
         $ville = $_POST['ville'] ?? '';
         
         if(!empty($ville)) {
-            // If ville is selected, show all partners from that ville
             $partners = $this->partnerModel->getPartnersByVille($ville);
             $this->partnersView->PartnerSection("Partenaires à " . $ville, $partners);
-            return; // Stop here, don't show other sections
+            return; 
         }
     
     }

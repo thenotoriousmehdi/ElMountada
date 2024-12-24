@@ -1,7 +1,7 @@
 <?php
-require_once("server/db.php");
 
-class PartnerModel
+
+class PartnersModel
 {
     private $db;
 

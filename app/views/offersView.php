@@ -1,7 +1,7 @@
 <?php
-class Offers
+class OffersView
 {
-
+use View;
     public function offers($offers)
     {
         echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';

@@ -1,6 +1,7 @@
 <?php
-class Partners
+class PartnersView
 {
+    use View;
     public function PartnerSection($title, $partners)
     {
         ?>

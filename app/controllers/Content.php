@@ -3,14 +3,14 @@
 require_once 'app/models/content.php';
 require_once 'app/views/content.php';
 
-class ContentController {
+class Content {
     private $contenuModel;
     private $contenuView;
-
+    use Database;
     public function __construct() {
-        $db = (new Database())->connectDb();
+        $db = $this -> connectDb();
         $this->contenuModel = new ContentModel($db);
-        $this->contenuView = new Content();
+        $this->contenuView = new ContentView();
     }
 
     

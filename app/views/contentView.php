@@ -1,5 +1,5 @@
 <?php
-class Content
+class ContentView
 {
 
     public function addContent()

@@ -1,22 +1,9 @@
 <?php
-class Commun
+
+trait View
 {
 
-    public function navBar()
-    {
-        ?>
-        <div class="flex justify-center items-center m-6">
-            <ul class="flex justify-center  items-center bg-primary/80 px-[45px] py-[20px] rounded-[15px] gap-6">
-                <li class="text-[#fdeeee] hover:text-principale/80"><a href="/Accueil">Accueil</a></li>
-                <li class="text-[#fdeeee] hover:text-principale/80"><a href="/News">News</a></li>
-                <li class="text-[#fdeeee] hover:text-principale/80"><a href="/Catalogue">Catalogue</a></li>
-                <li class="text-[#fdeeee] hover:text-principale/80"><a href="/Remises">Remises</a></li>
-                <li class="text-[#fdeeee] hover:text-principale/80"><a href="/Aides">Aides</a></li>
-                <li class="text-[#fdeeee] hover:text-principale/80"><a href="/S'authentifier">S'authentifier</a></li>
-            </ul>
-        </div>
-        <?php
-    }
+   
 
 
     public function header()
@@ -27,7 +14,7 @@ class Commun
 
 
             <div>
-                <img src="public/assets/ElMountada2.svg" alt="logo" class="w-44">
+                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44">
             </div>
 
 
@@ -39,27 +26,27 @@ class Commun
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/News">News</a></li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
                             href="/ElMountada/partners">Catalogue</a></li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/ElMountada/offers">Remises</a>
+                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/ElMountada/offers/showOffers">Offres</a>
                     </li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Aides">Dons</a></li>
                     <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                            href="/ElMountada/auth">S'authentifier</a></li>
+                            href="/ElMountada/auth/showLoginPage/">S'authentifier</a></li>
                 </ul>
             </div>
 
 
             <div class="social-media flex items-center space-x-4">
                 <a href="https://facebook.com" target="_blank">
-                    <img src="public/assets/facebook.svg" alt="Facebook" class="w-8 h-8">
+                    <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
                 </a>
                 <a href="https://instagram.com" target="_blank">
-                    <img src="public/assets/instagram.svg" alt="Instagram" class="w-8 h-8">
+                    <img src="<?= ROOTIMG ?>instagram.svg" alt="Instagram" class="w-8 h-8">
                 </a>
                 <a href="https://linkedin.com" target="_blank">
-                    <img src="public/assets/linkedin.svg" alt="LinkedIn" class="w-8 h-8">
+                    <img src="<?= ROOTIMG ?>linkedin.svg" alt="LinkedIn" class="w-8 h-8">
                 </a>
                 <a href="https://x.com" target="_blank">
-                    <img src="public/assets/x.svg" alt="X" class="w-8 h-8">
+                    <img src="<?= ROOTIMG ?>x.svg" alt="X" class="w-8 h-8">
                 </a>
             </div>
         </div>
@@ -86,16 +73,16 @@ class Commun
 
                 <div class="social-media flex justify-center items-center space-x-4 mb-4">
                     <a href="https://facebook.com" target="_blank">
-                        <img src="public/assets/facebook.svg" alt="Facebook" class="w-8 h-8">
+                        <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
                     </a>
                     <a href="https://instagram.com" target="_blank">
-                        <img src="public/assets/instagram.svg" alt="Instagram" class="w-8 h-8">
+                        <img src="<?= ROOTIMG ?>instagram.svg" alt="Instagram" class="w-8 h-8">
                     </a>
                     <a href="https://linkedin.com" target="_blank">
-                        <img src="public/assets/linkedin.svg" alt="LinkedIn" class="w-8 h-8">
+                        <img src="<?= ROOTIMG ?>linkedin.svg" alt="LinkedIn" class="w-8 h-8">
                     </a>
                     <a href="https://x.com" target="_blank">
-                        <img src="public/assets/x.svg" alt="X" class="w-8 h-8">
+                        <img src="<?= ROOTIMG ?>x.svg" alt="X" class="w-8 h-8">
                     </a>
 
                 </div>
@@ -123,8 +110,8 @@ class Commun
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ElMountada</title>
             <script src="https://cdn.tailwindcss.com"></script>
-            <link href="public/dist/styles.css" rel="stylesheet">
-            <script src="public/scripts/script.js"></script>
+            <link href="<?= ROOTSTYLE ?>styles.css" rel="stylesheet">
+            <script src="<?= ROOTSCRIPT ?>script.js"></script>
 
         </head>
 
@@ -142,5 +129,8 @@ class Commun
         <?php
     }
 
+
+
+
+
 }
-?>
