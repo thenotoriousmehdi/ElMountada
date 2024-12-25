@@ -33,14 +33,14 @@ class AccueilView
     public function offers($offers)
     {
         echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
-        echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8  text-text">Avantages</h2>';
+        echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-4  text-text">Avantages</h2>';
         if (empty($offers)) {
             echo "<p class='text-center text-lg text-gray-500'>No offers available at the moment.</p>";
         } else {
 
             echo '<div class="flex flex-col items-end gap-4">';
 
-            echo '<div class="overflow-auto w-full h-[700px]">'; 
+
             echo '<table class="min-w-full bg-bg border  border-primary rounded-[15px] overflow-hidden">';
             echo '<thead class="bg-text sticky top-0 z-10">';
             echo '<tr>
@@ -53,22 +53,22 @@ class AccueilView
             echo '</thead>';
 
             echo '<tbody>';
-            echo '<tbody class="overflow-y-auto">';
+
             foreach ($offers as $offer) {
                 echo "<tr class='border-t border-primary/5   hover:bg-primary/10'>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->ville) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> categorie) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> establishment) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> membership_type) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> reduction) . "%</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->categorie) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->establishment) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->membership_type) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->reduction) . "%</td>";
                 echo "</tr>";
             }
-            echo '</div>';
+
             echo '</tbody>';
             echo '</table>';
-            echo '</div>';
+
             echo '<div class="pr-2">';
-            echo '<a href="" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
+            echo '<a href="/ElMountada/offers/showOffers" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>';
             echo '</div>';
 
             echo '</div>';
@@ -136,12 +136,12 @@ class AccueilView
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-sm rounded-full px-4 py-1 uppercase 
                             <?php echo match (strtolower($item['type'])) {
-                            'announce' => 'bg-blue-100 text-blue-800',
-                            'nouvelle' => 'bg-green-100 text-green-800',
-                            'evenement' => 'bg-yellow-100 text-yellow-800',
-                            'activite' => 'bg-purple-100 text-purple-800',
-                            default => 'bg-gray-100 text-gray-800'
-                             }; ?>">
+                                'announce' => 'bg-blue-100 text-blue-800',
+                                'nouvelle' => 'bg-green-100 text-green-800',
+                                'evenement' => 'bg-yellow-100 text-yellow-800',
+                                'activite' => 'bg-purple-100 text-purple-800',
+                                default => 'bg-gray-100 text-gray-800'
+                            }; ?>">
                                     <?php echo htmlspecialchars($item['type']); ?>
                                 </span>
                                 <?php if (!empty($item['event_date'])): ?>

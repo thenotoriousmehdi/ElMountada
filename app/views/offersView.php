@@ -39,9 +39,7 @@ use View;
             echo '</tbody>';
             echo '</table>';
             echo '</div>';
-            echo '<div class="pr-2">';
-            echo '<a href="" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
-            echo '</div>';
+           
 
             echo '</div>';
         }

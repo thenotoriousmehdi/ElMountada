@@ -11,25 +11,34 @@ trait View
 
 
             <div>
-                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44">
+                <a href="/ElMountada/"> 
+                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44" >
+                </a>
             </div>
 
             <div class="flex items-center gap-2">
                 <div class="flex justify-center items-center my-6">
                     <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
-                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                                href="/ElMountada/">Accueil</a>
-                        </li>
-                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/News">News</a></li>
-                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                                href="/ElMountada/partners">Catalogue</a></li>
-                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/ElMountada/offers/showOffers">Offres</a>
-                        </li>
-                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Aides">Dons</a></li>
-                        <?php if (!isset($sessionData['user_id'])): ?>
-                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                                href="/ElMountada/auth/showLoginPage/">S'authentifier</a></li>
-                                <?php endif; ?>
+                    <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/">Accueil</a>
+        </li>
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/News') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/News">News</a>
+        </li>
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/partners">Catalogue</a>
+        </li>
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/offers/showOffers">Offres</a>
+        </li>
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/dons/showDonsPage/">Dons</a>
+        </li>
+        <?php if (!isset($sessionData['user_id'])): ?>
+            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/auth/showLoginPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                <a href="/ElMountada/auth/showLoginPage/">S'authentifier</a>
+            </li>
+        <?php endif; ?>
                     </ul>
                 </div>
                 <?php if (isset($sessionData['user_id'])): ?>
@@ -97,7 +106,7 @@ trait View
     public function footer()
     {
     ?>
-        <footer class="bg-bg2/15 py-8 text-center rounded-[15px] mb-8">
+        <footer class="bg-bg2/15 py-8 text-center rounded-[15px] mb-8 mt-auto">
             <div class="container mx-auto px-4">
 
                 <nav class="mb-4">
@@ -133,7 +142,7 @@ trait View
                 </p>
             </div>
         </footer>
-
+        
     <?php
     }
 

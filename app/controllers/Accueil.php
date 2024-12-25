@@ -23,7 +23,7 @@ class Accueil
          $view = new AccueilView();
          $News = $this->contentModel->getNews();
          $Latest = $this->contentModel->getLatest();
-         $offers = $this->offersModel->getAllOffers();
+         $offers = $this->offersModel->get10Offers();
          $partnersLogos = $this->partnersModel->getAllPartnersLogos();
          $view ->Head();
          $sessionData = $this->getSessionData();
