@@ -1,12 +1,12 @@
 <?php
 class ContentView
 {
-
+use View;
     public function addContent()
     {
         ?>
         <div class="flex flex-col justify-start gap-2 mb-8">
-            <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter une annonce</h2>
+            <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter un contenu</h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
                 <form action="/ElMountada/content/store" method="POST" enctype="multipart/form-data" class="space-y-4">
 

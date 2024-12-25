@@ -22,13 +22,11 @@ class App
     {
         $URL = $this->splitURL();
         $this->getParameters();
-        // select the controller
         $filename = "./app/controllers/" . ucfirst($URL[0]) . ".php";
         if (file_exists($filename)) {
             require_once $filename;
             $this->controller = ucfirst($URL[0]);
             $controller = new $this->controller;
-            // select the method
             if (!empty($URL[1])) {
                 if (method_exists($controller, $URL[1])) {
                     $this->method = $URL[1];

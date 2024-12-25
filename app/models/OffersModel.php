@@ -1,11 +1,9 @@
 <?php
 
 class OffersModel {
-    private $db;
+  use Database;
 
-    public function __construct($db) {
-        $this->db = $db;
-    }
+    
 
     public function getAllOffers() {
         $query = "SELECT 
@@ -20,11 +18,9 @@ JOIN
     categories c ON o.categorie_id = c.id
 ORDER BY 
     o.created_at DESC
-    LIMIT 10;
 ";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
+    $offers = $this->query($query);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $offers;
     }
 }

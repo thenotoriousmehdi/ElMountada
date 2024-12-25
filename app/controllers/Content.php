@@ -1,16 +1,13 @@
 <?php
-
-require_once 'app/models/content.php';
-require_once 'app/views/content.php';
-
 class Content {
+    
     private $contenuModel;
     private $contenuView;
+    use Controller;
     use Database;
     public function __construct() {
         $db = $this -> connectDb();
         $this->contenuModel = new ContentModel($db);
-        $this->contenuView = new ContentView();
     }
 
     
@@ -25,9 +22,23 @@ class Content {
     }
 
     public function showAddContent() {
-        $upload =  $this ->contenuView->addContent();
-        return $upload;    
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+            if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+                header("Location: /ElMountada/auth/showLoginPage/");
+                exit();
+            }
+        }
+        $sessionData = $this->getSessionData();
+        $this->View('content');
+        $view = new ContentView();
+        $view ->Head();
+        $view ->header( $sessionData);
+        $view ->addContent();
+        $view->footer();
+        $view->foot();
     }
+
 
     public function store() {
         try {
@@ -52,7 +63,7 @@ class Content {
 
             if ($result) {
                 $_SESSION['success'] = 'Entry created successfully';
-                header('Location: /content');
+                header('Location: /ElMountada');
                 exit;
             } else {
                 throw new Exception('Failed to create entry');
@@ -82,6 +93,7 @@ class Content {
             throw new Exception('Invalid event date');
         }
     }
+
 
     private function handleImageUpload($file) {
         $uploadDir = './public/uploads/';

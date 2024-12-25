@@ -3,12 +3,9 @@
 trait View
 {
 
-   
-
-
-    public function header()
+    public function header($sessionData)
     {
-        ?>
+?>
 
         <div class="sticky top-0 left-0 w-full z-50 bg-bg flex justify-between items-center px-4">
 
@@ -17,23 +14,69 @@ trait View
                 <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44">
             </div>
 
+            <div class="flex items-center gap-2">
+                <div class="flex justify-center items-center my-6">
+                    <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
+                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
+                                href="/ElMountada/">Accueil</a>
+                        </li>
+                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/News">News</a></li>
+                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
+                                href="/ElMountada/partners">Catalogue</a></li>
+                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/ElMountada/offers/showOffers">Offres</a>
+                        </li>
+                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Aides">Dons</a></li>
+                        <?php if (!isset($sessionData['user_id'])): ?>
+                        <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
+                                href="/ElMountada/auth/showLoginPage/">S'authentifier</a></li>
+                                <?php endif; ?>
+                    </ul>
+                </div>
+                <?php if (isset($sessionData['user_id'])): ?>
+    <div class="flex justify-center items-center bg-primary/75 w-full h-full p-4 rounded-[15px] ">
+        <button class="user-btn flex items-center ">
+            <img src="<?= ROOTIMG ?>user.svg" alt="logo" class="w-6">
+        </button>
 
-            <div class="flex justify-center items-center m-6">
-                <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                            href="/ElMountada/">Accueil</a>
-                    </li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/News">News</a></li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                            href="/ElMountada/partners">Catalogue</a></li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/ElMountada/offers/showOffers">Offres</a>
-                    </li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a href="/Aides">Dons</a></li>
-                    <li class="text-[#fdeeee] font-poppins font-medium hover:text-principale/80"><a
-                            href="/ElMountada/auth/showLoginPage/">S'authentifier</a></li>
-                </ul>
+        <div class="relative">
+    <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
+        <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
+            <!-- Admin Menu Items -->
+            <a href="/admin/dashboard" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Admin Dashboard</a>
+            <a href="/admin/users" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Manage Users</a>
+            <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
+            <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
+            <!-- Member Menu Items -->
+            <a href="/profile" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Profile</a>
+            <a href="/settings" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Settings</a>
+        <?php else: ?>
+            <!-- Default or Guest Menu Items -->
+            <a href="/login" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Login</a>
+            <a href="/signup" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Sign Up</a>
+        <?php endif; ?>
+        <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
+    </div>
+</div>
+
+
+    </div>
+    <script>
+        const userBtn = document.querySelector('.user-btn');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        userBtn.addEventListener('click', () => {
+            dropdownContent.classList.toggle('hidden');
+        });
+        window.addEventListener('click', (e) => {
+            if (!userBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+                dropdownContent.classList.add('hidden');
+            }
+        });
+    </script>
+<?php endif; ?>
+
+
             </div>
-
 
             <div class="social-media flex items-center space-x-4">
                 <a href="https://facebook.com" target="_blank">
@@ -51,12 +94,12 @@ trait View
             </div>
         </div>
 
-        <?php
+    <?php
     }
 
     public function footer()
     {
-        ?>
+    ?>
         <footer class="bg-bg2/15 py-8 text-center rounded-[15px] mb-8">
             <div class="container mx-auto px-4">
 
@@ -94,14 +137,14 @@ trait View
             </div>
         </footer>
 
-        <?php
+    <?php
     }
 
 
 
     public function Head()
     {
-        ?>
+    ?>
         <!DOCTYPE html>
         <html lang="en">
 
@@ -111,12 +154,13 @@ trait View
             <title>ElMountada</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <link href="<?= ROOTSTYLE ?>styles.css" rel="stylesheet">
-            <script src="<?= ROOTSCRIPT ?>script.js"></script>
+           
 
         </head>
 
         <body>
-            <?php
+        <script src="<?= ROOTSCRIPT ?>script.js"></script>
+        <?php
     }
 
 
@@ -126,11 +170,6 @@ trait View
         </body>
 
         </html>
-        <?php
+<?php
     }
-
-
-
-
-
 }

@@ -2,12 +2,12 @@
 class AccueilView
 {
 
-use View;
+    use View;
     public function diaporama($News)
     {
 
-        ?>
-        
+?>
+
         <div class="relative overflow-hidden w-full rounded-[15px] h-[600px] mb-8">
             <div id="diaporama" class="flex transition-transform duration-1000 ease-in-out">
                 <?php
@@ -26,54 +26,52 @@ use View;
         </div>
 
 
-        <?php
+    <?php
     }
 
 
     public function offers($offers)
     {
         echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
-        echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-4  text-text">Avantages</h2>';
+        echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8  text-text">Avantages</h2>';
         if (empty($offers)) {
             echo "<p class='text-center text-lg text-gray-500'>No offers available at the moment.</p>";
         } else {
 
             echo '<div class="flex flex-col items-end gap-4">';
 
-
-            echo '<table class="min-w-full bg-bg border border-primary rounded-[15px] overflow-hidden">';
-            echo '<thead class="bg-text">';
+            echo '<div class="overflow-auto w-full h-[700px]">'; 
+            echo '<table class="min-w-full bg-bg border  border-primary rounded-[15px] overflow-hidden">';
+            echo '<thead class="bg-text sticky top-0 z-10">';
             echo '<tr>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Categorie</th>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom</th>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Abonnement</th>
-                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Réduction</th>
+                    <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Reduction</th>
                   </tr>';
             echo '</thead>';
 
             echo '<tbody>';
+            echo '<tbody class="overflow-y-auto">';
             foreach ($offers as $offer) {
-                echo "<tr class='border-t border-primary/5  hover:bg-primary/10'>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['ville']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['categorie']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['establishment']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['membership_type']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['reduction']) . "%</td>";
+                echo "<tr class='border-t border-primary/5   hover:bg-primary/10'>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->ville) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> categorie) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> establishment) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> membership_type) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> reduction) . "%</td>";
                 echo "</tr>";
             }
+            echo '</div>';
             echo '</tbody>';
             echo '</table>';
-
+            echo '</div>';
             echo '<div class="pr-2">';
-            echo '<a href="/ElMountada/offers" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
+            echo '<a href="" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
             echo '</div>';
 
-
             echo '</div>';
-
-
-
         }
 
         echo '</div>';
@@ -81,7 +79,7 @@ use View;
 
     public function partnersLogos($partners = [])
     {
-        ?>
+    ?>
         <div class="mb-8  py-[25px] rounded-[15px]">
             <h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>
             <div class="overflow-hidden">
@@ -112,12 +110,12 @@ use View;
                 width: 200%;
             }
         </style>
-        <?php
+    <?php
     }
 
     public function latest($Latest)
     {
-        ?>
+    ?>
         <h2 class="text-center text-[32px] font-poppins font-bold mb-4 text-text">Nouvautés</h2>
         <div class="container mx-auto px-4 mb-8 ">
             <?php if (!empty($message)): ?>
@@ -136,16 +134,16 @@ use View;
                         <?php endif; ?>
                         <div class="p-6 flex flex-col flex-grow">
                             <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm rounded-full px-4 py-1 uppercase 
-    <?php echo match(strtolower($item['type'])) {
-        'announce' => 'bg-blue-100 text-blue-800',
-        'nouvelle' => 'bg-green-100 text-green-800',
-        'evenement' => 'bg-yellow-100 text-yellow-800',
-        'activite' => 'bg-purple-100 text-purple-800',
-        default => 'bg-gray-100 text-gray-800'
-    }; ?>">
-    <?php echo htmlspecialchars($item['type']); ?>
-</span>
+                                <span class="text-sm rounded-full px-4 py-1 uppercase 
+                            <?php echo match (strtolower($item['type'])) {
+                            'announce' => 'bg-blue-100 text-blue-800',
+                            'nouvelle' => 'bg-green-100 text-green-800',
+                            'evenement' => 'bg-yellow-100 text-yellow-800',
+                            'activite' => 'bg-purple-100 text-purple-800',
+                            default => 'bg-gray-100 text-gray-800'
+                             }; ?>">
+                                    <?php echo htmlspecialchars($item['type']); ?>
+                                </span>
                                 <?php if (!empty($item['event_date'])): ?>
                                     <span class="text-sm text-gray-500">
                                         <?php echo htmlspecialchars(date('M d, Y', strtotime($item['event_date']))); ?>
@@ -179,12 +177,7 @@ use View;
                 <?php endforeach; ?>
             </div>
         </div>
-        <?php
+<?php
     }
-
-    
-
-
-
 }
 ?>

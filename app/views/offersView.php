@@ -12,9 +12,9 @@ use View;
 
             echo '<div class="flex flex-col items-end gap-4">';
 
-
-            echo '<table class="min-w-full bg-bg border border-primary rounded-[15px] overflow-hidden">';
-            echo '<thead class="bg-text">';
+            echo '<div class="overflow-auto w-full h-[700px]">'; 
+            echo '<table class="min-w-full bg-bg border  border-primary rounded-[15px] overflow-hidden">';
+            echo '<thead class="bg-text sticky top-0 z-10">';
             echo '<tr>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Categorie</th>
@@ -25,27 +25,25 @@ use View;
             echo '</thead>';
 
             echo '<tbody>';
+            echo '<tbody class="overflow-y-auto">';
             foreach ($offers as $offer) {
-                echo "<tr class='border-t border-primary/5  hover:bg-primary/10'>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['ville']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['categorie']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['establishment']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['membership_type']) . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer['reduction']) . "%</td>";
+                echo "<tr class='border-t border-primary/5   hover:bg-primary/10'>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer->ville) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> categorie) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> establishment) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> membership_type) . "</td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . htmlspecialchars($offer -> reduction) . "%</td>";
                 echo "</tr>";
             }
+            echo '</div>';
             echo '</tbody>';
             echo '</table>';
-
+            echo '</div>';
             echo '<div class="pr-2">';
             echo '<a href="" class="font-poppins underline text-lg font-semibold text-text">Voir plus</a>';
             echo '</div>';
 
-
             echo '</div>';
-
-
-
         }
 
         echo '</div>';

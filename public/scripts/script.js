@@ -1,7 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
-    setupDiaporama();
-});
+document.addEventListener('DOMContentLoaded', function () {
 
+    setupDiaporama();
+
+    setupCarousel();
+
+    setupDropdown();
+});
 
 function setupDiaporama() {
     let currentIndex = 0;
@@ -17,32 +21,30 @@ function setupDiaporama() {
     setInterval(showNextSlide, 3000);
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
+function setupCarousel() {
     const container = document.querySelector('.container');
+    if (!container) return; // Ensure container exists
+
     const gridContainer = container.querySelector('.grid');
+    if (!gridContainer) return; // Ensure gridContainer exists
+
     const cards = Array.from(gridContainer.children);
-
     if (cards.length <= 3) return;
-
 
     const carouselNav = document.createElement('div');
     carouselNav.className = 'flex justify-center items-center space-x-4 mt-6';
 
-    
     const prevButton = document.createElement('button');
     prevButton.innerHTML = '&larr;';
     prevButton.className = 'bg-primary text-white px-4 py-2 rounded-[10px]';
-    
+
     const nextButton = document.createElement('button');
     nextButton.innerHTML = '&rarr;';
     nextButton.className = 'bg-primary text-white px-4 py-2 rounded-[10px]';
-    
-    
+
     carouselNav.appendChild(prevButton);
     carouselNav.appendChild(nextButton);
     container.appendChild(carouselNav);
-
 
     let currentIndex = 0;
     const cardsPerView = {
@@ -73,9 +75,23 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCarousel();
     });
 
-
     updateCarousel();
     window.addEventListener('resize', updateCarousel);
-});
+}
 
+function setupDropdown() {
+    const userBtn = document.querySelector('.user-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
 
+    if (userBtn && dropdownContent) {
+        userBtn.addEventListener('click', () => {
+            dropdownContent.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!userBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+                dropdownContent.classList.add('hidden');
+            }
+        });
+    }
+}

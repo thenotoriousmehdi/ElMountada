@@ -12,11 +12,13 @@ class Accueil
 
     public function ShowAccueil() 
     {
-        $this->checkLogin();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
          $db = $this->connectDb();
          $this->contentModel = new ContentModel($db);
          $this->partnersModel = new PartnersModel($db);
-         $this->offersModel = new OffersModel($db);
+         $this->offersModel = new OffersModel();
          $this->View('accueil');
          $view = new AccueilView();
          $News = $this->contentModel->getNews();
@@ -24,12 +26,13 @@ class Accueil
          $offers = $this->offersModel->getAllOffers();
          $partnersLogos = $this->partnersModel->getAllPartnersLogos();
          $view ->Head();
-         $view ->header();
+         $sessionData = $this->getSessionData();
+         $view ->header($sessionData);
          $view ->diaporama($News);
          $view ->latest($Latest);
          $view ->offers($offers);
          $view ->partnersLogos($partnersLogos);
-         $view ->foot();
          $view ->footer();
+         $view ->foot();
     }
 }

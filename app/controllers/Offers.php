@@ -5,9 +5,7 @@ class Offers
     private $offersModel;
     private $offersView;
     use Controller;
-    use Database;
-
-
+    
     public function index()
     {
         $offers = $this->offersModel->getAllOffers();
@@ -15,13 +13,16 @@ class Offers
 
     public function showOffers()
     {
-        $db = $this->connectDb();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $this->View('offers');
-        $this->offersModel = new OffersModel($db);
+        $this->offersModel = new OffersModel();
         $view = new OffersView();
         $offers = $this->offersModel->getAllOffers();
+        $sessionData = $this->getSessionData();
         $view->Head();
-        $view->header();
+        $view->header($sessionData);
         $view->offers($offers);
         $view->foot();
         $view->footer();

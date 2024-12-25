@@ -17,23 +17,27 @@ Trait Database
 	}
 
 	public function query($query, $data = [])
-	{
+{
+    try {
+        $conn = $this->connectDb();
+        $stm = $conn->prepare($query);
 
-		$conn = $this->connectDb();
-		$stm = $conn->prepare($query);
+        $check = $stm->execute($data);
 
-		$check = $stm->execute($data);
-		if($check)
-		{
-			$result = $stm->fetchAll(PDO::FETCH_OBJ);
-			if(is_array($result) && count($result))
-			{
-				return $result;
-			}
-		}
+        if ($check) {
+            $result = $stm->fetchAll(PDO::FETCH_OBJ); 
+            if (is_array($result) && count($result)) {
+                return $result;
+            }
+        }
+    } catch (PDOException $e) {
+        error_log("Database Query Error: " . $e->getMessage());
+    }
 
-		return false;
-	}
+    return false;
+}
+
+
 
 	public function disconnectDb(&$conn) {
 		$conn = null;

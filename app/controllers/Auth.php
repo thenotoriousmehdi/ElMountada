@@ -1,15 +1,16 @@
+
 <?php
 
-class Auth
-{
+class Auth {
+    private $userModel;
     private $authView;
     use Controller;
-    use Database;
-    
-    // Show login page
-    public function showLoginPage()
-    {
-        $db = $this->connectDb();  // Database connection
+
+    public function __construct() {
+        $this->userModel = new UserModel();
+    }
+
+    public function showLoginPage() {
         $this->View('auth');
         $view = new AuthView();
         $view->Head();
@@ -17,55 +18,44 @@ class Auth
         $view->foot();
     }
 
-    // Handle login process
     public function handleLogin() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Get user inputs
-            $email = $_POST['email'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             $password = $_POST['password'];
-    
-            // Connect to the database
-            $db = $this->connectDb();
-    
-            // Prepare the query to find the user by email
-            $stmt = $db->prepare("SELECT id, password, type FROM users WHERE email = :email");
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
-    
-            // Fetch the user from the database
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            if ($user && password_verify($password, $user['password'])) {
-                // Successful login
+            $user = $this->userModel->getUserByEmail($email);
+            if ($user && password_verify($password, $user->password)) {
                 session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_type'] = $user['type'];
-                header("Location: /ElMountada/offers/showOffers"); // Update this to your desired page
+                echo "Session started!<br>";
+                session_regenerate_id(true);
+                $_SESSION['user_id'] = $user->id;
+                $_SESSION['user_type'] = $user->type;
+                header("Location: /ElMountada/");
                 exit();
             } else {
-                // Invalid login
-                echo "Invalid email or password.";
+                echo "<p>Invalid email or password.</p>";
             }
         }
     }
+
+    public function handleLogout() {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+            $_SESSION = array();
+
+            if (ini_get("session.use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+            }
     
-
-    // Handle logout process
-    public function handleLogout()
-    {
-        if (session_status() != PHP_SESSION_ACTIVE) {
-            session_start(); // Start the session if not already active
+            session_destroy();
+    
+            header("Location: /ElMountada");
+            exit();
         }
-
-        // Destroy the session to log the user out
-        session_destroy();
-
-        // Redirect to the homepage or login page after logout
-        header("Location: index.php?action=home");
-        exit;
     }
-
-    // Redirect user based on their type
-   
+    
+    
 }
 ?>
