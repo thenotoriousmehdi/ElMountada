@@ -49,10 +49,7 @@ trait View
             <!-- Member Menu Items -->
             <a href="/profile" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Profile</a>
             <a href="/settings" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Settings</a>
-        <?php else: ?>
-            <!-- Default or Guest Menu Items -->
-            <a href="/login" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Login</a>
-            <a href="/signup" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Sign Up</a>
+       
         <?php endif; ?>
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
     </div>

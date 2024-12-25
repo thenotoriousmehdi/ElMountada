@@ -43,6 +43,7 @@ Trait Database
 		$conn = null;
 	}
 	
+	
 
 	public function get_row($query, $data = [])
 	{

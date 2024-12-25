@@ -17,6 +17,13 @@ class Auth {
         $view->login();
         $view->foot();
     }
+    public function showSignUpPage() {
+        $this->View('auth');
+        $view = new AuthView();
+        $view->Head();
+        $view->signup();
+        $view->foot();
+    }
 
     public function handleLogin() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,6 +43,38 @@ class Auth {
             }
         }
     }
+
+    public function handleSignup() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            $password = $_POST['password'];
+            $confirmPassword = $_POST['confirm_password'];
+            $fullName = htmlspecialchars($_POST['full_name'], ENT_QUOTES, 'UTF-8');  
+            $phoneNumber = htmlspecialchars($_POST['phone_number'], ENT_QUOTES, 'UTF-8');  
+
+            if ($password !== $confirmPassword) {
+                $errorMessage = "Passwords do not match.";
+                $this->showSignUpPage();
+                return;
+            }
+
+    
+            $existingUser = $this->userModel->getUserByEmail($email);
+            if ($existingUser) {
+                $errorMessage = "Email is already in use.";
+                $this->showSignUpPage();
+                return;
+            }
+
+            $this->userModel->createUser($email, $password, $fullName, $phoneNumber);
+
+        
+            header("Location: /ElMountada/auth/showLoginPage");
+            exit();
+        }
+    }
+
 
     public function handleLogout() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
