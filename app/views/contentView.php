@@ -9,8 +9,8 @@ public function Content($content)
     ?>
 <div class="flex flex-col justify-start gap-2 mt-4 mb-8">
                     <h2 class="text-start text-[24px] font-poppins font-bold text-text">Découvrez toutes les Nouvautés de ElMountada! </h2>
-                    <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6"> 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-bg shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6"> 
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <?php foreach ($content as $item): ?>
                     <div
                         class="bg-principale/5 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">

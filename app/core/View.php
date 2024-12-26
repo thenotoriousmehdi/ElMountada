@@ -26,7 +26,7 @@ trait View
             <a href="/ElMountada/content/showContent">News</a>
         </li>
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/partners">Catalogue</a>
+            <a href="/ElMountada/partners/showCatalogue">Catalogue</a>
         </li>
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/offers/showOffers">Offres</a>

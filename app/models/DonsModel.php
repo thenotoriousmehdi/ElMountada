@@ -12,7 +12,6 @@ class DonsModel {
             GROUP BY dc.category_id
         ";
         
-
         return $this->query($query);
     }
 

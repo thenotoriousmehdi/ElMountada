@@ -77,18 +77,18 @@ class AccueilView
         echo '</div>';
     }
 
-    public function partnersLogos($partners = [])
+    public function partnersLogos($partnersLogos)
     {
     ?>
         <div class="mb-12  py-[25px] rounded-[15px]">
             <h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>
             <div class="overflow-hidden">
                 <div class="flex gap-8 animate-slide" style="animation: slide 5s linear infinite;">
-                    <?php foreach ($partners as $partner): ?>
+                    <?php foreach ($partnersLogos as $partner): ?>
                         <img src="<?php echo htmlspecialchars($partner['logo_path']); ?>" alt="Partner Logo"
                             class="h-16 object-contain">
                     <?php endforeach; ?>
-                    <?php foreach ($partners as $partner): ?>
+                    <?php foreach ($partnersLogos as $partner): ?>
                         <img src="<?php echo htmlspecialchars($partner['logo_path']); ?>" alt="Partner Logo"
                             class="h-16 object-contain">
                     <?php endforeach; ?>

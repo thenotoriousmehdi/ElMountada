@@ -10,7 +10,7 @@ class Partners
     {
         $db = $this->connectDb();
         $this->partnersView = new PartnersView();
-        $this->partnerModel = new PartnersModel($db); 
+        $this->partnerModel = new PartnersModel(); 
     }
 
   
