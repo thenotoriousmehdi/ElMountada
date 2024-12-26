@@ -162,7 +162,8 @@ trait View
             <title>ElMountada</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <link href="<?= ROOTSTYLE ?>styles.css" rel="stylesheet">
-            <script src="./public/scripts/script.js/"></script>
+            <script src="./public/scripts/script.js"></script>
+            
            
         </head>
 

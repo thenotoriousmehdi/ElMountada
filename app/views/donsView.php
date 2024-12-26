@@ -74,39 +74,43 @@ class DonsView
     <?php
     }
 
-public function MesDons($mesDons){
+    public function MesDons($mesDons)
+    {
     ?>
- <div class="flex flex-col justify-start gap-2 mb-8">
+        <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Mes Dons</h2>
 
             <?php if (empty($mesDons)): ?>
-            <div class="bg-text/5 flex justify-center items-center shadow-sm w-full h-[470px] overflow-y-auto rounded-[15px] p-6">
-                <p class="text-center text-gray-600">Aucun don trouvé.</p>
-            </div>
+                <div class="bg-text/5 flex justify-center items-center shadow-sm w-full h-[470px] overflow-y-auto rounded-[15px] p-6">
+<div class="flex justify-center items-center bg-white shadow-md rounded-lg"> 
+                    <p class="text-center text-text/80">Aucun don trouvé.</p>
+                </div>
+
+                </div>
             <?php else: ?>
 
                 <div class="bg-text/5 shadow-sm w-full h-[470px] overflow-y-auto rounded-[15px] p-6">
-                <div class="flex flex-wrap gap-4">
-               <?php foreach ($mesDons as $mesdons): ?>
-                                   <div class="flex flex-col justify-between  md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md "> 
-                                    <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($mesdons->somme); ?>DA</h3>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($mesdons->category_name); ?></p>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($mesdons->created_at); ?></p>
-                                    <a  href="<?= htmlspecialchars($mesdons->recu); ?>"
-                                        class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                        download="<?= htmlspecialchars($mesdons->recu); ?>">
-                                        Reçu
-                                    </a>
-                                </div>
-                            <?php endforeach; ?>
+                    <div class="flex flex-wrap gap-4">
+                        <?php foreach ($mesDons as $mesdons): ?>
+                            <div class="flex flex-col justify-between  md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md ">
+                                <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($mesdons->somme); ?>DA</h3>
+                                <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($mesdons->category_name); ?></p>
+                                <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($mesdons->created_at); ?></p>
+                                <a href="<?= htmlspecialchars($mesdons->recu); ?>"
+                                    class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                                    download="<?= htmlspecialchars($mesdons->recu); ?>">
+                                    Reçu
+                                </a>
                             </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-                            <?php endif; ?>
-                            
-</div>
-            
-<?php
-}
+            <?php endif; ?>
+
+        </div>
+
+    <?php
+    }
 
 
 
@@ -172,12 +176,28 @@ public function MesDons($mesDons){
     ?>
 
         <?php if ((!isset($sessionData['user_type']) || $sessionData['user_type'] != 'admin')): ?>
-            <div class="flex flex-col justify-start gap-2 mb-8">
+            <div class="flex flex-col justify-start gap-4 mt-4 mb-8">
+
+            <div class="flex  w-full items-center justify-between"> 
                 <h2 class="text-start text-[24px] font-poppins font-bold text-text">Dons </h2>
+                <a href="<?= ROOTIMG ?>mehdi.pdf" 
+               
+                 download="ReglesDeDons.pdf" 
+                 class="inline-flex items-center gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                 <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                 Plus d'informations
+                </a>
+                </div>
+
+
+
+
 
                 <div class="flex flex-col justify-end gap-4">
-
-
                     <div class="bg-text/5 shadow-sm w-full h-[400px] overflow-y-auto rounded-[15px] p-6">
                         <div class="flex flex-wrap gap-4">
                             <?php foreach ($categoryCounts as $category): ?>
@@ -221,16 +241,16 @@ public function MesDons($mesDons){
                             <?php foreach ($donationsRequests as $request): ?>
                                 <div class=" flex justify-between  w-full gap-2 border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md">
 
-                                   <div class="flex flex-col md:flex-row flex-wrap w-full items-center "> 
-                                    <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($request->name); ?></h3>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->dob); ?></p>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->aid_type); ?></p>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->description); ?></p>
-                                    <a href="<?= htmlspecialchars($request->document); ?>"
-                                        class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                        download="<?= htmlspecialchars($request->document); ?>">
-                                        Dossier
-                                    </a>
+                                    <div class="flex flex-col md:flex-row flex-wrap w-full items-center ">
+                                        <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($request->name); ?></h3>
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->dob); ?></p>
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->aid_type); ?></p>
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->description); ?></p>
+                                        <a href="<?= htmlspecialchars($request->document); ?>"
+                                            class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                                            download="<?= htmlspecialchars($request->document); ?>">
+                                            Dossier
+                                        </a>
                                     </div>
 
                                     <div class="flex items-center gap-2">
@@ -255,20 +275,20 @@ public function MesDons($mesDons){
 
 
                 <div class="flex flex-col justify-start gap-2 mb-8">
-                    <h2 class="text-start text-[24px] font-poppins font-bold text-text">Liste de dons  </h2>
+                    <h2 class="text-start text-[24px] font-poppins font-bold text-text">Liste de dons </h2>
                     <div class="bg-text/5 shadow-sm w-full h-[400px] overflow-y-auto rounded-[15px] p-6">
                         <div class="flex flex-wrap gap-4">
                             <?php foreach ($donations as $don): ?>
-                                <div class="flex flex-col justify-between md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md "> 
+                                <div class="flex flex-col justify-between md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md ">
                                     <h3 class="text-lg  font-semibold  text-text text-center"><?= htmlspecialchars($don->name); ?></h3>
                                     <p class="text-center   text-principale "> <?= htmlspecialchars($don->aid_type); ?></p>
-                                    <p class="text-center   text-principale "> <?= htmlspecialchars($don ->donation_category_id); ?></p>
+                                    <p class="text-center   text-principale "> <?= htmlspecialchars($don->donation_category_id); ?></p>
                                     <a href="<?= htmlspecialchars($don->document); ?>"
                                         class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
                                         download="<?= htmlspecialchars($don->document); ?>">
                                         Dossier
                                     </a>
-                                    </div>
+                                </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -286,46 +306,44 @@ public function MesDons($mesDons){
                         <div class="flex flex-wrap gap-4">
                             <?php foreach ($donationsDone as $donDone): ?>
                                 <div class=" flex justify-between  w-full gap-2 border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md">
-                                   <div class="flex flex-col md:flex-row flex-wrap w-full items-center "> 
-                                    <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($donDone->user_name); ?></h3>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->somme); ?></p>
-                                    <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->category_name); ?></p>
-                                    <a  href="<?= htmlspecialchars($donDone->recu); ?>"
-                                        class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                        download="<?= htmlspecialchars($donDone->recu); ?>">
-                                        Reçu
-                                    </a>
+                                    <div class="flex flex-col md:flex-row flex-wrap w-full items-center ">
+                                        <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($donDone->user_name); ?></h3>
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->somme); ?></p>
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->category_name); ?></p>
+                                        <a href="<?= htmlspecialchars($donDone->recu); ?>"
+                                            class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                                            download="<?= htmlspecialchars($donDone->recu); ?>">
+                                            Reçu
+                                        </a>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <a class=" bg-bg  border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px] " 
-                                        href="javascript:void(0);" 
-                                        onclick="confirmRefuseDonation(<?= htmlspecialchars($donDone->id) ?>)">
+                                        <a class=" bg-bg  border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px] "
+                                            href="javascript:void(0);"
+                                            onclick="confirmRefuseDonation(<?= htmlspecialchars($donDone->id) ?>)">
                                             <img src="<?= ROOTIMG ?>cross.svg" alt="refuser" class=" size-5" />
                                         </a>
                                         <a class=" bg-[#0c9621] bg-opacity-50 hover:bg-[#0c9621] hover:bg-opacity-40   p-4 rounded-[10px] "
-                                        href="javascript:void(0);"
-                                         onclick="confirmAcceptDonation(<?= htmlspecialchars($donDone->id) ?>)"
-                                         >
+                                            href="javascript:void(0);"
+                                            onclick="confirmAcceptDonation(<?= htmlspecialchars($donDone->id) ?>)">
                                             <img src="<?= ROOTIMG ?>done.svg" alt="confirm" class=" size-6" />
                                         </a>
                                     </div>
                                 </div>
-    <script>
-    function confirmRefuseDonation(id) {
-        const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
-        if (isConfirmed) {
-            window.location.href = '/ElMountada/dons/refuseDonation/?id=' + id;
-        }
-    }
+                                <script>
+                                    function confirmRefuseDonation(id) {
+                                        const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
+                                        if (isConfirmed) {
+                                            window.location.href = '/ElMountada/dons/refuseDonation/?id=' + id;
+                                        }
+                                    }
 
-    function confirmAcceptDonation(id) {
-        const isConfirmed = confirm("Etes vous sur de vouloir accepter cette donation?");
-        if (isConfirmed) {
-            window.location.href = '/ElMountada/dons/acceptDonation/?id=' + id;
-        }
-    }
-
-</script>
+                                    function confirmAcceptDonation(id) {
+                                        const isConfirmed = confirm("Etes vous sur de vouloir accepter cette donation?");
+                                        if (isConfirmed) {
+                                            window.location.href = '/ElMountada/dons/acceptDonation/?id=' + id;
+                                        }
+                                    }
+                                </script>
                             <?php endforeach; ?>
                         </div>
                     </div>

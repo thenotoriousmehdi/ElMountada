@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     setupCarousel();
 
     setupDropdown();
+
+    confirmRefuseDonation();
 });
 
 function setupDiaporama() {
@@ -102,6 +104,8 @@ function confirmRefuseDonation(id) {
         window.location.href = '/ElMountada/dons/refuseDonation/?id=' + id;
     }
 }
+
+
 
 
 
