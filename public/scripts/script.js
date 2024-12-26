@@ -25,16 +25,16 @@ function setupDiaporama() {
 
 function setupCarousel() {
     const container = document.querySelector('.container');
-    if (!container) return; // Ensure container exists
+    if (!container) return; 
 
     const gridContainer = container.querySelector('.grid');
-    if (!gridContainer) return; // Ensure gridContainer exists
+    if (!gridContainer) return; 
 
     const cards = Array.from(gridContainer.children);
     if (cards.length <= 3) return;
 
     const carouselNav = document.createElement('div');
-    carouselNav.className = 'flex justify-center items-center space-x-4 mt-6';
+    carouselNav.className = 'flex justify-end items-end space-x-4 mt-6';
 
     const prevButton = document.createElement('button');
     prevButton.innerHTML = '&larr;';
@@ -80,6 +80,7 @@ function setupCarousel() {
     updateCarousel();
     window.addEventListener('resize', updateCarousel);
 }
+
 
 function setupDropdown() {
     const userBtn = document.querySelector('.user-btn');

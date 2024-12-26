@@ -705,6 +705,10 @@ body{
   margin-top: auto;
 }
 
+.mb-12{
+  margin-bottom: 3rem;
+}
+
 .block{
   display: block;
 }
@@ -790,10 +794,6 @@ body{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-\[800px\]{
-  height: 800px;
 }
 
 .w-1\/6{

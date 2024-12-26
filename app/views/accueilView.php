@@ -8,7 +8,7 @@ class AccueilView
 
 ?>
 
-        <div class="relative overflow-hidden w-full rounded-[15px] h-[600px] mb-8">
+        <div class="relative overflow-hidden w-full rounded-[15px] h-[600px] mb-12">
             <div id="diaporama" class="flex transition-transform duration-1000 ease-in-out">
                 <?php
                 foreach ($News as $item) {
@@ -32,7 +32,7 @@ class AccueilView
 
     public function offers($offers)
     {
-        echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
+        echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-12">';
         echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-4  text-text">Avantages</h2>';
         if (empty($offers)) {
             echo "<p class='text-center text-lg text-gray-500'>No offers available at the moment.</p>";
@@ -80,7 +80,7 @@ class AccueilView
     public function partnersLogos($partners = [])
     {
     ?>
-        <div class="mb-8  py-[25px] rounded-[15px]">
+        <div class="mb-12  py-[25px] rounded-[15px]">
             <h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>
             <div class="overflow-hidden">
                 <div class="flex gap-8 animate-slide" style="animation: slide 5s linear infinite;">
@@ -116,14 +116,18 @@ class AccueilView
     public function latest($Latest)
     {
     ?>
-        <h2 class="text-center text-[32px] font-poppins font-bold mb-4 text-text">Nouvautés</h2>
-        <div class="container mx-auto px-4 mb-8 ">
-            <?php if (!empty($message)): ?>
-                <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative" role="alert">
-                    <?php echo htmlspecialchars($message); ?>
-                </div>
-            <?php endif; ?>
 
+   
+
+        <div class="container flex flex-col gap-4 mx-auto px-4 mb-12 ">
+
+        <div class="flex justify-between items-end "> 
+        <h2 class="text-center text-[32px] font-poppins font-bold text-text">Nouvautés</h2>
+        
+            <a href="/ElMountada/content/showContent" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>
+    </div>
+
+        
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php foreach ($Latest as $item): ?>
                     <div
@@ -176,6 +180,13 @@ class AccueilView
                     </div>
                 <?php endforeach; ?>
             </div>
+
+
+
+
+
+           
+
         </div>
 <?php
     }
