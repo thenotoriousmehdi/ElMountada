@@ -56,8 +56,9 @@ trait View
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member Menu Items -->
+             
             <a href="/profile" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Profile</a>
-            <a href="/settings" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Settings</a>
+            <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes dons</a>
        
         <?php endif; ?>
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
@@ -79,6 +80,7 @@ trait View
             }
         });
     </script>
+    
 <?php endif; ?>
 
 
@@ -160,12 +162,12 @@ trait View
             <title>ElMountada</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <link href="<?= ROOTSTYLE ?>styles.css" rel="stylesheet">
+            <script src="./public/scripts/script.js/"></script>
            
-
         </head>
 
         <body>
-        <script src="<?= ROOTSCRIPT ?>script.js"></script>
+       
         <?php
     }
 

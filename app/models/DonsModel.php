@@ -21,6 +21,68 @@ class DonsModel {
         return $this->query($query);
     }
 
+    public function getDonations() {
+        $query = "SELECT * FROM donations";
+        return $this->query($query);
+    }
+
+
+    public function updateDonationsDoneAccepted($id) {
+        $query = "UPDATE donationsDone SET status = 'accepted' WHERE id = :id";
+        $data = [':id' => $id]; 
+        return $this->query($query, $data);  
+    }
+
+    public function updateDonationsDoneRefused($id) {
+        $query = "UPDATE donationsDone SET status = 'Refused' WHERE id = :id";
+        $data = [':id' => $id]; 
+        return $this->query($query, $data);  
+    }
+
+    public function getMesdons($user_id) {
+        $query = "SELECT 
+        d.id,
+    d.somme,
+    dc.name AS category_name,
+    d.recu,
+    d.status,
+    d.created_at
+FROM 
+    donationsDone d
+
+LEFT JOIN 
+    donationCategories dc ON d.donation_category_id = dc.category_id
+        
+        WHERE user_id = :user_id AND status = 'accepted'";
+        $data = [':user_id' => $user_id]; 
+        return $this->query($query, $data);
+
+       
+    }
+
+
+
+    public function getDonationsDone() {
+        $query = "SELECT 
+    d.id,
+    u.email AS user_name,
+    d.somme,
+    dc.name AS category_name,
+    d.recu,
+    d.status,
+    d.created_at
+FROM 
+    donationsDone d
+LEFT JOIN 
+    users u ON d.user_id = u.id
+LEFT JOIN 
+    donationCategories dc ON d.donation_category_id = dc.category_id
+    WHERE 
+    d.status = 'pending'";
+        return $this->query($query);
+    }
+
+
     public function addDonation($data) {
         try {
             $query = "
@@ -61,6 +123,11 @@ class DonsModel {
 
         return $this->query($query, $params);
     }
+
+
+
+
+
 
 }
 ?>

@@ -17,14 +17,33 @@ class Dons {
         $view = new donsView();
         $categoryCounts = $this -> donsModel->getDonationCategoriesWithCount();
         $donationsRequests = $this -> donsModel ->getDonationsRequests();
+        $donations = $this -> donsModel -> getDonations();
+        $donationsDone = $this -> donsModel -> getDonationsDone();
         $sessionData = $this->getSessionData();
         $view->Head();
         $view->header($sessionData);
-        $view->Dons($categoryCounts, $sessionData,  $donationsRequests );
+        $view->Dons($categoryCounts, $sessionData,  $donationsRequests, $donations, $donationsDone );
+        $view->foot();
+        $view->footer();
+    }
+
+    public function showMesdonsPage() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $sessionData = $this->getSessionData();
+        $user_id = $sessionData['user_id'];
+        $this->View('dons');
+        $view = new donsView();
+        $mesDons = $this ->donsModel ->getMesdons($user_id);
+        $view->Head();
+        $view->header($sessionData);
+        $view ->MesDons($mesDons);
         $view->foot();
         $view->footer();
     }
     
+
     public function showAddDon() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -71,7 +90,7 @@ class Dons {
                         'status' => 'pending'
                     ];
             
-                    // Handle file upload first
+                    
                     if (!empty($_FILES['recu']['name'])) {
                         $targetDir = './public/uploads/';
                         $targetFile = $targetDir . basename($_FILES['recu']['name']);
@@ -120,7 +139,6 @@ class Dons {
                 exit();
             }
 
-            // Get form data
             $name = $_POST['name'] ?? null;
             $dob = $_POST['dob'] ?? null;
             $aid_type = $_POST['aid_type'] ?? null;
@@ -155,6 +173,28 @@ class Dons {
             }
         }
     }
+
+    public function acceptDonation($id) {
+        $success=$this->donsModel->updateDonationsDoneAccepted($id);
+        if ($success) {
+            header('Location: /ElMountada/dons/showDonsPage/');
+        } else {
+            return ['success' => false, 'message' => 'Failed to update status'];
+        }
+    }
+
+    public function RefuseDonation($id) {
+        $success=$this->donsModel->updateDonationsDoneRefused($id);
+        if ($success) {
+            header('Location: /ElMountada/dons/showDonsPage/');
+        } else {
+            echo  "Une erreur s'est produite lors de l'ajout de la demande de don.";
+        }
+    }
+
+
+
+
   
 }
 ?>
