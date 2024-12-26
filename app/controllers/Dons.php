@@ -146,7 +146,7 @@ class Dons {
             $document = null;
 
             if (!empty($_FILES['document']['name'])) {
-                $targetDir = './public/uploads/';
+                $targetDir = '../public/uploads/';
                 $targetFile = $targetDir . basename($_FILES['document']['name']);
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
@@ -188,7 +188,27 @@ class Dons {
         if ($success) {
             header('Location: /ElMountada/dons/showDonsPage/');
         } else {
-            echo  "Une erreur s'est produite lors de l'ajout de la demande de don.";
+            echo  "Une erreur s'est produite ";
+        }
+    }
+
+
+    public function RefuseRequest($id) {
+        $success=$this->donsModel->updateDonationsRequestRefused($id);
+        if ($success) {
+            header('Location: /ElMountada/dons/showDonsPage/');
+        } else {
+            echo  "Une erreur s'est produite ";
+        }
+    }
+
+
+    public function AcceptRequest($id) {
+        $success=$this->donsModel->updateDonationsRequestAccepted($id);
+        if ($success) {
+            header('Location: /ElMountada/dons/showDonsPage/');
+        } else {
+            echo  "Une erreur s'est produite ";
         }
     }
 

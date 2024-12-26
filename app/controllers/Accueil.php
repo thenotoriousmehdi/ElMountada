@@ -15,8 +15,9 @@ class Accueil
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        
          $db = $this->connectDb();
-         $this->contentModel = new ContentModel($db);
+         $this->contentModel = new ContentModel();
          $this->partnersModel = new PartnersModel($db);
          $this->offersModel = new OffersModel();
          $this->View('accueil');

@@ -254,10 +254,15 @@ class DonsView
                                     </div>
 
                                     <div class="flex items-center gap-2">
-                                        <a class=" bg-bg  border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px] " href="/ElMountada/dons/showRequestDon/">
+                                        <a class=" bg-bg  border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px]"
+                                         href="javascript:void(0);"
+                                            onclick="confirmRefuseRequest(<?= htmlspecialchars($request->id) ?>)">
+                        
                                             <img src="<?= ROOTIMG ?>cross.svg" alt="refuser" class=" size-5" />
                                         </a>
-                                        <a class=" bg-[#0c9621] bg-opacity-50 hover:bg-[#0c9621] hover:bg-opacity-40   p-4 rounded-[10px] " href="/ElMountada/dons/showAddDon/">
+                                        <a class=" bg-[#0c9621] bg-opacity-50 hover:bg-[#0c9621] hover:bg-opacity-40   p-4 rounded-[10px] " 
+                                        href="javascript:void(0);"
+                                        onclick="confirmAcceptRequest(<?= htmlspecialchars($request->id) ?>)">
                                             <img src="<?= ROOTIMG ?>done.svg" alt="confirm" class=" size-6" />
                                         </a>
                                     </div>
@@ -268,6 +273,24 @@ class DonsView
                                 </div>
 
                             <?php endforeach; ?>
+
+                            <script>
+                                    function confirmRefuseRequest(id) {
+                                        const isConfirmed = confirm("Etes vous sur de vouloir refuser cette demande de donation?");
+                                        if (isConfirmed) {
+                                            window.location.href = '/ElMountada/dons/refuseRequest/?id=' + id;
+                                        }
+                                    }
+
+                                    function confirmAcceptRequest(id) {
+                                        const isConfirmed = confirm("Etes vous sur de vouloir Accepter cette demande de donation?");
+                                        if (isConfirmed) {
+                                            window.location.href = '/ElMountada/dons/acceptRequest/?id=' + id;
+                                        }
+                                    }
+
+                                   
+                                </script>
                         </div>
                     </div>
                 </div>
@@ -293,9 +316,6 @@ class DonsView
                         </div>
                     </div>
                 </div>
-
-
-
 
 
 

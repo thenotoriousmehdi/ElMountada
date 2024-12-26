@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setupDropdown();
 
-    confirmRefuseDonation();
+    //confirmRefuseDonation();
 });
 
 function setupDiaporama() {
@@ -98,12 +98,12 @@ function setupDropdown() {
     }
 }
 
-function confirmRefuseDonation(id) {
-    const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
-    if (isConfirmed) {
-        window.location.href = '/ElMountada/dons/refuseDonation/?id=' + id;
-    }
-}
+// function confirmRefuseDonation(id) {
+//     const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
+//     if (isConfirmed) {
+//         window.location.href = '/ElMountada/dons/refuseDonation/?id=' + id;
+//     }
+// }
 
 
 

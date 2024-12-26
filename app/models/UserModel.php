@@ -24,14 +24,11 @@ class UserModel {
         ];
         $this->query($query, $params);
 
-        // Retrieve the user ID by selecting the inserted user's data based on the email
         $query = "SELECT id FROM users WHERE email = :email LIMIT 1";
         $result = $this->query($query, ['email' => $email]);
 
         if ($result) {
-            $userId = $result[0] -> id; // Get the user_id from the query result
-
-            // Insert into the 'simple_users' table with the user_id
+            $userId = $result[0] -> id;
             $query = "INSERT INTO simple_users (id, full_name, phone_number) VALUES (:id, :full_name, :phone_number)";
             $params = [
                 'id' => $userId,

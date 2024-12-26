@@ -17,9 +17,49 @@ class DonsModel {
     }
 
     public function getDonationsRequests() {
-        $query = "SELECT * FROM donationsRequests";
+        $query = "SELECT * FROM donationsRequests
+         WHERE status = 'pending'
+        ";
         return $this->query($query);
     }
+
+    public function updateDonationsRequestRefused($id) {
+        $query = "UPDATE donationsRequests SET status = 'Refused' WHERE id = :id";
+        $data = [':id' => $id]; 
+        return $this->query($query, $data);  
+    }
+
+
+    public function updateDonationsRequestAccepted($id) {
+        $updateQuery = "UPDATE donationsRequests SET status = 'Accepted' WHERE id = :id";
+    $this->query($updateQuery, ['id' => $id]);
+
+   
+    $query = "SELECT id, user_id, name, document, aid_type FROM donationsRequests WHERE id = :id LIMIT 1";
+    $result = $this->query($query, ['id' => $id]);
+
+    if ($result) {
+        $requestData = $result[0];
+        $insertQuery = "INSERT INTO donations (user_id, name, document, aid_type) 
+                       VALUES (:user_id, :name, :document, :aid_type)";
+        
+        $params = [
+            'user_id' => $requestData->user_id,
+            'name' => $requestData->name,
+            'document' => $requestData->document,
+            'aid_type' => $requestData->aid_type
+        ];
+
+        $this->query($insertQuery, $params);
+    } 
+    }
+
+
+
+
+
+
+
 
     public function getDonations() {
         $query = "SELECT * FROM donations";

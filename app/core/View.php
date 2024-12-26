@@ -22,8 +22,8 @@ trait View
                     <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/">Accueil</a>
         </li>
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/News') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/News">News</a>
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/content/showContent">News</a>
         </li>
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/partners">Catalogue</a>
@@ -137,8 +137,6 @@ trait View
                     </a>
 
                 </div>
-
-
                 <p class="text-text font-openSans text-sm">
                     &copy; 2024 ElMountada. Tous droits réservés.
                 </p>
@@ -161,10 +159,9 @@ trait View
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>ElMountada</title>
             <script src="https://cdn.tailwindcss.com"></script>
+            <script src="<?= ROOTSCRIPT?>script.js"></script>
             <link href="<?= ROOTSTYLE ?>styles.css" rel="stylesheet">
-            <script src="./public/scripts/script.js"></script>
-            
-           
+    
         </head>
 
         <body>

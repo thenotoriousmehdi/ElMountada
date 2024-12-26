@@ -13,11 +13,11 @@ class AccueilView
                 <?php
                 foreach ($News as $item) {
                     echo "<div class='w-full h-[600px] flex-shrink-0 relative'>";
-                    echo "<img src='" . $item['image_path'] . "' alt='" . $item['title'] . "' class='w-full h-full object-cover'>";
+                    echo "<img src='" . $item -> image_path . "' alt='" . $item ->title . "' class='w-full h-full object-cover'>";
                     echo "<div class='absolute top-0 left-0 bottom-0 right-0 bg-primary opacity-30'></div>";
                     echo "<div class='absolute top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center text-white p-4'>";
-                    echo "<h2 class='text-3xl font-poppins font-bold '>" . $item['title'] . "</h2>";
-                    echo "<p class='text-lg font-openSans mt-2'>" . $item['description'] . "</p>";
+                    echo "<h2 class='text-3xl font-poppins font-bold '>" . $item -> title . "</h2>";
+                    echo "<p class='text-lg font-openSans mt-2'>" . $item -> description . "</p>";
                     echo "</div>";
                     echo "</div>";
                 }
@@ -128,46 +128,46 @@ class AccueilView
                 <?php foreach ($Latest as $item): ?>
                     <div
                         class="bg-principale/5 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
-                        <?php if (!empty($item['image_path'])): ?>
-                            <img src="<?php echo htmlspecialchars($item['image_path']); ?>"
-                                alt="<?php echo htmlspecialchars($item['title']); ?>" class="w-full h-48 object-cover">
+                        <?php if (!empty($item -> image_path)): ?>
+                            <img src="<?php echo htmlspecialchars($item -> image_path); ?>"
+                                alt="<?php echo htmlspecialchars($item -> title); ?>" class="w-full h-48 object-cover">
                         <?php endif; ?>
                         <div class="p-6 flex flex-col flex-grow">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-sm rounded-full px-4 py-1 uppercase 
-                            <?php echo match (strtolower($item['type'])) {
+                            <?php echo match (strtolower($item -> type)) {
                                 'announce' => 'bg-blue-100 text-blue-800',
                                 'nouvelle' => 'bg-green-100 text-green-800',
                                 'evenement' => 'bg-yellow-100 text-yellow-800',
                                 'activite' => 'bg-purple-100 text-purple-800',
                                 default => 'bg-gray-100 text-gray-800'
                             }; ?>">
-                                    <?php echo htmlspecialchars($item['type']); ?>
+                                    <?php echo htmlspecialchars($item -> type); ?>
                                 </span>
-                                <?php if (!empty($item['event_date'])): ?>
+                                <?php if (!empty($item -> event_date)): ?>
                                     <span class="text-sm text-gray-500">
-                                        <?php echo htmlspecialchars(date('M d, Y', strtotime($item['event_date']))); ?>
+                                        <?php echo htmlspecialchars(date('M d, Y', strtotime($item -> event_date))); ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
                             <h3 class="text-xl font-poppins font-bold text-gray-800 mb-3">
-                                <?php echo htmlspecialchars($item['title']); ?>
+                                <?php echo htmlspecialchars($item -> title); ?>
                             </h3>
                             <p class="text-gray-600 font-openSans mb-4 flex-grow">
-                                <?php echo htmlspecialchars(substr($item['description'], 0, 150) . (strlen($item['description']) > 150 ? '...' : '')); ?>
+                                <?php echo htmlspecialchars(substr($item -> description, 0, 150) . (strlen($item -> description) > 150 ? '...' : '')); ?>
                             </p>
-                            <?php if (!empty($item['location'])): ?>
+                            <?php if (!empty($item -> location)): ?>
                                 <div class="flex items-center text-sm text-gray-500 mb-2">
                                     <svg class="w-4 h-4 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
                                             clip-rule="evenodd" />
                                     </svg>
-                                    <?php echo htmlspecialchars($item['location']); ?>
+                                    <?php echo htmlspecialchars($item -> location); ?>
                                 </div>
                             <?php endif; ?>
                             <div class="flex justify-end mt-auto">
-                                <a href="<?php echo htmlspecialchars($item['details_link'] ?? '#'); ?>"
+                                <a href="<?php echo htmlspecialchars($item -> details_link ?? '#'); ?>"
                                     class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-text/80 transition duration-300">
                                     Plus de détails
                                 </a>
