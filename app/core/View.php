@@ -64,22 +64,8 @@ trait View
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
     </div>
 </div>
-
-
     </div>
-    <script>
-        const userBtn = document.querySelector('.user-btn');
-        const dropdownContent = document.querySelector('.dropdown-content');
-
-        userBtn.addEventListener('click', () => {
-            dropdownContent.classList.toggle('hidden');
-        });
-        window.addEventListener('click', (e) => {
-            if (!userBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
-                dropdownContent.classList.add('hidden');
-            }
-        });
-    </script>
+    
     
 <?php endif; ?>
 
