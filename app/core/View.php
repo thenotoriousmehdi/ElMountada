@@ -56,11 +56,12 @@ trait View
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member Menu Items -->
-             
-            <a href="/profile" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Profile</a>
             <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes dons</a>
-       
+            <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
+            <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
+
         <?php endif; ?>
+        <a href="/ElMountada/Profile " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Profile</a>
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
     </div>
 </div>

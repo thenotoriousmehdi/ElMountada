@@ -3,7 +3,6 @@
 class Offers
 {
     private $offersModel;
-    private $offersView;
     use Controller;
     
     public function index()

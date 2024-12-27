@@ -124,7 +124,7 @@ class AuthView
                                     id="full_name" 
                                     placeholder="Nom Complet" 
                                     pattern="^[A-Za-zÀ-ÖØ-öø-ÿ \-']{2,50}$" 
-                                    value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" 
+                                    value="<?= isset($_POST['full_name']) ? htmlspecialchars($_POST['full_name']) : '' ?>" 
                                     required
                                 />
                             </label>
@@ -136,7 +136,7 @@ class AuthView
                                     id="phone_number" 
                                     placeholder="Numero de téléphone" 
                                    pattern="^(05|06|07)[0-9]{8}$"
-                                    value="<?= isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '' ?>" 
+                                    value="<?= isset($_POST['phone_number']) ? htmlspecialchars($_POST['phone_number']) : '' ?>" 
                                     required
                                 />
                             </label>
