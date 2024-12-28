@@ -57,6 +57,7 @@ trait View
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member Menu Items -->
             <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes dons</a>
+            <a href="/ElMountada/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
 

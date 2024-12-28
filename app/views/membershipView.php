@@ -39,5 +39,43 @@ use View;
         
      <?php
     }
+
+public function MembershipCard($membershipCard){
+    
+?>
+<div class="cardcontainer flex flex-col gap-4 justify-center items-center w-full h-full p-24 ">
+    <h2 class="font-poppins font-semibold text-text text-[24px]">Ma carte d'abonnement</h2>
+    <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 ">
+  <div class="flex flex-col md:flex-row justify-between items-start gap-4 h-auto w-full">
+
+    <div class="flex flex-col justify-start items-start gap-2 w-full sm:w-1/2">
+
+    <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
+   
+    <p class="text-center text-principale"> <strong> Identifiant # </strong> <?= htmlspecialchars($membershipCard->user_id); ?></p>
+      <p class="text-center text-principale"> <strong> Email</strong>  <?= htmlspecialchars($membershipCard->email); ?></p>
+      <p class="text-center text-principale"> <strong> Nom complet</strong>  <?= htmlspecialchars($membershipCard->full_name); ?></p>
+      <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($membershipCard->phone_number); ?></p>
+
+
+      <p class="text-center text-principale"> <strong> Date de facturation  </strong><?= htmlspecialchars($membershipCard->billing_date); ?></p>
+
+      
+    </div>
+
+    <div class="bg-bg flex justify-center items-center p-2 rounded-[10px] h-full w-full sm:w-1/2">
+      <img src="<?= htmlspecialchars($membershipCard->QrCode); ?>" alt="" class="w-full h-full rounded-md object-contain">
+    </div>
+  </div>
+</div>
+
+</div>
+
+<?php
+}
+
+
+
+
 }
 ?>

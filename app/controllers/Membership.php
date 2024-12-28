@@ -15,7 +15,6 @@ class Membership
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-
         $this->View('membership');
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
@@ -23,6 +22,22 @@ class Membership
         $view->header($sessionData);
         $memberships= $this ->membershipModel->getMemberships();
         $view->Memberships($memberships);
+        $view->foot();
+        $view->footer();
+    }
+
+    public function showMembershipCard($id)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $this->View('membership');
+        $view = new MembershipView();
+        $sessionData = $this->getSessionData();
+        $membershipCard = $this ->membershipModel->getMembershipCard($id);
+        $view->Head();
+        $view->header($sessionData);
+        $view->MembershipCard($membershipCard);
         $view->foot();
         $view->footer();
     }
