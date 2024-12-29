@@ -1,6 +1,6 @@
 <?php
 
-class UserModel {
+class ProfileModel {
     use Database;
 
     public function getUserByEmail($email) {
@@ -23,14 +23,5 @@ class UserModel {
         ];
         $this->query($query, $params);
     }
-
-    public function getProfile($id) {
-        $query = "SELECT * FROM users WHERE id = :id";   
-        $data = [':id' => $id]; 
-        $results = $this->query($query, $data);  
-        return $results ? $results[0] : null; 
-      }
-
-
 
 }
