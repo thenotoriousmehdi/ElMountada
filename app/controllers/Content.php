@@ -59,6 +59,10 @@ class Content {
 
 
      public function store() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
          try {
              $this->validateInput($_POST);
 
@@ -80,8 +84,8 @@ class Content {
              $result = $this->contenuModel->insert($data);
 
              if ($result) {
-                 $_SESSION['success'] = 'Entry created successfully';
-                 header('Location: /ElMountada/');
+                $_SESSION['status'] = "Contenu ajouter avec success";
+                 header('Location: /ElMountada/accueil/showAccueil');
                  exit;
              } else {
                 throw new Exception('Failed to create entry');

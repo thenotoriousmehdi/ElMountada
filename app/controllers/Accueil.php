@@ -29,6 +29,7 @@ class Accueil
          $partnerLogos = $this->partnersModel->getAllPartnersLogos();
          $sessionData = $this->getSessionData();
          $view ->Head();
+         $view ->displaySessionMessage();
          $view ->header($sessionData);
          $view ->diaporama($News);
          $view ->latest($Latest);

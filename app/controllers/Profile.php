@@ -19,7 +19,6 @@ class Profile
         $view = new ProfileView();
         $sessionData = $this->getSessionData();
         $profile = $this ->userModel-> getProfile($id);
-
         $view->Head();
         $view ->displaySessionMessage();
         $view->header($sessionData);
