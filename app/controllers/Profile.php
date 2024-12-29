@@ -50,6 +50,7 @@ class Profile
             $result = $this->userModel->modifierProfile($id, $fullName, $email, $phoneNumber);
 
             if ($result) {
+               $_SESSION['status'] = "Profil modifie avec success";
                 header('Location: /ElMountada/profile/showProfilePage?id=' . $id);
                 exit();
             } else {
@@ -62,6 +63,10 @@ class Profile
     public function updatePassword() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
+            if (!isset($_SESSION['user_id'])) {
+                header("Location: /ElMountada/auth/showLoginPage/");
+                exit();
+            }
         }
 
         
@@ -89,7 +94,7 @@ class Profile
 
             $result = $this->userModel->updatePassword($id, $newPassword);
             if ($result) {
-            $_SESSION[ 'status'] = "Data inserted Successfully";
+            $_SESSION['status'] = "Mot de passe modifier avec success";
                 header('Location: /ElMountada/profile/showProfilePage?id=' . $id);
                 exit();
             } else {

@@ -85,7 +85,7 @@ class="mt-1  w-full p-4 rounded-[10px] shadow-sm border border-primary/20 focus-
     </div>
     <!-- Confirm New Password -->
     <div>
-      <label for="confirm_password" class="text-[16px] font-poppins font-medium text-text">Confirmez le nouveau mot d epasse</label>
+      <label for="confirm_password" class="text-[16px] font-poppins font-medium text-text">Confirmez le nouveau mot de passe</label>
       <input
         type="password"
         id="confirm_password"
