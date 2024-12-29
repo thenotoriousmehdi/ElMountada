@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setupDropdown();
 
+    enableSaveButtonOnChange()
     //confirmRefuseDonation();
 });
 
@@ -99,6 +100,30 @@ function setupDropdown() {
     }
 }
 
+
+function enableSaveButtonOnChange() {
+    const profileForm = document.getElementById('profileForm');
+    const profileSubmit = document.getElementById('profileSubmit');
+    const originalValues = {};
+  
+    // Save original values
+    profileForm.querySelectorAll('input').forEach(input => {
+      originalValues[input.name] = input.value;
+    });
+  
+    // Listen for changes in inputs
+    profileForm.addEventListener('input', () => {
+      let isModified = false;
+  
+      profileForm.querySelectorAll('input').forEach(input => {
+        if (input.value !== originalValues[input.name]) {
+          isModified = true;
+        }
+      });
+  
+      profileSubmit.disabled = !isModified;
+    });
+  }
 // function confirmRefuseDonation(id) {
 //     const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
 //     if (isConfirmed) {

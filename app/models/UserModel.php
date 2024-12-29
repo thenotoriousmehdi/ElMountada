@@ -31,6 +31,49 @@ class UserModel {
         return $results ? $results[0] : null; 
       }
 
+      public function modifierProfile($id, $fullName, $email, $phoneNumber) {
+        $query = "UPDATE 
+                users 
+            SET 
+                full_name = :full_name, 
+                email = :email, 
+                phone_number = :phone_number 
+            WHERE 
+                id = :id
+        ";
 
+        $data = [
+            ':full_name' => $fullName,
+            ':email' => $email,
+            ':phone_number' => $phoneNumber,
+            ':id' => $id
+        ];
 
+        return $this->query($query, $data);
+    }
+
+    public function verifyPassword($id, $password) {
+        $query = "SELECT password FROM users WHERE id = :id";
+        $data = [':id' => $id];
+        $result = $this->query($query, $data);
+        if ($result && password_verify($password, $result[0]-> password)) {
+            return true;
+        }
+    
+        return false;
+    }
+
+    public function updatePassword($id, $newPassword) {
+
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $query = "UPDATE users SET password = :password WHERE id = :id";
+        $data = [
+            ':password' => $hashedPassword,
+            ':id' => $id
+        ];
+    
+        return $this->query($query, $data);
+    }
+    
+  
 }

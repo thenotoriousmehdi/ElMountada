@@ -32,7 +32,6 @@ class Auth {
             $user = $this->userModel->getUserByEmail($email);
             if ($user && password_verify($password, $user->password)) {
                 session_start();
-                echo "Session started!<br>";
                 session_regenerate_id(true);
                 $_SESSION['user_id'] = $user->id;
                 $_SESSION['user_type'] = $user->type;

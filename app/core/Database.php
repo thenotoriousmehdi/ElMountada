@@ -21,21 +21,23 @@ Trait Database
     try {
         $conn = $this->connectDb();
         $stm = $conn->prepare($query);
-
         $check = $stm->execute($data);
 
         if ($check) {
-            $result = $stm->fetchAll(PDO::FETCH_OBJ); 
-            if (is_array($result) && count($result)) {
-                return $result;
+            if (strpos(strtoupper(trim($query)), 'SELECT') === 0) {
+                $result = $stm->fetchAll(PDO::FETCH_OBJ);
+                return is_array($result) ? $result : [];
             }
+            return true;
         }
+        return false;
     } catch (PDOException $e) {
         error_log("Database Query Error: " . $e->getMessage());
     }
-
     return false;
 }
+
+
 
 
 

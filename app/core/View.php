@@ -7,7 +7,7 @@ trait View
     {
 ?>
 
-        <div class="sticky top-0 left-0 w-full z-50 bg-bg flex justify-between items-center px-4">
+        <div class="sticky top-0 left-0 w-full z-40 bg-bg flex justify-between items-center px-4">
 
 
             <div>
@@ -62,7 +62,7 @@ trait View
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
 
         <?php endif; ?>
-        <a href="/ElMountada/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Profile</a>
+        <a href="/ElMountada/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
     </div>
 </div>
@@ -166,4 +166,26 @@ trait View
         </html>
 <?php
     }
+
+
+    function displaySessionMessage() {
+        if (isset($_SESSION['status'])) {
+            ?>
+            <div id="sessionAlert" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-500 ease-in-out z-50">
+                <?= htmlspecialchars($_SESSION['status']); ?>
+            </div>
+            <script>
+                const alertBox = document.getElementById("sessionAlert");
+                alertBox.classList.add("opacity-100"); 
+                setTimeout(function() {
+                    alertBox.classList.remove("opacity-100"); 
+                }, 3000); 
+            </script>
+            <?php
+            unset($_SESSION['status']);
+        }
+    }
+    
+
+
 }
