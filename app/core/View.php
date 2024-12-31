@@ -16,8 +16,9 @@ trait View
                 </a>
             </div>
 
-            <div class="flex items-center gap-2">
-                <div class="flex justify-center items-center my-6">
+            <div class="flex items-center my-6 gap-2">
+                
+                <div class="flex justify-center items-center flex-grow">
                     <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
                     <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/">Accueil</a>
@@ -25,7 +26,7 @@ trait View
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/content/showContent">News</a>
         </li>
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showCatalogue') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/partners/showCatalogue">Catalogue</a>
         </li>
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
@@ -41,6 +42,8 @@ trait View
         <?php endif; ?>
                     </ul>
                 </div>
+
+
                 <?php if (isset($sessionData['user_id'])): ?>
     <div class="flex justify-center items-center bg-primary/75 w-full h-full p-4 rounded-[15px] ">
         <button class="user-btn flex items-center ">
@@ -51,7 +54,6 @@ trait View
     <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin Menu Items -->
-            <a href="/admin/dashboard" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Admin Dashboard</a>
             <a href="/ElMountada/membership/showMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Membres</a>
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
@@ -60,6 +62,8 @@ trait View
             <a href="/ElMountada/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
+            <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'partner'): ?>
+                <a href="/ElMountada/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma Carte</a>
 
         <?php endif; ?>
         <a href="/ElMountada/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
@@ -67,8 +71,6 @@ trait View
     </div>
 </div>
     </div>
-    
-    
 <?php endif; ?>
 
             </div>

@@ -3,17 +3,60 @@
 
 class Partners
 {
+   use Controller;
     private $partnerModel;
     private $partnersView;
-    use Database;
     public function __construct()
     {
-        $db = $this->connectDb();
-        $this->partnersView = new PartnersView();
         $this->partnerModel = new PartnersModel(); 
     }
 
   
+    public function showCatalogue()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $this->View('partners');
+        $view = new PartnersView();
+        $sessionData = $this->getSessionData();
+        $view->Head();
+        $view ->displaySessionMessage();
+        $view->header($sessionData);  
+        $partnersH = $this->partnerModel->getAllPartnersByCategory(1);  
+        $partnersC = $this->partnerModel->getAllPartnersByCategory(2);  
+        $partnersE = $this->partnerModel->getAllPartnersByCategory(3);  
+        $partnersA = $this->partnerModel->getAllPartnersByCategory(4);  
+        $view->showPartnersByCategory("Hôtels", $partnersH);
+        $view->showPartnersByCategory("Cliniques", $partnersC);
+        $view->showPartnersByCategory("Ecoles", $partnersE);
+        $view->showPartnersByCategory("Agences de voyages", $partnersA);
+        $view->foot();
+        $view->footer();
+    }
+
+
+    public function showPartnerCard($id)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $this->View('partners');
+        $view = new PartnersView();
+        $sessionData = $this->getSessionData();
+        $partnerCard = $this ->partnerModel->getPartnerCard($id);
+        $view->Head();
+        $view->header($sessionData);
+        $view->PartnerCard($partnerCard);
+        $view->foot();
+        $view->footer();
+    }
+
+
+
+
+
+
 
 
 public function filterPartners()
@@ -34,35 +77,6 @@ public function filterPartners()
     }
 }
 
-public function partnersHotels()
-{
-    if(!isset($_POST['categorie']) || $_POST['categorie'] == '' || $_POST['categorie'] == '1') {
-        $partnersH = $this->partnerModel->getAllHotels();
-        $this->partnersView->Hotels($partnersH);
-    }
-}
 
-public function partnersCliniques()
-{
-    if(!isset($_POST['categorie']) || $_POST['categorie'] == '' || $_POST['categorie'] == '2') {
-        $partnersC = $this->partnerModel->getAllCliniques();
-        $this->partnersView->Cliniques($partnersC);
-    }
-}
 
-public function partnersEcoles()
-{
-    if(!isset($_POST['categorie']) || $_POST['categorie'] == '' || $_POST['categorie'] == '3') {
-        $partnersE = $this->partnerModel->getAllEcoles();
-        $this->partnersView->Ecoles($partnersE);
-    }
-}
-
-public function partnersAgencesDeVoyage()
-{
-    if(!isset($_POST['categorie']) || $_POST['categorie'] == '' || $_POST['categorie'] == '4') {
-        $partnersA = $this->partnerModel->getAllAgencesDeVoyage();
-        $this->partnersView->AgencesDeVoyages($partnersA);
-    }
-}
 }

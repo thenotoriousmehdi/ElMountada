@@ -13,33 +13,12 @@ class PartnersModel
       return $PartnerLogos;
   }
 
-    
-    public function getAllHotels()
-    {
-        $query = "SELECT * FROM partners WHERE categorie_id = 1"; 
-        return $this->query($query);
-    }
-
-    
-    public function getAllCliniques()
-    {
-        $query = "SELECT * FROM partners WHERE categorie_id = 2"; 
-        return $this->query($query);
-    }
-
- 
-    public function getAllEcoles()
-    {
-        $query = "SELECT * FROM partners WHERE categorie_id = 3"; 
-        return $this->query($query);
-    }
-
-    
-    public function getAllAgencesDeVoyage()
-    {
-        $query = "SELECT * FROM partners WHERE categorie_id = 4"; 
-        return $this->query($query);
-    }
+  public function getAllPartnersByCategory($categorieId)
+  {
+      $query = "SELECT * FROM partners WHERE categorie_id = :categorie_id"; 
+      return $this->query($query, ['categorie_id' => $categorieId]);
+  }
+  
     
 public function getAllCities()
 {
@@ -52,4 +31,35 @@ public function getPartnersByVille($ville)
     $query = "SELECT * FROM partners WHERE ville = :ville";
     return $this->query($query);
 }
+
+public function getPartnerCard($id)
+  {
+    $query =  "SELECT
+    partners.id AS partner_id,
+    partners.categorie_id,
+    categories.name AS category_name,
+    partners.description,
+    partners.ville,
+    partners.adresse,
+    partners.logo_path,
+    partners.created_at,
+    users.id AS user_id,
+    users.email,
+    users.full_name,
+    users.phone_number,
+    users.type AS user_type
+FROM
+    partners
+JOIN
+    users ON users.id = partners.id AND users.type = 'partner'
+JOIN
+    categories ON categories.id = partners.categorie_id
+WHERE
+    partners.id = :id" ;
+
+    $data = [':id' => $id];
+    $results = $this->query($query, $data);
+    return $results ? $results[0] : null;
+  }
+
 }

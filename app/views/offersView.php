@@ -13,7 +13,7 @@ use View;
             echo '<div class="flex flex-col items-end gap-4">';
 
             echo '<div class="overflow-auto w-full h-[700px]">'; 
-            echo '<table class="min-w-full bg-bg border  border-primary rounded-[15px] overflow-hidden">';
+            echo '<table class="min-w-full bg-white/80 shadow-smborder  border-primary rounded-[15px] overflow-hidden">';
             echo '<thead class="bg-text sticky top-0 z-10">';
             echo '<tr>
                     <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
