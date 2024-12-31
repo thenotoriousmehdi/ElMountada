@@ -20,9 +20,12 @@ trait View
                 
                 <div class="flex justify-center items-center flex-grow">
                     <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
+
                     <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/">Accueil</a>
         </li>
+
+        
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/content/showContent">News</a>
         </li>
@@ -54,6 +57,7 @@ trait View
     <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin Menu Items -->
+            <a href="/ElMountada/partners/showPartners" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Partenaires</a>
             <a href="/ElMountada/membership/showMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Membres</a>
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>

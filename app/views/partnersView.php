@@ -16,15 +16,15 @@ public function PartnerSection($title, $partners)
                     echo "
                     <div class='w-[300px] flex flex-col justify-center items-center bg-bg p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative'>
                         <div class='absolute top-2 right-2'>
-                            <button onclick='addToFavorites(" . htmlspecialchars($partner->id) . ")' class='p-2 bg-bg border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 '>
+                            <button onclick='addToFavorites(" . htmlspecialchars($partner->partner_id) . ")' class='p-2 bg-bg border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 '>
                                <img src='/ElMountada/public/assets/star.svg' alt='Add to Favorites' class='h-6 w-6'>
                             </button>
                         </div>
                         <img src='" . htmlspecialchars($partner->logo_path) . "' alt='Partner Logo' class='h-16  object-contain'>
-                        <h3 class='font-poppins font-bold text-lg mb-2'>" . htmlspecialchars($partner->name) . "</h3>
-                        <p class='font-openSans font-semibold'> <span class='font-bold'>Ville</span>  " . htmlspecialchars($partner->ville) . "</p>
-                        <p class='font-openSans font-semibold'><span class='font-bold'>Réduction</span> " . htmlspecialchars($partner->reduction) . "%</p>
-                        <button class='bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80' onclick='viewDetails(" . htmlspecialchars($partner->id) . ")'>Voir plus</button>
+                        <h3 class='font-poppins font-bold text-lg mb-2'>" . htmlspecialchars($partner->full_name) . "</h3>
+                        <p class='font-openSans font-semibold'> " . htmlspecialchars($partner->ville) . "</p>
+                        
+                        <button class='bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80' onclick='viewDetails(" . htmlspecialchars($partner->partner_id) . ")'>Voir plus</button>
                     </div>
                     ";
                 }
@@ -107,6 +107,92 @@ public function PartnerCard($partnerCard)
 
 <?php
 }
+
+public function Partners($partners)
+{
+    echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
+    echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>';
+
+    if (empty($partners)) {
+        echo "<p class='text-center text-lg text-gray-500'>No partners available at the moment.</p>";
+    } else {
+        echo '<div class="flex flex-col items-end gap-4">';
+        echo '<div class="overflow-auto w-full max-h-[700px]">';
+        echo '<table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">';
+        echo '<thead class="bg-text sticky top-0 z-10">';
+        echo '<tr>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom du partenaire</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Identifiant</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Email</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Adresse</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Logo</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Réductions</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships</th>
+                  <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Advantages</th>
+                  <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships </th>
+                  <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Actions</th>
+    
+              </tr>';
+        echo '</thead>';
+
+        echo '<tbody>';
+        foreach ($partners as $partner) {
+            echo "<tr class='border-t border-primary/5 hover:bg-primary/10'>";
+            
+           
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->full_name) ? htmlspecialchars($partner->full_name) : 'N/A';
+            echo "</td>";
+            
+      
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->partner_id) ? htmlspecialchars($partner->partner_id) : 'N/A';
+            echo "</td>";
+
+            
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->email) ? htmlspecialchars($partner->email) : 'N/A';
+            echo "</td>";
+
+    
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->ville) ? htmlspecialchars($partner->ville) : 'N/A';
+            echo "</td>";
+
+           
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->adresse) ? htmlspecialchars($partner->adresse) : 'N/A';
+            echo "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reductions) ? htmlspecialchars($partner->reductions) : 'N/A') . " </td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reduction_membership_type_names) ? htmlspecialchars($partner->reduction_membership_type_names) : 'N/A') . "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantages) ? htmlspecialchars($partner->advantages) : 'N/A') . "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantage_membership_type_names) ? htmlspecialchars($partner->advantage_membership_type_names) : 'N/A') . "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo "<form action='/ElMountada/partners/deletePartner' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")' >";
+            echo "<input type='hidden' name='partner_id' value='" . htmlspecialchars($partner->partner_id) . "'>";
+            echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
+            echo "</form>";
+            echo "</td>";
+        
+            
+            echo "</tr>";
+        }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
+    }
+
+    echo '</div>';
+}
+
 
 
 }

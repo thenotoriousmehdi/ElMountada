@@ -52,10 +52,52 @@ class Partners
         $view->footer();
     }
 
+    public function showPartners()
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+            header('Location: /ElMountada/auth/showLoginPage'); 
+            exit();
+        }
+
+        $this->View('partners');
+        $view = new PartnersView();
+        $sessionData = $this->getSessionData();
+        $partners = $this ->partnerModel ->getAllPartners();
+        $view->Head();
+        $view ->displaySessionMessage();
+        $view->header($sessionData);
+        $view->Partners( $partners);
+        $view->foot();
+        $view->footer();
+    }
 
 
-
-
+    public function deletePartner()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['partner_id'])) {
+                $partner_id = $_POST['partner_id']; 
+            
+                $success =  $this->partnerModel->deletePartner($partner_id);
+            
+                if ($success) {
+                    $_SESSION['status'] = "Le partenaire a été supprimé avec success";
+                    $_SESSION['status_type'] = 'success';
+                    header('Location: /ElMountada/partners/showPartners');
+                    exit();
+                } else {
+                    $_SESSION['status'] = "La suppression a échoué";
+                    $_SESSION['status_type'] = 'error';
+                    header('Location: /ElMountada/partners/showPartners');
+                    exit();
+                }
+            }
+        }
+    }
 
 
 
