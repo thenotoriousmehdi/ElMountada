@@ -118,7 +118,30 @@ public function filterPartners()
     
     }
 }
+ 
 
+public function showAddPartner(){
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        header('Location: /ElMountada/auth/showLoginPage'); 
+        exit();
+    }
+
+    $this->View('partners');
+    $view = new PartnersView();
+    $sessionData = $this->getSessionData();
+    $partners = $this ->partnerModel ->getAllPartners();
+    $view->Head();
+    $view ->displaySessionMessage();
+    $view->header($sessionData);
+    $view->addPartner();
+    $view->foot();
+    $view->footer();
+
+}
 
 
 }

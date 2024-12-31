@@ -112,6 +112,11 @@ public function Partners($partners)
 {
     echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
     echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>';
+    echo '<div class="flex justify-end mb-4">';
+    echo '<a href="/ElMountada/partners/showAddPartner">';
+    echo '<button class=" inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter un partenaire</button>';
+    echo '</a>';
+    echo '</div>';
 
     if (empty($partners)) {
         echo "<p class='text-center text-lg text-gray-500'>No partners available at the moment.</p>";
@@ -193,10 +198,113 @@ public function Partners($partners)
     echo '</div>';
 }
 
+public function addPartner()
+{
+
+?>
+
+<div class="flex flex-col justify-start gap-2 mb-8">
+            <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter un partenaire</h2>
+            <div class="flex flex-col gap-4 bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
+                <form action="/ElMountada/partners/handleAddPartner" method="POST" enctype="multipart/form-data" class="space-y-4">
 
 
+                    <div class="flex items-center justify-between gap-4 w-full">         
+                    <div class="w-full">
+                        <label for="email" class="text-[16px] font-poppins font-medium text-text">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Adresse email"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+
+                    <div class="w-full">
+                        <label for="name" class="text-[16px] font-poppins font-medium text-text">Nom</label>
+                        <input type="text" id="name" name="name" required placeholder="Nom"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+                    </div>      
+
+
+                    <div class="flex items-center justify-between gap-4 w-full">  
+                    <div class="w-full">
+                        <label for="phone_number" class="text-[16px] font-poppins font-medium text-text">Numéro de téléphone</label>
+                        <input type="tel" id="phone_number" name="phone_number" required placeholder="Numéro de téléphone"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+
+                    <div>
+                        <label for="logo" class="text-[16px] font-poppins font-medium text-text">Logo</label>
+                        <input type="file" id="logo" name="logo" accept="image/png, image/jpeg, image/jpg"
+                        class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-2 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+                    </div>
+
+                    </div> 
+
+                    
+                    <div class="flex items-center justify-between gap-4 w-full">         
+                    <div class="w-full">
+                        <label for="password" class="text-[16px] font-poppins font-medium text-text">Mot de passe</label>
+                        <input type="password" id="password" name="password" required placeholder="Mot de passe "
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+
+                    <div class="w-full">
+                        <label for="confirmed_password" class="text-[16px] font-poppins font-medium text-text">Confirmer le mot de passe</label>
+                        <input type="password" id="confirmed_password" name="confirmed_password" required placeholder="Confirmer le mot de passe"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+                    </div> 
+
+
+                    <div>
+                        <label for="partner_categorie" class="text-[16px] font-poppins font-medium text-text">Catégorie</label>
+                        <select id="partner_categorie" name="partner_categorie" required
+                            class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+                            <option value="">Sélectionner une categorie</option>
+                            <option value="1">Hotel</option>
+                            <option value="2">Clinique</option>
+                            <option value="3">Ecole</option>
+                            <option value="4">AgenceDeVoyage</option>
+                          
+                        </select>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-4 w-full">         
+                    <div class="w-full">
+                        <label for="ville" class="text-[16px] font-poppins font-medium text-text">Ville</label>
+                        <input type="text" id="ville" name="ville" required placeholder="Ville"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+
+                    <div class="w-full">
+                        <label for="adresse" class="text-[16px] font-poppins font-medium text-text">Adresse</label>
+                        <input type="text" id="adresse" name="adresse" required placeholder="Adresse"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                    </div>
+                    </div> 
+
+                    <div>
+                        <label for="description" class="text-[16px] font-poppins font-medium text-text">Description</label>
+                        <textarea id="description" name="description" required placeholder="Décrivez votre demande"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]"></textarea>
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
+                            Ajouter
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+<?php
 }
 
 
 
+
+
+
+}
 ?>
