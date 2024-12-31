@@ -118,26 +118,30 @@ class Content {
 
 
      private function handleImageUpload($file) {
-   $uploadDir = './public/uploads/';
-         if (!is_dir($uploadDir)) {
-             mkdir($uploadDir, 0777, true);
+        
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/';
+    
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
-
-         $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
-         if (!in_array($fileExtension, $allowedExtensions)) {
-             throw new Exception('Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.');
-         }
-
-         $fileName = uniqid() . '.' . $fileExtension;
-         $filePath = $uploadDir . $fileName;
-
+    
+        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            throw new Exception('Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.');
+        }
+    
+        $fileName = uniqid() . '.' . $fileExtension;
+        $filePath = $uploadDir . $fileName;
+    
+    
         if (!move_uploaded_file($file['tmp_name'], $filePath)) {
-             throw new Exception('Failed to upload image');
-         }
-
-         return $filePath;
-     }
+            throw new Exception('Failed to upload image');
+        }
+    
+        return '/ElMountada/public/uploads/' . $fileName;
+    }
+    
 }
 ?>
