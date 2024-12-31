@@ -191,7 +191,21 @@ class Membership
         } else {
             return ['success' => false, 'message' => 'Failed to update status'];
         }
-      
     }
+
+    public function refuseMembership($id) {
+        $success=$this->membershipModel->updateMembershipRefused($id);
+        if ($success) {
+            $_SESSION['status'] = "Membre refusé";
+            $_SESSION['status_type'] = 'success';
+            header('Location: /ElMountada/membership/showMembers/');
+        } else {
+            return ['success' => false, 'message' => 'Failed to update status'];
+        }
+    }
+
+
+
+
 
 }

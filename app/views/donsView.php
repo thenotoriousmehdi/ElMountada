@@ -305,7 +305,7 @@ class DonsView
                                 <div class="flex flex-col justify-between md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md ">
                                     <h3 class="text-lg  font-semibold  text-text text-center"><?= htmlspecialchars($don->name); ?></h3>
                                     <p class="text-center   text-principale "> <?= htmlspecialchars($don->aid_type); ?></p>
-                                    <p class="text-center   text-principale "> <?= htmlspecialchars($don->donation_category_id); ?></p>
+                                    <p class="text-center   text-principale "> <?= htmlspecialchars($don->donation_category_id ?? 'N/A'); ?> </p>
                                     <a href="<?= htmlspecialchars($don->document); ?>"
                                         class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
                                         download="<?= htmlspecialchars($don->document); ?>">

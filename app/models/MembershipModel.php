@@ -37,25 +37,22 @@ WHERE
   }
 
   public function insertMembershipRequest($data) {
-    // Query to insert membership request
     $query = "INSERT INTO members (user_id, membership_type_id, photo, idpiece, recu, status, membership_date)
               VALUES (:user_id, :membership_type_id, :photo, :idpiece, :recu, 'pending', NOW())";
-
-    // Prepared data for binding to the query
     $params = [
         ':user_id' => $data['userId'],
         ':membership_type_id' => $data['membershipTypeId'],
         ':photo' => $data['photo'],
-        ':idpiece' => $data['identity'],  // Updated to 'identity' field
-        ':recu' => $data['receipt'],      // Updated to 'receipt' field
+        ':idpiece' => $data['identity'],  
+        ':recu' => $data['receipt'],      
     ];
 
-    // Use the query method to execute the insert
+  
     try {
         $result = $this->query($query, $params);
         return $result;
     } catch (PDOException $e) {
-        // Handle any errors from the database query
+
         error_log("Error inserting membership request: " . $e->getMessage());
         return false;
     }
@@ -130,6 +127,13 @@ WHERE m.status= 'pending'
     $this->query($query, $data);
     $query = "UPDATE members SET status = 'active' WHERE user_id = :id";
     $this->query($query, $data);
+}
+
+
+public function updateMembershipRefused($id) {
+  $query = "UPDATE members SET status = 'refused' WHERE user_id = :id";
+  $data = ['id' => $id];
+  $this->query($query, $data);
 }
 
 }

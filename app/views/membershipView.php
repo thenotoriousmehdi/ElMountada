@@ -221,7 +221,7 @@ class MembershipView
                 <div class="flex items-center gap-2">
                   <a class="bg-bg border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px]"
                     href="javascript:void(0);"
-                    onclick="confirmRefuseDonation(<?= htmlspecialchars($request->user_id) ?>)">
+                    onclick="confirmRefuseMembership(<?= htmlspecialchars($request->user_id) ?>)">
                     <img src="<?= ROOTIMG ?>cross.svg" alt="refuser" class="size-5" />
                   </a>
                   <a class="bg-[#0c9621] bg-opacity-50 hover:bg-[#0c9621] hover:bg-opacity-40 p-4 rounded-[10px]"
@@ -240,10 +240,10 @@ class MembershipView
     </div>
 
     <script>
-      function confirmRefuseDonation(user_id) {
+      function confirmRefuseMembership(user_id) {
         const isConfirmed = confirm("Etes vous sur de vouloir refuser cet abonnement");
         if (isConfirmed) {
-          window.location.href = '/ElMountada/dons/refuseMembership/?id=' + user_id;
+          window.location.href = '/ElMountada/membership/refuseMembership/?id=' + user_id;
         }
       }
 
