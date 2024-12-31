@@ -72,70 +72,126 @@ class Membership
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
         $members = $this ->membershipModel->getMembershipDetails();
+        $membersRequest = $this ->membershipModel->getMembershipRequests();
         $view->Head();
+        $view ->displaySessionMessage();
         $view->header($sessionData);
         $view->displayMembers($members);
+        $view->MembershipRequests($membersRequest);
         $view->foot();
         $view->footer();
     }
 
 
-
-
-
-
-
-
-    public function handleMembershipRequest($id)
-    {
+    public function handleMembershipRequest() {
        
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $uploadDir = './public/uploads/';
-            
-            $photos = $this->handleFileUpload($_FILES['photo'], $uploadDir);
-            $identity = $this->handleFileUpload($_FILES['identity'], $uploadDir);
-            $receipt = $this->handleFileUpload($_FILES['receipt'], $uploadDir);
-            
-            if ($photos && $identity && $receipt) {
-                $membershipData = [
-                    'user_id' => $_SESSION['user_id'],
-                    'status' => 'inactive',
-                    'idpiece' => $identity,
-                    'recu' => $receipt,
-                    'secteurRemise' => 'default',
-                    'membership_date' => date('Y-m-d'),
-                    'billing_date' => date('Y-m-d'),
-                    'QrCode' => uniqid('QR_'),
-                    'membership_type_id' => 1
-                ];
+            try {
                 
-                if ($this->membershipModel->MembershipRequest($membershipData)) {
-                    $_SESSION['success'] = "Votre demande d'adhésion a été envoyée avec succès";
-                    header('Location: /dashboard');
-                    exit;
+                if (empty($_POST['membership_type_id'])) {
+                    throw new Exception("Le type d'abonnement est requis.");
                 }
-            }
-            
-            $_SESSION['error'] = "Erreur lors de l'envoi des fichiers";
-            header('Location: ' . $_SERVER['HTTP_REFERER']);
-        }
-    }
-
-    private function handleFileUpload($file, $directory) {
-        if ($file['error'] !== UPLOAD_ERR_OK) {
-            return false;
-        }
-        
-        $filename = uniqid() . '_' . basename($file['name']);
-        $path = $directory . $filename;
-        
-        return move_uploaded_file($file['tmp_name'], $path) ? $path : false;
-    }
-
-
-
-
-
-
     
+                $data = [
+                    'userId' => $_SESSION['user_id'] ?? null,
+                    'membershipTypeId' => $_POST['membership_type_id'],
+                    'photo' => null,
+                    'identity' => null,
+                    'receipt' => null
+                ];
+
+                $targetDir = './public/uploads/';
+                if (!file_exists($targetDir)) {
+                    mkdir($targetDir, 0755, true);
+                }
+    
+                $files = ['photo', 'identity', 'receipt'];
+                foreach ($files as $file) {
+                    if (!empty($_FILES[$file]['name']) && $_FILES[$file]['error'] === UPLOAD_ERR_OK) {
+                        $targetFile = $targetDir . basename($_FILES[$file]['name']);
+                        if (move_uploaded_file($_FILES[$file]['tmp_name'], $targetFile)) {
+                            $data[$file] = $targetFile; 
+                        } else {
+                            $_SESSION['status'] = "Erreur lors du téléchargement du fichier $file.";
+                            $_SESSION['status_type'] = 'error';
+                            header('Location: /ElMountada/');
+                            exit;
+                        }
+                    }
+                }
+
+                $success = $this->membershipModel->insertMembershipRequest($data);
+            
+                if ($success) {
+                    $_SESSION['status'] = "Votre demande d'abonnement a été envoyée et est en attente de confirmation.";
+                    $_SESSION['status_type'] = 'success';
+                    header('Location: /ElMountada/');
+                    exit();
+                } else {
+                    $_SESSION['status'] = "L'ajout de votre demande d'abonnement a échoué.";
+                    $_SESSION['status_type'] = 'error';
+                    header('Location: /ElMountada/');
+                    exit();
+                }
+    
+            } catch (Exception $e) {
+                $_SESSION['status'] = "Erreur: " . $e->getMessage();
+                $_SESSION['status_type'] = 'error';
+                header('Location: /ElMountada/membership/showMembershipForm');
+                exit();
+            }
+        }
+    }
+    
+    
+
+
+    private function handleImageUpload($file) {
+
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/';
+    
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+    
+        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'pdf'];
+    
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            throw new Exception('Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.');
+        }
+    
+        $fileName = uniqid() . '.' . $fileExtension;
+        $filePath = $uploadDir . $fileName;
+    
+    
+        if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+            throw new Exception('Failed to upload image');
+        }
+    
+        return '/ElMountada/public/uploads/' . $fileName;
+    }
+
+
+
+
+
+
+
+    public function acceptMembership($id) {
+        $success=$this->membershipModel->updateMembershipAccepted($id);
+        if ($success) {
+            $_SESSION['status'] = "Membre accepté";
+            $_SESSION['status_type'] = 'success';
+            header('Location: /ElMountada/membership/showMembers/');
+        } else {
+            return ['success' => false, 'message' => 'Failed to update status'];
+        }
+      
+    }
+
 }

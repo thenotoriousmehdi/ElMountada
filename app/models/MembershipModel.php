@@ -36,26 +36,35 @@ WHERE
     return $results ? $results[0] : null;
   }
 
-  public function MembershipRequest($data)
-  {
-    $query = " INSERT INTO members 
-      (user_id, status, idpiece, recu, secteurRemise, membership_date, billing_date, QrCode, membership_type_id) 
-      VALUES 
-      (:user_id, :status, :idpiece, :recu, :secteurRemise, :membership_date, :billing_date, :QrCode, :membership_type_id)
-  ";
+  public function insertMembershipRequest($data) {
+    // Query to insert membership request
+    $query = "INSERT INTO members (user_id, membership_type_id, photo, idpiece, recu, status, membership_date)
+              VALUES (:user_id, :membership_type_id, :photo, :idpiece, :recu, 'pending', NOW())";
 
-    return $this->query($query, [
-      ':user_id' => $data['user_id'],
-      ':status' => $data['status'],
-      ':idpiece' => $data['idpiece'],
-      ':recu' => $data['recu'],
-      ':secteurRemise' => $data['secteurRemise'],
-      ':membership_date' => $data['membership_date'],
-      ':billing_date' => $data['billing_date'],
-      ':QrCode' => $data['QrCode'],
-      ':membership_type_id' => $data['membership_type_id'],
-    ]);
-  }
+    // Prepared data for binding to the query
+    $params = [
+        ':user_id' => $data['userId'],
+        ':membership_type_id' => $data['membershipTypeId'],
+        ':photo' => $data['photo'],
+        ':idpiece' => $data['identity'],  // Updated to 'identity' field
+        ':recu' => $data['receipt'],      // Updated to 'receipt' field
+    ];
+
+    // Use the query method to execute the insert
+    try {
+        $result = $this->query($query, $params);
+        return $result;
+    } catch (PDOException $e) {
+        // Handle any errors from the database query
+        error_log("Error inserting membership request: " . $e->getMessage());
+        return false;
+    }
+}
+
+
+
+
+
 
   public function getMembershipDetails()
   {
@@ -65,6 +74,7 @@ WHERE
     u.full_name, 
     u.email, 
     u.phone_number,  
+    m.photo, 
     m.status, 
     m.idpiece, 
     m.recu, 
@@ -85,4 +95,41 @@ WHERE u.type = 'member'
     $result = $this->query($query);
     return !empty($result) ? $result : false;
   }
+
+
+  public function getMembershipRequests()
+  {
+    
+    $query = "SELECT 
+    u.id AS user_id, 
+    u.full_name, 
+    u.email, 
+    u.phone_number,
+    m.photo,   
+    m.status, 
+    m.idpiece, 
+    m.recu, 
+    m.secteurRemise, 
+    m.membership_date, 
+    m.billing_date, 
+    m.QrCode, 
+    m.membership_type_id,
+    mt.name AS membership_name 
+FROM users u
+LEFT JOIN members m ON u.id = m.user_id
+LEFT JOIN membership_types mt ON m.membership_type_id = mt.id 
+WHERE m.status= 'pending'
+        ";
+    $result = $this->query($query);
+    return !empty($result) ? $result : false;
+  }
+
+  public function updateMembershipAccepted($id) {
+    $query = "UPDATE users SET type = 'member' WHERE id = :id";
+    $data = ['id' => $id];
+    $this->query($query, $data);
+    $query = "UPDATE members SET status = 'active' WHERE user_id = :id";
+    $this->query($query, $data);
+}
+
 }

@@ -78,6 +78,8 @@ class DonsModel {
         return $this->query($query, $data);  
     }
 
+
+
     public function getMesdons($user_id) {
         $query = "SELECT 
         d.id,
@@ -162,10 +164,6 @@ LEFT JOIN
 
         return $this->query($query, $params);
     }
-
-
-
-
 
 
 }
