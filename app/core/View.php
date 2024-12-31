@@ -52,11 +52,11 @@ trait View
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin Menu Items -->
             <a href="/admin/dashboard" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Admin Dashboard</a>
-            <a href="/admin/users" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Manage Users</a>
+            <a href="/ElMountada/membership/showMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Membres</a>
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member Menu Items -->
-            <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes dons</a>
+            <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
             <a href="/ElMountada/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
@@ -71,9 +71,7 @@ trait View
     
 <?php endif; ?>
 
-
             </div>
-
             <div class="social-media flex items-center space-x-4">
                 <a href="https://facebook.com" target="_blank">
                     <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
@@ -170,21 +168,25 @@ trait View
 
     function displaySessionMessage() {
         if (isset($_SESSION['status'])) {
+            $statusType = $_SESSION['status_type'] ?? 'success'; 
+            $bgColor = $statusType === 'error' ? 'bg-red-500' : 'bg-green-500';
             ?>
-            <div id="sessionAlert" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-500 ease-in-out z-50">
+            <div id="sessionAlert" class="fixed top-5 left-1/2 transform -translate-x-1/2 <?= $bgColor; ?> text-white py-2 px-4 rounded-lg shadow-lg opacity-0 transition-opacity duration-500 ease-in-out z-50">
                 <?= htmlspecialchars($_SESSION['status']); ?>
             </div>
             <script>
                 const alertBox = document.getElementById("sessionAlert");
-                alertBox.classList.add("opacity-100"); 
+                alertBox.classList.add("opacity-100");
                 setTimeout(function() {
-                    alertBox.classList.remove("opacity-100"); 
-                }, 3000); 
+                    alertBox.classList.remove("opacity-100");
+                }, 3000);
             </script>
             <?php
             unset($_SESSION['status']);
+            unset($_SESSION['status_type']);
         }
     }
+    
     
 
 

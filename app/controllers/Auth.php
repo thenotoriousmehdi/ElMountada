@@ -14,6 +14,7 @@ class Auth {
         $this->View('auth');
         $view = new AuthView();
         $view->Head();
+        $view ->displaySessionMessage();
         $view->login();
         $view->foot();
     }
@@ -21,6 +22,7 @@ class Auth {
         $this->View('auth');
         $view = new AuthView();
         $view->Head();
+        $view ->displaySessionMessage();
         $view->signup();
         $view->foot();
     }
@@ -38,7 +40,8 @@ class Auth {
                 header("Location: /ElMountada/");
                 exit();
             } else {
-                echo "<p>Invalid email or password.</p>";
+                $_SESSION['status'] = "Mot de passe ou email incorrect";
+                header("Location: /ElMountada/auth/showLoginPage");
             }
         }
     }

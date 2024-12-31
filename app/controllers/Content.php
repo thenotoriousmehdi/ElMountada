@@ -85,10 +85,13 @@ class Content {
 
              if ($result) {
                 $_SESSION['status'] = "Contenu ajouter avec success";
+                $_SESSION['status_type'] = 'sucess';
                  header('Location: /ElMountada/accueil/showAccueil');
                  exit;
              } else {
-                throw new Exception('Failed to create entry');
+                $_SESSION['status'] = "L'ajout de Contenu a échoué";
+                $_SESSION['status_type'] = 'error';
+                 header('Location: /ElMountada/accueil/showAccueil');
             }
 
          } catch (Exception $e) {
@@ -118,7 +121,7 @@ class Content {
 
 
      private function handleImageUpload($file) {
-        
+
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/';
     
         if (!is_dir($uploadDir)) {

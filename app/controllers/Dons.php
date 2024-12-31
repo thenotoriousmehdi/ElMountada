@@ -21,6 +21,7 @@ class Dons {
         $donationsDone = $this -> donsModel -> getDonationsDone();
         $sessionData = $this->getSessionData();
         $view->Head();
+        $view ->displaySessionMessage();
         $view->header($sessionData);
         $view->Dons($categoryCounts, $sessionData,  $donationsRequests, $donations, $donationsDone );
         $view->foot();
@@ -54,6 +55,7 @@ class Dons {
             $sessionData = $this->getSessionData();
             $view->Head();
             $view->header($sessionData);
+            $view ->displaySessionMessage();
             $view->faireUnDon();
             $view->foot();
             $view->footer();
@@ -67,6 +69,7 @@ class Dons {
                 $view = new donsView();
                 $sessionData = $this->getSessionData();
                 $view->Head();
+                $view ->displaySessionMessage();
                 $view->header($sessionData);
                 $view->demanderUnDon();
                 $view->foot();
@@ -113,6 +116,7 @@ class Dons {
                         $success = $this->donsModel->addDonation($data);
                         
                         if ($success) {
+                            $_SESSION['status'] = "Donation enregistrée, elle apparaitera dans votre historique dès qu'un admin la confiermera ";
                             header('Location: /ElMountada/dons/showDonsPage/');
                             exit();
                         } else {
@@ -162,6 +166,7 @@ class Dons {
                 $success = $this->donsModel->addDonationRequest($user_id, $name, $dob, $aid_type,  $description, $document);
                 var_dump($success);
                 if ($success) {
+                    $_SESSION['status'] = "Votre demande de dons a été enregistrée avec success";
                     header('Location: /ElMountada/dons/showDonsPage/');
                     exit();
                 } else {
@@ -177,6 +182,8 @@ class Dons {
     public function acceptDonation($id) {
         $success=$this->donsModel->updateDonationsDoneAccepted($id);
         if ($success) {
+            $_SESSION['status'] = "Donation accéptée";
+            $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
         } else {
             return ['success' => false, 'message' => 'Failed to update status'];
@@ -186,6 +193,8 @@ class Dons {
     public function RefuseDonation($id) {
         $success=$this->donsModel->updateDonationsDoneRefused($id);
         if ($success) {
+            $_SESSION['status'] = "Donation refusée";
+            $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
         } else {
             echo  "Une erreur s'est produite ";
@@ -196,6 +205,8 @@ class Dons {
     public function RefuseRequest($id) {
         $success=$this->donsModel->updateDonationsRequestRefused($id);
         if ($success) {
+            $_SESSION['status'] = "Demande de donation refusée";
+            $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
         } else {
             echo  "Une erreur s'est produite ";
@@ -206,6 +217,8 @@ class Dons {
     public function AcceptRequest($id) {
         $success=$this->donsModel->updateDonationsRequestAccepted($id);
         if ($success) {
+            $_SESSION['status'] = "Demande de donation accéptée";
+            $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
         } else {
             echo  "Une erreur s'est produite ";

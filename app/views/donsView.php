@@ -57,8 +57,8 @@ class DonsView
                     <!-- Document -->
                     <div>
                         <label for="document" class="text-[16px] font-poppins font-medium text-text">Document justificatif</label>
-                        <input type="file" id="document" name="document" accept="application/pdf"
-                            class="mt-1 w-full text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+                        <input type="file" id="document" name="document" accept="application/zip"
+                        class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
                     </div>
 
                     <!-- Submit Button -->
@@ -134,7 +134,7 @@ class DonsView
                     <div>
                         <label for="recu" class="text-[16px] font-poppins font-medium text-text">Reçu de donation</label>
                         <input type="file" id="recu" name="recu" accept="application/pdf"
-                            class="mt-1 w-full text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+                        class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
                     </div>
 
 
