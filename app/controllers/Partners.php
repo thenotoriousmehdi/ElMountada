@@ -4,6 +4,7 @@
 class Partners
 {
    use Controller;
+   use Database;
     private $partnerModel;
     private $partnersView;
     public function __construct()
@@ -142,6 +143,119 @@ public function showAddPartner(){
     $view->footer();
 
 }
+
+public function handleAddPartner() {
+    // Start session if it's not already started
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            // Validate required fields
+            if (empty($_POST['email']) || empty($_POST['name']) || empty($_POST['phone_number']) || empty($_POST['password']) || empty($_POST['partner_categorie'])) {
+                throw new Exception("Tous les champs sont requis.");
+            }
+
+            // Prepare data
+            $data = [
+                'email' => $_POST['email'],
+                'name' => $_POST['name'],
+                'phone_number' => $_POST['phone_number'],
+                'password' => $_POST['password'],
+                'partner_categorie' => $_POST['partner_categorie'],
+                'ville' => $_POST['ville'] ?? null,
+                'adresse' => $_POST['adresse'] ?? null,
+                'description' => $_POST['description'] ?? null,
+                'logo_path' => null
+            ];
+
+            // Handle file upload
+            if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+                $data['logo_path'] = $this->handleImageUpload($_FILES['logo']);
+            }
+
+            // Insert into users table
+            $userQuery = "INSERT INTO users (email, full_name, phone_number, password, type, is_member) 
+                          VALUES (:email, :name, :phone, :password, 'partner', 0)";
+
+            $userData = [
+                ':email' => $data['email'],
+                ':name' => $data['name'],
+                ':phone' => $data['phone_number'],
+                ':password' => password_hash($data['password'], PASSWORD_DEFAULT)
+            ];
+
+            $userInsert = $this->query($userQuery, $userData);
+
+            if ($userInsert) {
+                // Get the last inserted user ID
+                $conn = $this->connectDb();
+                $userId = $conn->lastInsertId();
+                $this->disconnectDb($conn);
+
+                // Insert into partners table
+                $partnerQuery = "INSERT INTO partners (id, categorie_id, description, ville, adresse, logo_path) 
+                                 VALUES (:id, :categorie_id, :description, :ville, :adresse, :logo_path)";
+
+                $partnerData = [
+                    ':id' => $userId, 
+                    ':categorie_id' => $data['partner_categorie'],
+                    ':description' => $data['description'],
+                    ':ville' => $data['ville'],
+                    ':adresse' => $data['adresse'],
+                    ':logo_path' => $data['logo_path']
+                ];
+
+                $partnerInsert = $this->query($partnerQuery, $partnerData);
+
+                if ($partnerInsert) {
+                    $_SESSION['status'] = "Partenaire ajouté avec succès!";
+                    $_SESSION['status_type'] = 'success';
+                    header('Location: /ElMountada/');
+                    exit();
+                } else {
+                    $_SESSION['status'] = "Échec de l'ajout du partenaire.";
+                    $_SESSION['status_type'] = 'error';
+                    header('Location: /ElMountada/');
+                    exit();
+                }
+            }
+
+        } catch (Exception $e) {
+            $_SESSION['status'] = "Erreur: " . $e->getMessage();
+            $_SESSION['status_type'] = 'error';
+            header('Location: /ElMountada/');
+            exit();
+        }
+    }
+}
+
+// File upload handler
+private function handleImageUpload($file) {
+    $uploadDir = './public/uploads/partners/';
+
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+    if (!in_array($fileExtension, $allowedExtensions)) {
+        throw new Exception('Invalid logo type. Only JPG, JPEG, PNG, GIF are allowed.');
+    }
+
+    $fileName = uniqid() . '.' . $fileExtension;
+    $filePath = $uploadDir . $fileName;
+
+    if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+        throw new Exception('Failed to upload logo image.');
+    }
+
+    return '/ElMountada/public/uploads/partners/' . $fileName;
+}
+
 
 
 }

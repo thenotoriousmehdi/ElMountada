@@ -1,0 +1,94 @@
+Form submitted
+POST data: Array
+(
+    [email] => mell3@gmail.com
+    [name] => njwvv
+    [phone_number] => 0560987634
+    [password] => mehdi123
+    [confirmed_password] => mehdi123
+    [partner_categorie] => 3
+    [ville] => cdwc
+    [adresse] => dvcdwsvc
+    [description] => dwvfevwfev
+)
+
+Logo uploaded to: public/uploads/partners/6775b816ad5cd_0x1900-000000-80-0-0.jpg
+Data prepared: Array
+(
+    [email] => mell3@gmail.com
+    [name] => njwvv
+    [phone_number] => 0560987634
+    [password] => mehdi123
+    [partner_categorie] => 3
+    [ville] => cdwc
+    [adresse] => dvcdwsvc
+    [description] => dwvfevwfev
+    [logo_path] => public/uploads/partners/6775b816ad5cd_0x1900-000000-80-0-0.jpg
+)
+
+Add partner result: failed
+Deleted uploaded file due to failure
+Form submitted
+POST data: Array
+(
+    [email] => mell4@gmail.com
+    [name] => mehdii
+    [phone_number] => 0560983425
+    [password] => mehdi123
+    [confirmed_password] => mehdi123
+    [partner_categorie] => 2
+    [ville] => cdwfcw
+    [adresse] => cdwacwf
+    [description] => cfwcaecfefe
+)
+
+Logo uploaded to: public/uploads/partners/6775b8eab025d_0x1900-000000-80-0-0.jpg
+Data prepared: Array
+(
+    [email] => mell4@gmail.com
+    [name] => mehdii
+    [phone_number] => 0560983425
+    [password] => mehdi123
+    [partner_categorie] => 2
+    [ville] => cdwfcw
+    [adresse] => cdwacwf
+    [description] => cfwcaecfefe
+    [logo_path] => public/uploads/partners/6775b8eab025d_0x1900-000000-80-0-0.jpg
+)
+
+Add partner result: failed
+Deleted uploaded file due to failure
+Form submission detected
+Logo uploaded successfully to: public/uploads/partners/6775ba132d427_0x1900-000000-80-0-0.jpg
+Prepared data: Array
+(
+    [email] => mell5@gmail.com
+    [name] => efdve
+    [phone_number] => 0560986723
+    [password] => mehdi123
+    [partner_categorie] => 2
+    [ville] => wdvwds
+    [adresse] => fevvfev
+    [description] => fevefvfee
+    [logo_path] => public/uploads/partners/6775ba132d427_0x1900-000000-80-0-0.jpg
+)
+
+Deleted uploaded logo due to failure
+Failed to add partner
+Form submission detected
+Logo uploaded successfully to: public/uploads/partners/6775bad8784de_0x1900-000000-80-0-0.jpg
+Prepared data: Array
+(
+    [email] => vsv@gmail.com
+    [name] => wfwvfe
+    [phone_number] => 070987623
+    [password] => mehdi123
+    [partner_categorie] => 2
+    [ville] => vfevef
+    [adresse] => vefvef
+    [description] => vfveijadhfejnv
+    [logo_path] => public/uploads/partners/6775bad8784de_0x1900-000000-80-0-0.jpg
+)
+
+Deleted uploaded logo due to failure
+Failed to add partner

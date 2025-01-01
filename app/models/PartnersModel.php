@@ -13,6 +13,48 @@ class PartnersModel
       return $PartnerLogos;
   }
 
+  public function addPartner($data) {
+    // Insert into users table
+    $userQuery = "INSERT INTO users (email, full_name, phone_number, password, type, is_member) 
+                  VALUES (:email, :name, :phone, :password, 'partner', 0)";
+    
+    $userData = [
+        ':email' => $data['email'],
+        ':name' => $data['name'],
+        ':phone' => $data['phone_number'],
+        ':password' => password_hash($data['password'], PASSWORD_DEFAULT)
+    ];
+
+    $userInsert = $this->query($userQuery, $userData);
+    
+    if ($userInsert) {
+        // Get the last inserted ID
+        $conn = $this->connectDb();
+        $userId = $conn->lastInsertId(); // Get the ID of the inserted user
+        $this->disconnectDb($conn);
+
+        // Insert into partners table
+        $partnerQuery = "INSERT INTO partners (id, categorie_id, description, ville, adresse, logo_path) 
+                         VALUES (:id, :categorie_id, :description, :ville, :adresse, :logo_path)";
+        
+        $partnerData = [
+            ':id' => $userId, // Use the same ID from the users table
+            ':categorie_id' => $data['partner_categorie'],
+            ':description' => $data['description'] ?? null,
+            ':ville' => $data['ville'] ?? null,
+            ':adresse' => $data['adresse'] ?? null,
+            ':logo_path' => $data['logo_path'] ?? null
+        ];
+
+        $partnerInsert = $this->query($partnerQuery, $partnerData);
+
+        return $partnerInsert; // Return the result of the partner insertion
+    }
+
+    return false; // Return false if user insertion failed
+}
+
+
   public function getAllPartnersByCategory($categorieId)
   {
       $query = "SELECT 
