@@ -23,7 +23,7 @@ class Partners
         $sessionData = $this->getSessionData();
         $view->Head();
         $view ->displaySessionMessage();
-        $view->header($sessionData);  
+        $view->header($sessionData); 
         $partnersH = $this->partnerModel->getAllPartnersByCategory(1);  
         $partnersC = $this->partnerModel->getAllPartnersByCategory(2);  
         $partnersE = $this->partnerModel->getAllPartnersByCategory(3);  
@@ -36,6 +36,26 @@ class Partners
         $view->footer();
     }
 
+
+    public function showPartnerDetails($partnerId)
+{
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    $partner = $this->partnerModel->getPartnerDetails($partnerId);
+    if ($partner) {
+        $this->View('partners');
+        $view = new PartnersView();
+        $sessionData = $this->getSessionData();
+        $view->Head();
+        $view->header($sessionData); 
+        $view->PartnerDetails($partner);
+        $view->foot();
+        $view->footer();
+    } else {
+        echo "Partner not found.";
+    }
+}
 
     public function showPartnerCard($id)
     {
@@ -68,6 +88,7 @@ class Partners
         $view = new PartnersView();
         $sessionData = $this->getSessionData();
         $partners = $this ->partnerModel ->getAllPartners();
+       
         $view->Head();
         $view ->displaySessionMessage();
         $view->header($sessionData);
