@@ -233,7 +233,7 @@ class PartnersView
         ?>
         <div class="flex justify-center items-center"> 
         <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 m-8">
-            <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Vérifier un Membre</h1>
+            <h1 class="text-2xl font-poppins font-semibold text-center text-gray-800 mb-6">Vérifier un Membre</h1>
 
             <form method="POST" class="mb-6">
                 <label for="user_id" class="block text-sm text-gray-600">Entrez un identifiant:</label>

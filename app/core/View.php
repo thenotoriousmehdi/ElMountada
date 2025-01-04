@@ -106,14 +106,20 @@ trait View
 
                 <nav class="mb-4">
                     <ul class="flex flex-wrap justify-center gap-6 text-primary font-poppins font-medium">
-                        <li><a href="#" class="hover:underline">Accueil</a></li>
-                        <li><a href="#" class="hover:underline">News</a></li>
-                        <li><a href="#" class="hover:underline">Partenaires</a></li>
-                        <li><a href="#" class="hover:underline">Remises</a></li>
-                        <li><a href="#" class="hover:underline">Aides</a></li>
+                        <li>  <a href="/ElMountada/">Accueil</a></li>
+                        <li> <a href="/ElMountada/content/showContent">News</a></li>
+                        <li><a href="/ElMountada/partners/showCatalogue">Catalogue</a></li>
+                        <li>   <a href="/ElMountada/offers/showOffers">Offres</a></li>
+                        <li> <a href="/ElMountada/dons/showDonsPage/">Dons</a></li>
+                        <li> <a  class="underline" href="/ElMountada/contact/showContactForm">Nous Contacter</a></li>
                     </ul>
                 </nav>
 
+
+
+
+
+                
 
                 <div class="social-media flex justify-center items-center space-x-4 mb-4">
                     <a href="https://facebook.com" target="_blank">

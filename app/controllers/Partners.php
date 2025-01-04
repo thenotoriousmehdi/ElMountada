@@ -64,6 +64,11 @@ public function showCheckMembers()
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+
+    if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        header('Location: /ElMountada/auth/showLoginPage'); 
+        exit();
+    }
     $sessionData = $this->getSessionData();
     $this->View('partners');
     $view = new PartnersView();
