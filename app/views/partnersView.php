@@ -201,7 +201,6 @@ class PartnersView
     {
 
     ?>
-
         <div class="cardcontainer flex flex-col gap-4 justify-center items-center w-full h-full p-24 ">
             <h2 class="font-poppins font-semibold text-text text-[24px]">Ma carte partenaire</h2>
             <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 ">
@@ -210,12 +209,12 @@ class PartnersView
 
                     <h1 class="font-poppins font-semibold text-text text-center text-[24px]">PARTENAIRE</h1>
                     <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
-                    <p class="text-center text-principale"> <strong> Identifiant # </strong> <?= htmlspecialchars($partnerCard->partner_id); ?></p>
-                    <p class="text-center text-principale"> <strong> Email</strong> <?= htmlspecialchars($partnerCard->email); ?></p>
-                    <p class="text-center text-principale"> <strong> Nom</strong> <?= htmlspecialchars($partnerCard->full_name) ?: 'null'; ?></p>
-                    <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($partnerCard->phone_number) ?: 'null'; ?></p>
-                    <p class=" text-principale"> <strong> Ville </strong><?= htmlspecialchars($partnerCard->ville); ?></p>
-                    <p class=" text-principale"> <strong> Catégorie </strong><?= htmlspecialchars($partnerCard->category_name); ?></p>
+                    <p class="text-center text-principale"> <strong> Identifiant # </strong> <?= htmlspecialchars($partnerCard->partner_id ?? 'N/A'); ?></p>
+                    <p class="text-center text-principale"> <strong> Email</strong> <?= htmlspecialchars($partnerCard->email ?? 'N/A'); ?></p>
+                    <p class="text-center text-principale"> <strong> Nom</strong> <?= htmlspecialchars($partnerCard->full_name ?? 'N/A') ?: 'null'; ?></p>
+                    <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($partnerCard->phone_number ?? 'N/A');?></p>
+                    <p class=" text-principale"> <strong> Ville </strong><?= htmlspecialchars($partnerCard->ville ?? 'N/A'); ?></p>
+                    <p class=" text-principale"> <strong> Catégorie </strong><?= htmlspecialchars($partnerCard->category_name ?? 'N/A'); ?></p>
 
                 </div>
             </div>
@@ -223,6 +222,53 @@ class PartnersView
         </div>
 
     <?php
+    }
+
+    public function CheckMembers($data = [])
+    {
+
+        $userData = isset($data['userData']) ? $data['userData'] : null;
+        $message = isset($data['message']) ? $data['message'] : '';
+
+        ?>
+        <div class="flex justify-center items-center"> 
+        <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 m-8">
+            <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Vérifier un Membre</h1>
+
+            <form method="POST" class="mb-6">
+                <label for="user_id" class="block text-sm text-gray-600">Entrez un identifiant:</label>
+                <input type="text" id="user_id" name="user_id" required
+                       class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-text" />
+                <button type="submit"
+                        class="w-full mt-4 py-2 bg-text text-white font-semibold rounded-md hover:bg-text/80 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    Rechercher
+                </button>
+            </form>
+
+            <?php if ($userData): ?>
+                <div class="flex flex-col lg:flex-row lg:justify-start justify-center items-center lg:items-center gap-4 h-auto w-full">
+
+                    <div class="flex flex-col h-full justify-center md:justify-start gap-2 items-center md:items-start w-full sm:w-1/2">
+                        <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
+                        <p class="text-center text-principale"><strong>Identifiant #</strong> <?= htmlspecialchars($userData -> user_id ?? 'N/A'); ?></p>
+                        <p class="text-center text-principale"><strong>Email</strong> <?= htmlspecialchars($userData -> email ?? 'N/A'); ?></p>
+                        <p class="text-center text-principale"><strong>Nom complet</strong> <?= htmlspecialchars($userData ->  full_name ?? 'N/A') ?: 'null'; ?></p>
+                        <p class="text-center text-principale"><strong>Téléphone</strong> <?= htmlspecialchars($userData -> phone_number ?? 'N/A') ?: 'null'; ?></p>
+                        <p class="text-principale"><strong>Plan</strong> <?= htmlspecialchars($userData -> membership_type_name ?? 'N/A'); ?></p>
+                        <p class="text-principale"><strong>Date de facturation</strong> <?= htmlspecialchars($userData -> billing_date ?? 'N/A'); ?></p>
+                    </div>
+
+                    <div class="bg-bg flex justify-center items-center p-2 rounded-[10px] h-full w-full sm:w-1/2">
+                        <img src="<?= htmlspecialchars($userData -> QrCode); ?>" alt="QR Code" class="w-full h-full rounded-md object-contain" />
+                    </div>
+
+                </div>
+            <?php elseif ($message): ?>
+                <p class="text-center text-red-500 text-lg mt-4"><?= htmlspecialchars($message); ?></p>
+            <?php endif; ?>
+        </div>
+        </div>
+        <?php
     }
 
     public function Partners($partners)
@@ -264,27 +310,27 @@ class PartnersView
 
 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->full_name) ? htmlspecialchars($partner->full_name) : 'N/A';
+                echo isset($partner->full_name) ? htmlspecialchars($partner->full_name ?? 'N/A') : 'N/A';
                 echo "</td>";
 
 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->partner_id) ? htmlspecialchars($partner->partner_id) : 'N/A';
+                echo isset($partner->partner_id) ? htmlspecialchars($partner->partner_id ?? 'N/A') : 'N/A';
                 echo "</td>";
 
 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->email) ? htmlspecialchars($partner->email) : 'N/A';
+                echo isset($partner->email) ? htmlspecialchars($partner->email ?? 'N/A') : 'N/A';
                 echo "</td>";
 
 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->ville) ? htmlspecialchars($partner->ville) : 'N/A';
+                echo isset($partner->ville) ? htmlspecialchars($partner->ville ?? 'N/A') : 'N/A';
                 echo "</td>";
 
 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->adresse) ? htmlspecialchars($partner->adresse) : 'N/A';
+                echo isset($partner->adresse) ? htmlspecialchars($partner->adresse ?? 'N/A') : 'N/A';
                 echo "</td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
                 echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';

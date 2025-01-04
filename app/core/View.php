@@ -67,6 +67,7 @@ trait View
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'partner'): ?>
+                <a href="/ElMountada/partners/showCheckMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors"> Vérifier un membre</a>
                 <a href="/ElMountada/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma Carte</a>
 
         <?php endif; ?>

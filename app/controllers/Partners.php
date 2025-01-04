@@ -6,10 +6,12 @@ class Partners
    use Controller;
    use Database;
     private $partnerModel;
+    private $membershipModel;
     private $partnersView;
     public function __construct()
     {
         $this->partnerModel = new PartnersModel(); 
+        $this-> membershipModel = new MembershipModel();
     }
 
   
@@ -55,6 +57,29 @@ class Partners
     } else {
         echo "Partner not found.";
     }
+}
+
+public function showCheckMembers()
+{
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    $sessionData = $this->getSessionData();
+    $this->View('partners');
+    $view = new PartnersView();
+    $view->Head();
+    $view->header($sessionData);
+    $userData = null;
+    $message = '';
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
+        $userData = $this->membershipModel->getMembershipCard($_POST['user_id']);
+        if (!$userData) {
+            $message = 'Aucun membre trouvé avec cet identifiant';
+        }
+    }
+    $view->CheckMembers(['userData' => $userData, 'message' => $message]);
+    $view->footer();
+    $view->foot();
 }
 
     public function showPartnerCard($id)
@@ -122,7 +147,6 @@ class Partners
     }
 
 
-
 public function filterPartners()
 {
     $cities = $this->partnerModel->getAllCities();
@@ -140,7 +164,6 @@ public function filterPartners()
     
     }
 }
- 
 
 public function showAddPartner(){
     if (session_status() == PHP_SESSION_NONE) {
