@@ -60,6 +60,7 @@ trait View
             <a href="/ElMountada/partners/showPartners" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Partenaires</a>
             <a href="/ElMountada/membership/showMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Membres</a>
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
+            <a href="/ElMountada/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member Menu Items -->
             <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
@@ -109,9 +110,11 @@ trait View
                         <li>  <a href="/ElMountada/">Accueil</a></li>
                         <li> <a href="/ElMountada/content/showContent">News</a></li>
                         <li><a href="/ElMountada/partners/showCatalogue">Catalogue</a></li>
-                        <li>   <a href="/ElMountada/offers/showOffers">Offres</a></li>
+                        <li><a href="/ElMountada/offers/showOffers">Offres</a></li>
                         <li> <a href="/ElMountada/dons/showDonsPage/">Dons</a></li>
+                        
                         <li> <a  class="underline" href="/ElMountada/contact/showContactForm">Nous Contacter</a></li>
+                        
                     </ul>
                 </nav>
 

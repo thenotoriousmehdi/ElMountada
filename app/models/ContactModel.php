@@ -11,6 +11,21 @@ class ContactModel {
       return $this->query($query, $data); 
   }
 
+
+  public function getMessages()
+  {
+      $query = "SELECT 
+            contact.*,
+            users.full_name AS partner_name
+        FROM 
+            contact
+        LEFT JOIN 
+            users
+        ON 
+            contact.partner_id = users.id";
+      return $this->query($query); 
+  }
+
   public function saveContactMessage($type, $message, $partnerId = null)
   {
       $query = "INSERT INTO contact (type, message, partner_id, created_at) 

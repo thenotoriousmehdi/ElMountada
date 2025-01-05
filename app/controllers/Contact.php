@@ -22,13 +22,42 @@ class Contact {
         $view->Head();
         $view ->displaySessionMessage();
         $view ->Header( $sessionData);
-        $view ->displaySessionMessage();
+       
         $partners = $this -> contactModel ->getPartnerNames();
         $view->ContactForm($partners);
+        $view ->footer();
         $view->foot();
-        $view ->Footer();
+        
     }
   
+
+    public function showMessagesPage() {
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+            header('Location: /ElMountada/auth/showLoginPage'); 
+            exit();
+        }
+
+        $this->View('Contact');
+        $view = new ContactView();
+
+        $sessionData = $this->getSessionData();
+        $view->Head();
+        $view ->displaySessionMessage();
+        $view ->Header( $sessionData);
+        $view ->displaySessionMessage();
+        $messages = $this -> contactModel ->getMessages();
+        $view->MessagesPage($messages);
+        $view ->footer();
+        $view->foot();
+    }
+
+
+
     public function handleFormSubmit()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

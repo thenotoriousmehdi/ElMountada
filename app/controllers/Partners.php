@@ -7,11 +7,13 @@ class Partners
    use Database;
     private $partnerModel;
     private $membershipModel;
+    private $favoriteModel;
     private $partnersView;
     public function __construct()
     {
         $this->partnerModel = new PartnersModel(); 
         $this-> membershipModel = new MembershipModel();
+        $this-> favoriteModel = new FavoriteModel();
     }
 
   
@@ -38,6 +40,40 @@ class Partners
         $view->footer();
     }
 
+    public function toggleFavorite() {
+        if (!isset($_SESSION['user_id'])) {
+            echo json_encode(['success' => false, 'message' => 'Please login first']);
+            return;
+        }
+    
+        $data = json_decode(file_get_contents('php://input'));
+        $userId = $_SESSION['user_id'];
+        $partnerId = $data->partnerId;
+        
+        $favoriteModel = new FavoriteModel();
+        
+        // Check if already favorited
+        $isFavorite = $favoriteModel->isFavorite($userId, $partnerId);
+        
+        if (empty($isFavorite)) {
+            // Add favorite
+            $result = $favoriteModel->addFavorite($userId, $partnerId);
+            $status = 'added';
+        } else {
+            // Remove favorite
+            $result = $favoriteModel->removeFavorite($userId, $partnerId);
+            $status = 'removed';
+        }
+        
+        if ($result) {
+            echo json_encode(['success' => true, 'status' => $status]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update favorite']);
+        }
+    }
+    
+
+    
 
     public function showPartnerDetails($partnerId)
 {

@@ -83,5 +83,54 @@ class ContactView
         <?php
     }
 
+
+public function MessagesPage($messages){
+?>
+<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">
+    <h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Messages des utilisateurs</h2>
+
+    <?php if (empty($messages)) : ?>
+        <p class="text-center text-lg text-gray-500">Aucun message disponible pour le moment.</p>
+    <?php else : ?>
+        <div class="flex flex-col items-end gap-4">
+            <div class="overflow-auto w-full max-h-[700px]">
+                <table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">
+                    <thead class="bg-text sticky top-0 z-10">
+                        <tr>
+                            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">#</th>
+                            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Type</th>
+                            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Message</th>
+                            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom du Partenaire</th>
+                            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Date de Création</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($messages as $index => $message) : ?>
+                            <tr class="border-t border-primary/5 hover:bg-primary/10">
+                                <td class="py-5 px-4 text-sm font-openSans text-principale"><?= $index + 1; ?></td>
+                                <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($message ->type); ?></td>
+                                <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($message ->message); ?></td>
+                                <td class="py-5 px-4 text-sm font-openSans text-principale">
+                                    <?= !empty($message -> partner_name) ? htmlspecialchars($message -> partner_name?? 'N/A') : 'N/A'; ?>
+                                </td>
+                                <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($message -> created_at); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+
+
+
+
+
+<?php
+}
+
+
 }
 ?>
