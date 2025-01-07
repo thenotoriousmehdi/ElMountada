@@ -15,10 +15,7 @@ class Accueil
 
     public function ShowAccueil() 
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-    
+         $this->startSession();
          $this->contentModel = new ContentModel();
          $this->offersModel = new OffersModel();
          $this->View('accueil');

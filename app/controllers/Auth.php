@@ -80,6 +80,7 @@ class Auth {
 
     public function handleLogout() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            
             if (session_status() !== PHP_SESSION_ACTIVE) {
                 session_start();
             }

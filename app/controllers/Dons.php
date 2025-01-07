@@ -10,9 +10,7 @@ class Dons {
     }
 
     public function showDonsPage() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('dons');
         $view = new donsView();
         $categoryCounts = $this -> donsModel->getDonationCategoriesWithCount();
@@ -29,9 +27,7 @@ class Dons {
     }
 
     public function showMesdonsPage() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $sessionData = $this->getSessionData();
         $user_id = $sessionData['user_id'];
         $this->View('dons');
@@ -46,9 +42,7 @@ class Dons {
     
 
     public function showAddDon() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('dons');
      
             $view = new donsView();
@@ -62,9 +56,7 @@ class Dons {
         }
 
         public function showRequestDon() {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
+            $this->startSession();
             $this->View('dons');
                 $view = new donsView();
                 $sessionData = $this->getSessionData();
@@ -81,9 +73,7 @@ class Dons {
 
             public function store() {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
+                    $this->startSession();
             
                     $data = [
                         'user_id' => $_SESSION['user_id'] ?? null,
@@ -131,9 +121,7 @@ class Dons {
 
     public function storeRequest() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
+            $this->startSession();
 
         
             $user_id = $_SESSION['user_id'] ?? null;

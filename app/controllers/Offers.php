@@ -12,9 +12,7 @@ class Offers
 
     public function showOffers()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('offers');
         $this->offersModel = new OffersModel();
         $view = new OffersView();

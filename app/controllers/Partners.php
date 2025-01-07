@@ -19,9 +19,7 @@ class Partners
   
     public function showCatalogue()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('partners');
         $view = new PartnersView();
         $sessionData = $this->getSessionData();
@@ -77,9 +75,7 @@ class Partners
 
     public function showPartnerDetails($partnerId)
 {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    $this->startSession();
     $partner = $this->partnerModel->getPartnerDetails($partnerId);
     if ($partner) {
         $this->View('partners');
@@ -97,9 +93,7 @@ class Partners
 
 public function showCheckMembers()
 {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    $this->startSession();
 
     if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
         header('Location: /ElMountada/auth/showLoginPage'); 
@@ -125,9 +119,7 @@ public function showCheckMembers()
 
     public function showPartnerCard($id)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('partners');
         $view = new PartnersView();
         $sessionData = $this->getSessionData();
@@ -139,29 +131,32 @@ public function showCheckMembers()
         $view->footer();
     }
 
-    public function showPartners()
-    {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+   
 
-        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage'); 
-            exit();
-        }
+public function showPartners()
+{
+    $this->startSession();
 
-        $this->View('partners');
-        $view = new PartnersView();
-        $sessionData = $this->getSessionData();
-        $partners = $this ->partnerModel ->getAllPartners();
-       
-        $view->Head();
-        $view ->displaySessionMessage();
-        $view->header($sessionData);
-        $view->Partners( $partners);
-        $view->foot();
-        $view->footer();
+    if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        header('Location: /ElMountada/auth/showLoginPage');
+        exit();
     }
+    $ville = isset($_POST['ville']) ? $_POST['ville'] : null;
+    $categorie = isset($_POST['categorie']) ? $_POST['categorie'] : null;
+    $villes = $this->partnerModel->getAllVilles();
+    $categories = $this->partnerModel->getAllCategories();
+    $this->View('partners');
+    $view = new PartnersView();
+    $sessionData = $this->getSessionData();
+    $partners = $this->partnerModel->filterPartners($ville, $categorie);
+    $view->Head();
+    $view->displaySessionMessage();
+    $view->header($sessionData);
+    $view->Partners($partners, $villes, $categories);
+    $view->foot();
+    $view->footer();
+}
+
 
 
     public function deletePartner()
@@ -188,23 +183,7 @@ public function showCheckMembers()
     }
 
 
-public function filterPartners()
-{
-    $cities = $this->partnerModel->getAllCities();
-    $this->partnersView->displayFilterForm($cities);
 
-    if(isset($_POST['filter_submit'])) {
-        $categorie = $_POST['categorie'] ?? '';
-        $ville = $_POST['ville'] ?? '';
-        
-        if(!empty($ville)) {
-            $partners = $this->partnerModel->getPartnersByVille($ville);
-            $this->partnersView->PartnerSection("Partenaires à " . $ville, $partners);
-            return; 
-        }
-    
-    }
-}
 
 public function showAddPartner(){
     if (session_status() == PHP_SESSION_NONE) {
@@ -219,7 +198,6 @@ public function showAddPartner(){
     $this->View('partners');
     $view = new PartnersView();
     $sessionData = $this->getSessionData();
-    $partners = $this ->partnerModel ->getAllPartners();
     $view->Head();
     $view ->displaySessionMessage();
     $view->header($sessionData);
@@ -230,7 +208,6 @@ public function showAddPartner(){
 }
 
 public function handleAddPartner() {
-    // Start session if it's not already started
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -238,7 +215,9 @@ public function handleAddPartner() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // Validate required fields
-            if (empty($_POST['email']) || empty($_POST['name']) || empty($_POST['phone_number']) || empty($_POST['password']) || empty($_POST['partner_categorie'])) {
+            if (empty($_POST['email']) || empty($_POST['name']) || 
+                empty($_POST['phone_number']) || empty($_POST['password']) || 
+                empty($_POST['partner_categorie'])) {
                 throw new Exception("Tous les champs sont requis.");
             }
 
@@ -255,59 +234,27 @@ public function handleAddPartner() {
                 'logo_path' => null
             ];
 
-            // Handle file upload
+            // Handle file upload if present
             if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
                 $data['logo_path'] = $this->handleImageUpload($_FILES['logo']);
             }
 
-            // Insert into users table
-            $userQuery = "INSERT INTO users (email, full_name, phone_number, password, type, is_member) 
-                          VALUES (:email, :name, :phone, :password, 'partner', 0)";
-
-            $userData = [
-                ':email' => $data['email'],
-                ':name' => $data['name'],
-                ':phone' => $data['phone_number'],
-                ':password' => password_hash($data['password'], PASSWORD_DEFAULT)
-            ];
-
-            $userInsert = $this->query($userQuery, $userData);
-
-            if ($userInsert) {
-                // Get the last inserted user ID
-                $conn = $this->connectDb();
-                $userId = $conn->lastInsertId();
-                $this->disconnectDb($conn);
-
-                // Insert into partners table
-                $partnerQuery = "INSERT INTO partners (id, categorie_id, description, ville, adresse, logo_path) 
-                                 VALUES (:id, :categorie_id, :description, :ville, :adresse, :logo_path)";
-
-                $partnerData = [
-                    ':id' => $userId, 
-                    ':categorie_id' => $data['partner_categorie'],
-                    ':description' => $data['description'],
-                    ':ville' => $data['ville'],
-                    ':adresse' => $data['adresse'],
-                    ':logo_path' => $data['logo_path']
-                ];
-
-                $partnerInsert = $this->query($partnerQuery, $partnerData);
-
-                if ($partnerInsert) {
-                    $_SESSION['status'] = "Partenaire ajouté avec succès!";
-                    $_SESSION['status_type'] = 'success';
-                    header('Location: /ElMountada/');
-                    exit();
-                } else {
-                    $_SESSION['status'] = "Échec de l'ajout du partenaire.";
-                    $_SESSION['status_type'] = 'error';
-                    header('Location: /ElMountada/');
-                    exit();
-                }
+            // Use the model to add the partner
+            $result = $this->partnerModel->addPartner($data);
+            
+            if ($result) {
+                $_SESSION['status'] = "Partenaire ajouté avec succès!";
+                $_SESSION['status_type'] = 'success';
+                header('Location: /ElMountada/');
+                exit();
+            } else {
+                throw new Exception("Échec de l'ajout du partenaire.");
             }
 
         } catch (Exception $e) {
+            // Log error details for debugging
+            error_log("Error in handleAddPartner: " . $e->getMessage());
+
             $_SESSION['status'] = "Erreur: " . $e->getMessage();
             $_SESSION['status_type'] = 'error';
             header('Location: /ElMountada/');
@@ -316,7 +263,6 @@ public function handleAddPartner() {
     }
 }
 
-// File upload handler
 private function handleImageUpload($file) {
     $uploadDir = './public/uploads/partners/';
 
@@ -340,7 +286,6 @@ private function handleImageUpload($file) {
 
     return '/ElMountada/public/uploads/partners/' . $fileName;
 }
-
 
 
 }

@@ -179,9 +179,7 @@ class PartnersView
         }
     }
 
-    /**
-     * Filter partners based on selected criteria
-     */
+   
     private function filterPartners($partners)
     {
         if (empty($partners)) {
@@ -189,7 +187,6 @@ class PartnersView
         }
 
         return array_filter($partners, function ($partner) {
-            // Apply city filter if selected
             if (!empty($_POST['ville']) && $partner->ville !== $_POST['ville']) {
                 return false;
             }
@@ -271,95 +268,116 @@ class PartnersView
         <?php
     }
 
-    public function Partners($partners)
-    {
-        echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
-        echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>';
-        echo '<div class="flex justify-end mb-4">';
-        echo '<a href="/ElMountada/partners/showAddPartner">';
-        echo '<button class=" inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter un partenaire</button>';
-        echo '</a>';
-        echo '</div>';
-
-        if (empty($partners)) {
-            echo "<p class='text-center text-lg text-gray-500'>No partners available at the moment.</p>";
-        } else {
-            echo '<div class="flex flex-col items-end gap-4">';
-            echo '<div class="overflow-auto w-full max-h-[700px]">';
-            echo '<table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">';
-            echo '<thead class="bg-text sticky top-0 z-10">';
-            echo '<tr>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom du partenaire</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Identifiant</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Email</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Adresse</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Logo</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Réductions</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships</th>
-                  <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Advantages</th>
-                  <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships </th>
-                  <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Actions</th>
+    public function Partners($partners, $villes, $categories)
+{
+    echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
+    echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>';
     
-              </tr>';
-            echo '</thead>';
+    echo '<div class="flex justify-end mb-4">';
+    echo '<form action="/ElMountada/partners/ShowPartners" method="POST" class="flex gap-4">';
 
-            echo '<tbody>';
-            foreach ($partners as $partner) {
-                echo "<tr class='border-t border-primary/5 hover:bg-primary/10'>";
+    echo '<div>';
+    echo '<label for="ville" class="block text-sm font-semibold">Ville</label>';
+    echo '<select name="ville" id="ville" class="px-4 py-2 border rounded-lg"
+    class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">';
+    echo '<option value="">Select Ville</option>';
+    foreach ($villes as $ville) {
+        echo '<option value="' . htmlspecialchars($ville->ville) . '">' . htmlspecialchars($ville->ville) . '</option>';
+    }
+    echo '</select>';
+    echo '</div>';
+    
+    echo '<div>';
+    echo '<label for="categorie" class="block text-sm font-semibold">Catégorie</label>';
+    echo '<select name="categorie" id="categorie" class="px-4 py-2 border rounded-lg"
+      class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none"  >';
+    echo '<option value="">Select Catégorie</option>';
+    foreach ($categories as $category) {
+        echo '<option value="' . htmlspecialchars($category->name) . '">' . htmlspecialchars($category->name) . '</option>';
+    }
+    echo '</select>';
+    echo '</div>';
+    
+    echo '<button type="submit" class="inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Filtrer</button>';
+    echo '</form>';
+    echo '</div>';
+    
+    if (empty($partners)) {
+        echo "<p class='text-center text-lg text-gray-500'>No partners available at the moment.</p>";
+    } else {
+        echo '<div class="flex flex-col items-end gap-4">';
+        echo '<div class="overflow-auto w-full max-h-[700px]">';
+        echo '<table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">';
+        echo '<thead class="bg-text sticky top-0 z-10">';
+        echo '<tr>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom du partenaire</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Catégorie</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Identifiant</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Email</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Adresse</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Logo</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Réductions</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Advantages</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships </th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Actions</th>
+        </tr>';
+        echo '</thead>';
 
+        echo '<tbody>';
+        foreach ($partners as $partner) {
+            echo "<tr class='border-t border-primary/5 hover:bg-primary/10'>";
 
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->full_name) ? htmlspecialchars($partner->full_name ?? 'N/A') : 'N/A';
-                echo "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->full_name) ? htmlspecialchars($partner->full_name ?? 'N/A') : 'N/A';
+            echo "</td>";
 
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->category_name) ? htmlspecialchars($partner->category_name ?? 'N/A') : 'N/A';
+            echo "</td>";
 
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->partner_id) ? htmlspecialchars($partner->partner_id ?? 'N/A') : 'N/A';
-                echo "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->partner_id) ? htmlspecialchars($partner->partner_id ?? 'N/A') : 'N/A';
+            echo "</td>";
 
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->email) ? htmlspecialchars($partner->email ?? 'N/A') : 'N/A';
+            echo "</td>";
 
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->email) ? htmlspecialchars($partner->email ?? 'N/A') : 'N/A';
-                echo "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->ville) ? htmlspecialchars($partner->ville ?? 'N/A') : 'N/A';
+            echo "</td>";
 
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->adresse) ? htmlspecialchars($partner->adresse ?? 'N/A') : 'N/A';
+            echo "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
+            echo "</td>";
 
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->ville) ? htmlspecialchars($partner->ville ?? 'N/A') : 'N/A';
-                echo "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reductions) ? htmlspecialchars($partner->reductions) : 'N/A') . " </td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reduction_membership_type_names) ? htmlspecialchars($partner->reduction_membership_type_names) : 'N/A') . "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantages) ? htmlspecialchars($partner->advantages) : 'N/A') . "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantage_membership_type_names) ? htmlspecialchars($partner->advantage_membership_type_names) : 'N/A') . "</td>";
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo "<form action='/ElMountada/partners/deletePartner' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")' >";
+            echo "<input type='hidden' name='partner_id' value='" . htmlspecialchars($partner->partner_id) . "'>";
+            echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
+            echo "</form>";
+            echo "</td>";
 
-
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->adresse) ? htmlspecialchars($partner->adresse ?? 'N/A') : 'N/A';
-                echo "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
-                echo "</td>";
-
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reductions) ? htmlspecialchars($partner->reductions) : 'N/A') . " </td>";
-
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reduction_membership_type_names) ? htmlspecialchars($partner->reduction_membership_type_names) : 'N/A') . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantages) ? htmlspecialchars($partner->advantages) : 'N/A') . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantage_membership_type_names) ? htmlspecialchars($partner->advantage_membership_type_names) : 'N/A') . "</td>";
-
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo "<form action='/ElMountada/partners/deletePartner' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")' >";
-                echo "<input type='hidden' name='partner_id' value='" . htmlspecialchars($partner->partner_id) . "'>";
-                echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
-                echo "</form>";
-                echo "</td>";
-
-
-                echo "</tr>";
-            }
-            echo '</tbody>';
-            echo '</table>';
-            echo '</div>';
-            echo '</div>';
+            echo "</tr>";
         }
-
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
         echo '</div>';
     }
+
+    echo '</div>';
+}
+
 
     public function addPartner()
     {

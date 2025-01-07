@@ -12,9 +12,7 @@ class Contact {
 
     public function showContactForm() {
 
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('Contact');
         $view = new ContactView();
 
@@ -33,10 +31,7 @@ class Contact {
 
     public function showMessagesPage() {
 
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        
+        $this->startSession();
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
             header('Location: /ElMountada/auth/showLoginPage'); 
             exit();

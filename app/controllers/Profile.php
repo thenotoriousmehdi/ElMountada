@@ -12,9 +12,7 @@ class Profile
 
     public function showProfilePage($id)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('profile');
         $view = new ProfileView();
         $sessionData = $this->getSessionData();
@@ -28,13 +26,13 @@ class Profile
     }
 
     public function updateProfile() 
-    {if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+    {
+        $this->startSession();
         if (!isset($_SESSION['user_id'])) {
             header("Location: /ElMountada/auth/showLoginPage/");
             exit();
         }
-    }
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sessionData = $this->getSessionData();
             $id = $sessionData['user_id'];
@@ -60,13 +58,14 @@ class Profile
 
 
     public function updatePassword() {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
+        $this->startSession();
+
+        
             if (!isset($_SESSION['user_id'])) {
                 header("Location: /ElMountada/auth/showLoginPage/");
                 exit();
             }
-        }
+
 
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

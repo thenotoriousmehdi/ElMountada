@@ -12,9 +12,7 @@ class Membership
     }
     public function showSubscribePage()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('membership');
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
@@ -28,9 +26,7 @@ class Membership
 
     public function showMembershipForm()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('membership');
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
@@ -44,9 +40,7 @@ class Membership
 
     public function showMembershipCard($id)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         $this->View('membership');
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
@@ -60,9 +54,7 @@ class Membership
 
     public function showMembers()
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
             header('Location: /ElMountada/auth/showLoginPage'); 
@@ -85,9 +77,7 @@ class Membership
 
     public function handleMembershipRequest() {
        
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
+        $this->startSession();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
