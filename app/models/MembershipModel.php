@@ -11,30 +11,48 @@ class MembershipModel
     return $this->query($query);
   }
 
-  public function getMembershipCard($id)
-  {
-    $query =  "SELECT 
-    m.user_id,
-    m.membership_date,
-    m.billing_date,
-    m.QrCode,
-    u.email,
-    u.full_name,
-    u.phone_number,
-    mt.name AS membership_type_name
-FROM 
-    members m
-JOIN 
-    users u ON m.user_id = u.id
-JOIN 
-    membership_types mt ON m.membership_type_id = mt.id
-WHERE 
-    m.user_id = :id ";
+  public function renewMembership($userId, $newBillingDate)
+{
+    $query = "UPDATE members 
+              SET billing_date = :new_billing_date 
+              WHERE user_id = :user_id";
+              
+    $data = [
+        ':user_id' => $userId,
+        ':new_billing_date' => $newBillingDate
+    ];
+    
+    return $this->query($query, $data);
+}
 
+public function getMembershipCard($id)
+{
+    $query = "SELECT
+        m.user_id,
+        m.membership_date,
+        m.billing_date,
+        m.QrCode,
+        u.email,
+        u.full_name,
+        u.phone_number,
+        mt.name AS membership_type_name,
+        CASE 
+            WHEN m.billing_date < CURDATE() THEN TRUE 
+            ELSE FALSE 
+        END AS needs_renewal
+    FROM
+        members m
+    JOIN
+        users u ON m.user_id = u.id
+    JOIN
+        membership_types mt ON m.membership_type_id = mt.id
+    WHERE
+        m.user_id = :id ";
+    
     $data = [':id' => $id];
     $results = $this->query($query, $data);
     return $results ? $results[0] : null;
-  }
+}
 
   public function insertMembershipRequest($data) {
     $query = "INSERT INTO members (user_id, membership_type_id, photo, idpiece, recu, status, membership_date)
@@ -57,9 +75,6 @@ WHERE
         return false;
     }
 }
-
-
-
 
 
 

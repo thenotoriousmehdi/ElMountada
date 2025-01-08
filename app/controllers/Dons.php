@@ -43,6 +43,8 @@ class Dons {
 
     public function showAddDon() {
         $this->startSession();
+        $this -> checkLogin();
+    
         $this->View('dons');
      
             $view = new donsView();
@@ -57,6 +59,7 @@ class Dons {
 
         public function showRequestDon() {
             $this->startSession();
+            $this -> checkLogin();
             $this->View('dons');
                 $view = new donsView();
                 $sessionData = $this->getSessionData();
@@ -74,7 +77,6 @@ class Dons {
             public function store() {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $this->startSession();
-            
                     $data = [
                         'user_id' => $_SESSION['user_id'] ?? null,
                         'somme' => $_POST['somme'] ?? null,

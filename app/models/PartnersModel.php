@@ -181,7 +181,6 @@ WHERE
           $data[':categorie'] = '%' . $categorie . '%';
       }
   
-      // If there are any filtering conditions, add them to the query
       if (count($conditions) > 0) {
           $query .= " WHERE " . implode(" AND ", $conditions);
       }
@@ -265,14 +264,14 @@ GROUP BY
 }
 
 
-// Get all available villes
+
 public function getAllVilles()
 {
     $query = "SELECT DISTINCT ville FROM partners";
     return $this->query($query);
 }
 
-// Get all available categories
+
 public function getAllCategories()
 {
     $query = "SELECT DISTINCT name FROM categories";

@@ -83,40 +83,37 @@ class MembershipView
 
 
 
-  public function MembershipCard($membershipCard)
-  {
-
-  ?>
-
-    <div class="cardcontainer flex flex-col gap-4 justify-center items-center w-full h-full p-24 ">
-      <h2 class="font-poppins font-semibold text-text text-[24px]">Ma carte d'abonnement</h2>
-      <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 ">
+public function MembershipCard($membershipCard)
+{
+?>
+<div class="cardcontainer flex flex-col gap-4 justify-center items-center w-full h-full p-24 ">
+    <h2 class="font-poppins font-semibold text-text text-[24px]">Ma carte d'abonnement</h2>
+    <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 ">
         <div class="flex flex-col lg:flex-row lg:justify-start justify-center items-center lg:items-start gap-4 h-auto w-full">
-
-          <div class="flex flex-col h-full justify-center md:justify-start gap-2 items-center md:items-start w-full sm:w-1/2">
-
-
-            <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
-            <p class="text-center text-principale"> <strong> Identifiant # </strong> <?= htmlspecialchars($membershipCard->user_id); ?></p>
-            <p class="text-center text-principale"> <strong> Email</strong> <?= htmlspecialchars($membershipCard->email); ?></p>
-            <p class="text-center text-principale"> <strong> Nom complet</strong> <?= htmlspecialchars($membershipCard->full_name) ?: 'null'; ?></p>
-            <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($membershipCard->phone_number) ?: 'null'; ?></p>
-            <p class=" text-principale"> <strong> Plan </strong><?= htmlspecialchars($membershipCard->membership_type_name); ?></p>
-            <p class=" text-principale"> <strong> Date de facturation </strong><?= htmlspecialchars($membershipCard->billing_date); ?></p>
-
-
-          </div>
-
-          <div class="bg-bg flex justify-center items-center p-2 rounded-[10px] h-full w-full sm:w-1/2">
-            <img src="<?= htmlspecialchars($membershipCard->QrCode); ?>" alt="" class="w-full h-full rounded-md object-contain">
-          </div>
+            <div class="flex flex-col h-full justify-center md:justify-start gap-2 items-center md:items-start w-full sm:w-1/2">
+                <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
+                <p class="text-center text-principale"> <strong> Identifiant # </strong> <?= htmlspecialchars($membershipCard->user_id); ?></p>
+                <p class="text-center text-principale"> <strong> Email</strong> <?= htmlspecialchars($membershipCard->email); ?></p>
+                <p class="text-center text-principale"> <strong> Nom complet</strong> <?= htmlspecialchars($membershipCard->full_name) ?: 'null'; ?></p>
+                <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($membershipCard->phone_number) ?: 'null'; ?></p>
+                <p class=" text-principale"> <strong> Plan </strong><?= htmlspecialchars($membershipCard->membership_type_name); ?></p>
+                <p class=" text-principale"> <strong> Date de facturation </strong><?= htmlspecialchars($membershipCard->billing_date); ?></p>
+                
+                <?php if ($membershipCard->needs_renewal): ?>
+                    <a href="/ElMountada/membership/showMembershipForm" 
+                       class="mt-4 px-6 py-2 bg-text text-white rounded-md hover:bg-principale/80 transition-colors">
+                        Renouveler l'abonnement
+                    </a>
+                <?php endif; ?>
+            </div>
+            <div class="bg-bg flex justify-center items-center p-2 rounded-[10px] h-full w-full sm:w-1/2">
+                <img src="<?= htmlspecialchars($membershipCard->QrCode); ?>" alt="" class="w-full h-full rounded-md object-contain">
+            </div>
         </div>
-      </div>
-
     </div>
-
-  <?php
-  }
+</div>
+<?php
+}
 
 
   public function displayMembers($members)

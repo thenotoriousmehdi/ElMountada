@@ -24,10 +24,10 @@ class Content {
       
         $this->startSession();
 
-            if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
                 header("Location: /ElMountada/auth/showLoginPage/");
                 exit();
-            }
+        }
         $sessionData = $this->getSessionData();
         $this->View('content');
         $view = new ContentView();

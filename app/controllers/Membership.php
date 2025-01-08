@@ -44,13 +44,21 @@ class Membership
         $this->View('membership');
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
-        $membershipCard = $this ->membershipModel->getMembershipCard($id);
+        $membershipCard = $this->membershipModel->getMembershipCard($id);
+    
+        if (!$membershipCard) {
+            header('Location: /error');
+            exit;
+        }
+        
         $view->Head();
         $view->header($sessionData);
         $view->MembershipCard($membershipCard);
         $view->foot();
         $view->footer();
     }
+    
+    
 
     public function showMembers()
     {

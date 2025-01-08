@@ -40,7 +40,7 @@ Trait Controller
 
 	function checkLogin() {
 		session_start(); 
-		if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_type'])) {
+		if (!isset($_SESSION['user_id'])) {
 			header("Location: /ElMountada/auth/showLoginPage/");
 			exit();
 		}
