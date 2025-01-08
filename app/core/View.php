@@ -56,21 +56,23 @@ trait View
         <div class="relative">
     <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
-            <!-- Admin Menu Items -->
+            <!-- Admin -->
             <a href="/ElMountada/partners/showPartners" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Partenaires</a>
             <a href="/ElMountada/membership/showMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Membres</a>
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <a href="/ElMountada/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
-            <!-- Member Menu Items -->
+            <!-- Member  -->
             <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
             <a href="/ElMountada/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
+             <!-- simple -->
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
+             <!-- Partner -->
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'partner'): ?>
                 <a href="/ElMountada/partners/showCheckMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors"> Vérifier un membre</a>
                 <a href="/ElMountada/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma Carte</a>
-
+  <!-- Everyone -->
         <?php endif; ?>
         <a href="/ElMountada/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>

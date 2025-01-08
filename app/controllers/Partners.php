@@ -132,7 +132,6 @@ public function showCheckMembers()
     }
 
    
-
 public function showPartners()
 {
     $this->startSession();
@@ -214,14 +213,12 @@ public function handleAddPartner() {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
-            // Validate required fields
             if (empty($_POST['email']) || empty($_POST['name']) || 
                 empty($_POST['phone_number']) || empty($_POST['password']) || 
                 empty($_POST['partner_categorie'])) {
                 throw new Exception("Tous les champs sont requis.");
             }
 
-            // Prepare data
             $data = [
                 'email' => $_POST['email'],
                 'name' => $_POST['name'],
@@ -234,12 +231,10 @@ public function handleAddPartner() {
                 'logo_path' => null
             ];
 
-            // Handle file upload if present
             if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
                 $data['logo_path'] = $this->handleImageUpload($_FILES['logo']);
             }
 
-            // Use the model to add the partner
             $result = $this->partnerModel->addPartner($data);
             
             if ($result) {
@@ -252,9 +247,6 @@ public function handleAddPartner() {
             }
 
         } catch (Exception $e) {
-            // Log error details for debugging
-            error_log("Error in handleAddPartner: " . $e->getMessage());
-
             $_SESSION['status'] = "Erreur: " . $e->getMessage();
             $_SESSION['status_type'] = 'error';
             header('Location: /ElMountada/');
