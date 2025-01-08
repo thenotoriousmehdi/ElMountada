@@ -28,11 +28,18 @@ class Accueil
          $view ->Head();
          $view ->displaySessionMessage();
          $view ->header($sessionData);
+         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
          $view ->diaporama($News);
          $view ->latest($Latest);
          $view ->offers($offers);
          $view ->partnersLogos($partnerLogos);
          $view ->footer();
+        }  else {
+        
+        $view ->adminWelcome();
+
+        }
+        
          $view ->foot();
     }
 }

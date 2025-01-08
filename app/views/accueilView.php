@@ -7,7 +7,6 @@ class AccueilView
     {
 
 ?>
-
         <div class="relative overflow-hidden w-full rounded-[15px] h-[600px] mb-12">
             <div id="diaporama" class="flex transition-transform duration-1000 ease-in-out">
                 <?php
@@ -32,6 +31,7 @@ class AccueilView
 
     public function offers($offers)
     {
+        
         echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-12">';
         echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-4  text-text">Avantages</h2>';
         if (empty($offers)) {
@@ -116,6 +116,32 @@ class AccueilView
     <?php
     }
 
+
+    public function adminWelcome()
+    
+    {
+    
+    ?>
+    
+<div class="flex items-center h-full w-full justify-center p-48 ">
+
+    <div class="w-full h-full max-w-4xl p-8 bg-white shadow-xl rounded-xl">
+        <h1 class="text-4xl font-bold text-gray-800 text-center mb-6">
+        Bienvenue dans le portail administrateur!
+        </h1>
+        <p class="text-lg text-gray-600 text-center ">
+        Gérez votre application facilement. Naviguez à travers le portail pour accéder aux différents outils et fonctionnalités administratives.
+        </p>
+        
+    </div>
+</div>
+
+        
+    <?php
+    }
+
+
+
     public function latest($Latest)
     {
     ?>
@@ -193,5 +219,8 @@ class AccueilView
         </div>
 <?php
     }
+
+
+    
 }
 ?>

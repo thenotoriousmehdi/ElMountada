@@ -26,6 +26,7 @@ public function Content($content)
                                 'nouvelle' => 'bg-green-100 text-green-800',
                                 'evenement' => 'bg-yellow-100 text-yellow-800',
                                 'activite' => 'bg-purple-100 text-purple-800',
+                                'benevolat' => 'bg-purple-100 text-red-800',
                                 default => 'bg-gray-100 text-gray-800'
                             }; ?>">
                                     <?php echo htmlspecialchars($item -> type); ?>
@@ -69,10 +70,204 @@ public function Content($content)
 }
 
 
+public function ContentTable($content, $villes )
+{
+    echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
+    echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Gestion de Contenu</h2>';
+
+
+    echo '<div class="flex justify-between items-end mb-4">';
+
+    echo '<form action="/ElMountada/content/showContent" method="POST" class="flex gap-4 items-end">'; 
+    
+    echo '<div class="flex flex-col w-1/3">'; 
+echo '<label for="location" class="block text-sm font-semibold mb-2">Ville</label>'; 
+echo '<select name="location" id="location" class="w-full h-[40px] rounded-[10px] p-2 border border-primary/20 focus-within:border-primary focus:outline-none">'; 
+echo '<option value="">Selectionnez</option>';
+foreach ($villes as $location) {
+    echo '<option value="' . htmlspecialchars($location->location) . '">' . htmlspecialchars($location->location) . '</option>';
+}
+echo '</select>';
+echo '</div>';
+
+    echo '<div class="flex flex-col w-1/3">'; 
+    echo '<label for="type" class="block text-sm font-semibold mb-2">Type</label>'; 
+    echo '<select name="type" id="type" class="w-full h-[40px] rounded-[10px] p-2 border border-primary/20 focus-within:border-primary focus:outline-none">'; 
+    echo '<option value="">Type</option>';
+    echo '<option value="announce">Announce</option>';
+    echo '<option value="nouvelle">Nouvelle</option>';
+    echo '<option value="evenement">Evenement</option>';
+    echo '<option value="activite">Activité</option>';
+    echo '<option value="benevolat">Bénévolat</option>';
+    echo '</select>';
+    echo '</div>';
+    
+   
+    echo '<div class="flex flex-col w-1/3">'; 
+    echo '<label for="event_date" class="block text-sm font-semibold mb-2">Date</label>'; 
+    echo '<input type="date" name="event_date" id="event_date" class="w-full h-[40px] rounded-[10px] p-2 border border-primary/20 focus-within:border-primary focus:outline-none">';
+    echo '</div>';
+    
+
+    echo '<div class="flex items-end">'; 
+    echo '<button type="submit" class="h-[40px] px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Filter</button>';
+    echo '</div>';
+    
+    echo '</form>';
+    
+    echo '<a href="/ElMountada/content/showAddContent">';
+    echo '<button class="mt-4 inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter un contenu</button>';
+    echo '</a>';
+    
+    echo '</div>';
+    
+
+    if (empty($content)) {
+        echo "<p class='text-center text-lg text-gray-500'>No content available at the moment.</p>";
+    } else {
+        echo '<div class="flex flex-col items-end gap-4">';
+        echo '<div class="overflow-auto w-full max-h-[700px]">';
+        echo '<table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">';
+        echo '<thead class="bg-text sticky top-0 z-10">';
+        echo '<tr>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Titre</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Type</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Date de l\'évenement</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Crée le</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Lieu</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Image</th>
+            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Actions</th>
+        </tr>';
+        echo '</thead>';
+
+        echo '<tbody>';
+        foreach ($content as $item) {
+            echo "<tr class='border-t border-primary/5 hover:bg-primary/10'>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo htmlspecialchars($item->title ?? 'N/A');
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo htmlspecialchars($item->type ?? 'N/A');
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo htmlspecialchars($item->event_date ?? 'N/A');
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo htmlspecialchars($item->created_at ?? 'N/A');
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo htmlspecialchars($item->location ?? 'N/A');
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            echo isset($item->image_path) && !empty($item->image_path) ? "<img src='" . htmlspecialchars($item->image_path) . "' alt='Image' width='50'>" : 'No Image';
+            echo "</td>";
+
+            echo "<td class='py-5 px-4 text-sm  font-openSans text-principale'>";
+
+            echo "<div class='flex flex-col gap-2'>";
+            echo "<form action='/ElMountada/content/deleteContent' method='POST' onsubmit='return confirm(\"Are you sure you want to delete this content?\")'>";
+            echo "<input type='hidden' name='content_id' value='" . htmlspecialchars($item->id) . "'>";
+            echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
+            echo "</form>";
+
+            echo "<a href='/ElMountada/content/showEditContent/?id=" . htmlspecialchars($item->id) . "'>";
+            echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
+            echo "</a>";
+            echo '</div>';
+            echo "</td>";
+
+            echo "</tr>";
+        }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+        echo '</div>';
+    }
+
+    echo '</div>';
+}
+
+
+public function updateContent($content){
+?>
+<div class="flex flex-col justify-start gap-2 mb-8">
+    <h2 class="text-start text-[24px] font-poppins font-bold text-text">Modifier le contenu</h2>
+    <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
+        <form action="/ElMountada/content/updateContent" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($content->id ?? ''); ?>">
+            <input type="hidden" name="existing_image_path" value="<?php echo htmlspecialchars($content->image_path ?? ''); ?>">
+            <?php var_dump($content->id); ?>
+            <div>
+                <label for="title" class="text-[16px] font-poppins font-medium text-text">Titre</label>
+                <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($content->title ?? ''); ?>" required placeholder="Titre"
+                    class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] ">
+            </div>
+
+            <div>
+                <label for="description" class="text-[16px] font-poppins font-medium text-text">Description</label>
+                <textarea id="description" name="description" rows="4" required placeholder="Description"
+                    class="mt-1 w-full border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px] p-4 "><?php echo htmlspecialchars($content->description ?? ''); ?></textarea>
+            </div>
+
+            <div>
+                <label for="type" class="text-[16px] font-poppins font-medium text-text">Type</label>
+                <select id="type" name="type" required
+                    class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+                    <option value="announce" <?php echo ($content->type ?? '') == 'announce' ? 'selected' : ''; ?>>Announce</option>
+                    <option value="nouvelle" <?php echo ($content->type ?? '') == 'nouvelle' ? 'selected' : ''; ?>>Nouvelle</option>
+                    <option value="evenement" <?php echo ($content->type ?? '') == 'evenement' ? 'selected' : ''; ?>>Evenement</option>
+                    <option value="activite" <?php echo ($content->type ?? '') == 'activite' ? 'selected' : ''; ?>>Activité</option>
+                    <option value="benevolat" <?php echo ($content->type ?? '') == 'benevolat' ? 'selected' : ''; ?>>Bénévolat</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="event_date" class="text-[16px] font-poppins font-medium text-text">Date</label>
+                <input type="date" id="event_date" name="event_date" value="<?php echo htmlspecialchars($content->event_date ?? ''); ?>"
+                    class="mt-1 w-full p-4 rounded-[10px] border border-primary/20 focus-within:border-primary focus:outline-none">
+            </div>
+
+            <div>
+                <label for="image" class="text-[16px] font-poppins font-medium text-text">Image</label>
+                <input type="file" id="image" name="image" accept="image/*"
+                    class="mt-1 w-full text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+            
+                <?php if (!empty($content->image_path)): ?>
+                    <div class="mt-2">
+                        <img src="<?php echo htmlspecialchars($content->image_path); ?>" alt="Current Image" width="100">
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <div>
+                <label for="location" class="text-[16px] font-poppins font-medium text-text">Localisation</label>
+                <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($content->location ?? ''); ?>" required placeholder="Localisation"
+                    class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+            </div>
+
+            <div class="pt-4">
+                <button type="submit"
+                    class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
+                    Mettre à jour
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 
+<?php
 
+
+
+}
 
 
     public function addContent()
@@ -107,6 +302,7 @@ public function Content($content)
                             <option value="nouvelle">Nouvelle</option>
                             <option value="evenement">Evenement</option>
                             <option value="activite">Activité</option>
+                            <option value="benevolat">Bénévolat </option>
                         </select>
                     </div>
 

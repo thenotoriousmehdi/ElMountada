@@ -271,36 +271,45 @@ class PartnersView
     public function Partners($partners, $villes, $categories)
 {
     echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
-    echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Nos Partenaires</h2>';
+    echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Gestion des Partenaires</h2>';
     
-    echo '<div class="flex justify-end mb-4">';
-    echo '<form action="/ElMountada/partners/ShowPartners" method="POST" class="flex gap-4">';
+    echo '<div class="flex justify-between items-end mb-4">';
 
-    echo '<div>';
-    echo '<label for="ville" class="block text-sm font-semibold">Ville</label>';
-    echo '<select name="ville" id="ville" class="px-4 py-2 border rounded-lg"
-    class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">';
-    echo '<option value="">Select Ville</option>';
-    foreach ($villes as $ville) {
-        echo '<option value="' . htmlspecialchars($ville->ville) . '">' . htmlspecialchars($ville->ville) . '</option>';
-    }
-    echo '</select>';
-    echo '</div>';
-    
-    echo '<div>';
-    echo '<label for="categorie" class="block text-sm font-semibold">Catégorie</label>';
-    echo '<select name="categorie" id="categorie" class="px-4 py-2 border rounded-lg"
-      class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none"  >';
-    echo '<option value="">Select Catégorie</option>';
-    foreach ($categories as $category) {
-        echo '<option value="' . htmlspecialchars($category->name) . '">' . htmlspecialchars($category->name) . '</option>';
-    }
-    echo '</select>';
-    echo '</div>';
-    
-    echo '<button type="submit" class="inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Filtrer</button>';
-    echo '</form>';
-    echo '</div>';
+echo '<form action="/ElMountada/partners/ShowPartners" method="POST" class="flex gap-4 items-end">'; 
+
+
+echo '<div class="flex flex-col w-1/3">'; 
+echo '<label for="ville" class="block text-sm font-semibold mb-2">Ville</label>'; 
+echo '<select name="ville" id="ville" class="w-full h-[40px] rounded-[10px] p-2 border border-primary/20 focus-within:border-primary focus:outline-none">'; // Set fixed height for input
+echo '<option value="">Séléctionnez</option>';
+foreach ($villes as $ville) {
+    echo '<option value="' . htmlspecialchars($ville->ville) . '">' . htmlspecialchars($ville->ville) . '</option>';
+}
+echo '</select>';
+echo '</div>';
+
+echo '<div class="flex flex-col w-1/3">'; 
+echo '<label for="categorie" class="block text-sm font-semibold mb-2">Catégorie</label>'; 
+echo '<select name="categorie" id="categorie" class="w-full h-[40px] rounded-[10px] p-2 border border-primary/20 focus-within:border-primary focus:outline-none">';
+echo '<option value="">Séléctionnez</option>';
+foreach ($categories as $category) {
+    echo '<option value="' . htmlspecialchars($category->name) . '">' . htmlspecialchars($category->name) . '</option>';
+}
+echo '</select>';
+echo '</div>';
+
+echo '<div class="flex items-center">'; 
+echo '<button type="submit" class="h-[40px] px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Filtrer</button>';
+echo '</div>';
+
+echo '</form>';
+
+echo '<a href="/ElMountada/partners/showAddPartner">';
+echo '<button class="mt-4 inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter un partenaire</button>';
+echo '</a>';
+
+echo '</div>';
+
     
     if (empty($partners)) {
         echo "<p class='text-center text-lg text-gray-500'>No partners available at the moment.</p>";

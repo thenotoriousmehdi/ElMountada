@@ -32,27 +32,68 @@ class Content {
         $this->View('content');
         $view = new ContentView();
         $view ->Head();
+        $view ->displaySessionMessage();
         $view ->header( $sessionData);
         $view ->addContent();
         $view->footer();
         $view->foot();
     }
 
-    public function showContent() {
+    public function showContent()
+    {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+
         $sessionData = $this->getSessionData();
+        $title = isset($_POST['title']) ? $_POST['title'] : null;
+        $type = isset($_POST['type']) ? $_POST['type'] : null;
+        $eventDate = isset($_POST['event_date']) ? $_POST['event_date'] : null;
+        $ville = isset($_POST['location']) ? $_POST['location'] : null;
+    
+        $content = $this->contenuModel->filterContent($title, $type, $eventDate, $ville);
+        $villes = $this -> contenuModel->getVilles();
         $this->View('content');
-        $content = $this->contenuModel->getAllContent();
         $view = new ContentView();
-        $view ->Head();
-        $view ->header( $sessionData);
-        $view ->Content($content);
+    
+        $view->Head();
+        $view->header($sessionData);
+    
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+            $view->Content($content);
+        } else {
+            $view->ContentTable($content, $villes);
+        }
+    
         $view->footer();
         $view->foot();
     }
+    
+    public function deleteContent()
+    {
+        $content_id = $_POST['content_id'] ?? null;
 
+        if ($content_id) {
+            $success = $this->contenuModel->deleteContent($content_id);
+
+            if ($success) {
+                $_SESSION['status'] = "supprime avec success";
+                $_SESSION['status_type'] = 'success';
+                header('Location: /ElMountada/content/showContent'); 
+                exit;
+            } else {
+                $_SESSION['status'] = "L'operation a échoué.";
+                $_SESSION['status_type'] = 'error';
+                header('Location: /ElMountada/content/showContent'); 
+                exit;
+            }
+           
+        }
+
+
+
+
+    }
 
 
 
@@ -109,7 +150,7 @@ class Content {
          if (empty($data['type'])) {
              throw new Exception('Type is required');
          }
-         if (!in_array($data['type'], ['announce', 'nouvelle', 'evenement', 'activite'])) {
+         if (!in_array($data['type'], ['announce', 'nouvelle', 'evenement', 'activite', 'benevolat'])) {
              throw new Exception('Invalid type selected');
          }
          if (!empty($data['event_date']) && !strtotime($data['event_date'])) {
@@ -144,5 +185,70 @@ class Content {
         return '/ElMountada/public/uploads/' . $fileName;
     }
     
+
+    // Show the edit content form pre-filled with the existing content data
+public function showEditContent($contentId) {
+   
+        // Get the content by its ID
+        $content = $this->contenuModel->getById($contentId);
+        
+        $this->View('content');
+        $view = new ContentView();
+        $sessionData = $this->getSessionData();
+        $view->Head();
+        $view->header($sessionData);
+        $view->updateContent($content);
+        $view->footer();
+        $view->foot();
+
+   
+}
+
+public function updateContent() {
+    $this->startSession();
+    
+    try {
+        $this->validateInput($_POST);
+
+        $imagePath = null;
+if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    $imagePath = $this->handleImageUpload($_FILES['image']);
+} else {
+
+    $imagePath = $_POST['existing_image_path'] ?? null;
+}
+
+        $data = [
+            'id' => $_POST['id'], 
+            'title' => $_POST['title'],
+            'description' => $_POST['description'],
+            'type' => $_POST['type'],
+            'event_date' => $_POST['event_date'] ?? null,
+            'image_path' => $imagePath,
+            'location' => $_POST['location']
+        ];
+
+        var_dump($_POST);
+
+        $result = $this->contenuModel->update($data);
+
+        if ($result) {
+            $_SESSION['status'] = "Contenu mis à jour avec succès";
+            $_SESSION['status_type'] = 'success';
+            header('Location: /ElMountada/content/showContent');
+            exit;
+        } else {
+            $_SESSION['status'] = "La mise à jour du contenu a échoué";
+            $_SESSION['status_type'] = 'error';
+            header('Location: /ElMountada/content/showContent');
+            exit;
+        }
+    } catch (Exception $e) {
+        $_SESSION['error'] = $e->getMessage();
+        header('Location: /ElMountada/content/showContent');
+        exit;
+    }
+}
+
 }
 ?>

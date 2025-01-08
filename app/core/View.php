@@ -21,23 +21,49 @@ trait View
                 <div class="flex justify-center items-center flex-grow">
                     <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
 
+        <?php if ($sessionData['user_type'] !== 'admin'): ?>
                     <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/">Accueil</a>
         </li>
 
-        
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/content/showContent">News</a>
         </li>
+
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showCatalogue') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/partners/showCatalogue">Catalogue</a>
         </li>
+
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/offers/showOffers">Offres</a>
         </li>
+        <?php endif; ?>
+       
+        <?php if ($sessionData['user_type'] == 'admin'): ?>
+            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showPartners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/partners/showPartners">Partenaires</a>
+        </li>
+
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/membership/showMembers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/membership/showMembers">Membres</a>
+        </li>
+
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/membership/showMembers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/membership/showMembers">Utilisateurs</a>
+        </li>
+
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/content/showContent">Contenu</a>
+        </li>
+
+            <?php endif; ?>
+
+
+
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/dons/showDonsPage/">Dons</a>
         </li>
+
         <?php if (!isset($sessionData['user_id'])): ?>
             <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/auth/showLoginPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
                 <a href="/ElMountada/auth/showLoginPage/">S'authentifier</a>
@@ -57,9 +83,8 @@ trait View
     <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin -->
-            <a href="/ElMountada/partners/showPartners" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Partenaires</a>
-            <a href="/ElMountada/membership/showMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Nos Membres</a>
             <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
+            <a href="/ElMountada/notifications/showAddNotification" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter une notification</a>
             <a href="/ElMountada/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member  -->
