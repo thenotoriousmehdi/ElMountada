@@ -12,6 +12,11 @@ class ContentModel {
         return $this->query($query);
     }
 
+    public function getBenevolat() {
+        $query = "SELECT * FROM contenu WHERE type = 'benevolat' ORDER BY created_at DESC";
+        return $this->query($query);
+    }
+
 
     public function getAllContent() {
         $query ="SELECT title, description, type, event_date, image_path, location 
@@ -63,6 +68,33 @@ public function getById($contentId) {
         throw $e;
     }
 }
+
+public function addParticipation($userId, $contentId)
+    {
+        $query = "INSERT INTO event_participation (user_id, content_id, created_at) VALUES (:user_id, :content_id, NOW())";
+        $data = [
+            ':user_id' => $userId,
+            ':content_id' => $contentId
+        ];
+        return $this->query($query, $data);
+    }
+
+
+    public function participants($id)
+    {
+        $query = "
+        SELECT u.id, u.full_name, u.email, u.phone_number, u.type
+        FROM event_participation ep
+        JOIN users u ON ep.user_id = u.id
+        WHERE ep.content_id = :content_id
+    ";
+    $data = [
+        ':content_id' => $id,
+    ];
+    return $this->query($query, $data);
+    }
+
+
 
 
 public function update($data) {

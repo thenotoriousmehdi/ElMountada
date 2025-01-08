@@ -26,7 +26,7 @@ public function Content($content)
                                 'nouvelle' => 'bg-green-100 text-green-800',
                                 'evenement' => 'bg-yellow-100 text-yellow-800',
                                 'activite' => 'bg-purple-100 text-purple-800',
-                                'benevolat' => 'bg-purple-100 text-red-800',
+                                'benevolat' => 'bg-red-100 text-red-800',
                                 default => 'bg-gray-100 text-gray-800'
                             }; ?>">
                                     <?php echo htmlspecialchars($item -> type); ?>
@@ -54,7 +54,7 @@ public function Content($content)
                                 </div>
                             <?php endif; ?>
                             <div class="flex justify-end mt-auto">
-                                <a href="<?php echo htmlspecialchars($item -> details_link ?? '#'); ?>"
+                           <a href="/ElMountada/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
                                     class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-text/80 transition duration-300">
                                     Plus de détails
                                 </a>
@@ -65,6 +65,99 @@ public function Content($content)
                 </div>
                 </div>
                 </div>
+
+ <?php
+}
+
+
+public function ContentDetails($content, $sessionData, $users)
+{
+    ?>
+<div class="mx-auto p-6">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+
+        
+        <div class="text-center mb-6">
+            <h2 class="text-4xl font-semibold text-gray-800"><?= htmlspecialchars($content->title ?? 'N/A') ?></h2>
+            <p class="text-xl text-gray-600"><?= htmlspecialchars($content->type ?? 'N/A') ?></p>
+        </div>
+
+        <div class="flex flex-col justify-center items-center bg-gray-100 pb-8 rounded-[15px] bg-opacity-10 gap-4 mb-8">
+            <?php if (!empty($content->image_path)): ?>
+                <div class="flex flex-col items-center">
+                    <img src="<?= htmlspecialchars($content->image_path) ?>" 
+                        alt="Content Image" 
+                        class="h-64 w-full object-cover rounded-lg mb-4">
+                </div>
+            <?php endif; ?>
+            <div class="text-center">
+                <?php if (!empty($content->location)): ?>
+                    <p class="text-md text-gray-500"><strong>Lieu:</strong> <?= htmlspecialchars($content->location) ?></p>
+                <?php endif; ?>
+                <?php if (!empty($content->event_date)): ?>
+                    <p class="text-md text-gray-500"><strong>Date:</strong> <?= htmlspecialchars(date('M d, Y', strtotime($content->event_date))) ?></p>
+                <?php endif; ?>
+                <p class="text-md text-gray-500"><strong>Créé le:</strong> <?= htmlspecialchars(date('M d, Y', strtotime($content->created_at))) ?></p>
+                <p class="text-md text-gray-500"><strong>Dernière mise à jour:</strong> <?= htmlspecialchars(date('M d, Y', strtotime($content->updated_at))) ?></p>
+            </div>
+        </div>
+
+        
+        <div class="mb-8">
+            <h3 class="text-3xl font-semibold text-gray-800 mb-4">Description</h3>
+            <p class="text-gray-700"><?= nl2br(htmlspecialchars($content->description ?? 'N/A')) ?></p>
+        </div>
+
+        <?php if (strtolower($content->type ?? '') === 'benevolat'): ?>
+            <div class="flex justify-end mt-6">
+    <form action="/ElMountada/benevolat/Participer" method="POST">
+        <input type="hidden" name="content_id" value="<?= htmlspecialchars($content->id) ?>">
+        <button type="submit" class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-[#264653]/80 transition duration-300">
+            Participer
+        </button>
+    </form>
+</div>
+
+        <?php endif; ?>
+
+        <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
+
+            <div class="mt-8">
+    <h3 class="text-3xl font-semibold text-gray-800 mb-4">Liste des participants</h3>
+    <table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">
+        <thead class="bg-text sticky top-0 z-10">
+            <tr>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Name</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Email</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Phone</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($users)): ?>
+                <?php foreach ($users as $user): ?>
+                    <tr class="border-t border-primary/5 hover:bg-primary/10">
+                        <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($user->full_name) ?></td>
+                        <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($user->email) ?></td>
+                        <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($user->phone_number) ?></td>
+                        <td class="py-5 px-4 text-sm font-openSans text-principale"><?= htmlspecialchars($user->type) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" class="px-4 py-2 text-center border border-gray-300">No participants available.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+        <?php endif; ?>
+    </div>
+</div>
 
  <?php
 }

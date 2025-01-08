@@ -9,6 +9,22 @@ class Content {
         $this->contenuModel = new ContentModel();
     }
 
+    public function showDetails($id)
+{
+    $this->startSession();
+    $content = $this->contenuModel->getById($id);
+    $users = $this -> contenuModel -> participants($id);
+    $sessionData = $this->getSessionData();
+    $this->View('content');
+    $view = new ContentView();
+    $view ->Head();
+    $view ->displaySessionMessage();
+    $view ->header( $sessionData);
+    $view ->ContentDetails($content,   $sessionData, $users);
+    $view->footer();
+    $view->foot();
+}
+
     
     public function getNews() {
         $News = $this->contenuModel->getNews();

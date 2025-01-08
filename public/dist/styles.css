@@ -733,6 +733,10 @@ body{
   margin-top: auto;
 }
 
+.mt-6{
+  margin-top: 1.5rem;
+}
+
 .block{
   display: block;
 }
@@ -838,6 +842,10 @@ body{
 
 .h-\[40px\]{
   height: 40px;
+}
+
+.h-64{
+  height: 16rem;
 }
 
 .max-h-\[400px\]{
@@ -1245,6 +1253,11 @@ body{
 .bg-black{
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+
+.bg-red-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-10{
@@ -1770,6 +1783,10 @@ body{
 }
 
 .hover\:bg-text\/80:hover{
+  background-color: rgb(38 70 83 / 0.8);
+}
+
+.hover\:bg-\[\#264653\]\/80:hover{
   background-color: rgb(38 70 83 / 0.8);
 }
 

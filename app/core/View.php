@@ -58,7 +58,9 @@ trait View
 
             <?php endif; ?>
 
-
+            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/benevolat/showBenevolat/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/benevolat/showBenevolat/">Bénévolat</a>
+        </li>
 
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
             <a href="/ElMountada/dons/showDonsPage/">Dons</a>
