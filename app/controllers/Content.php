@@ -90,12 +90,7 @@ class Content {
            
         }
 
-
-
-
     }
-
-
 
 
 
@@ -186,10 +181,8 @@ class Content {
     }
     
 
-    // Show the edit content form pre-filled with the existing content data
 public function showEditContent($contentId) {
    
-        // Get the content by its ID
         $content = $this->contenuModel->getById($contentId);
         
         $this->View('content');

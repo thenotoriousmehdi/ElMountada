@@ -9,6 +9,34 @@ class UserModel {
         return $result ? $result[0] : false; 
     }
 
+
+    public function deleteUser($user_id)
+    {
+        $query = "DELETE FROM users WHERE id = :user_id";
+        $data = [':user_id' => $user_id];
+        $this->query($query, $data);
+    }
+
+
+    public function blockUser($user_id)
+    {
+        $query = "  UPDATE users
+SET Active = 0 WHERE id = :user_id";
+        $data = [':user_id' => $user_id];
+        $this->query($query, $data);
+    }
+
+    public function makeMember($user_id)
+    {
+        $query = "UPDATE users
+   SET is_member = 1 WHERE id = :user_id";
+        $data = [':user_id' => $user_id];
+        $this->query($query, $data);
+    }
+
+
+
+
     public function createUser($email, $password, $fullName, $phoneNumber) {
         
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -62,6 +90,26 @@ class UserModel {
     
         return false;
     }
+
+
+    public function filteruser( $type = null)
+     {
+         $query = "SELECT id, email, full_name, phone_number, type, is_member, active 
+            FROM users";
+         $conditions = [];
+         $data = [];
+     
+         if ($type) {
+             $conditions[] = "type = :type";
+             $data[':type'] = $type;
+         }
+     
+         if (count($conditions) > 0) {
+             $query .= " WHERE " . implode(" AND ", $conditions);
+         }
+    
+         return $this->query($query, $data);
+     }
 
     public function updatePassword($id, $newPassword) {
 

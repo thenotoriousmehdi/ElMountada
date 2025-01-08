@@ -4,7 +4,7 @@ class Accueil
 {
      use Controller;
     
-     private $accueilView;
+
      private $contentModel;
      private $partnersModel;
     private $offersModel;

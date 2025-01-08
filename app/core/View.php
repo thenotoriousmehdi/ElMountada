@@ -48,8 +48,8 @@ trait View
             <a href="/ElMountada/membership/showMembers">Membres</a>
         </li>
 
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/membership/showMembers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/membership/showMembers">Utilisateurs</a>
+        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/users/ShowUsers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+            <a href="/ElMountada/users/ShowUsers">Utilisateurs</a>
         </li>
 
         <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
@@ -83,7 +83,6 @@ trait View
     <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin -->
-            <a href="/ElMountada/content/showAddContent" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter du Contenu</a>
             <a href="/ElMountada/notifications/showAddNotification" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter une notification</a>
             <a href="/ElMountada/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
@@ -139,7 +138,6 @@ trait View
                         <li><a href="/ElMountada/partners/showCatalogue">Catalogue</a></li>
                         <li><a href="/ElMountada/offers/showOffers">Offres</a></li>
                         <li> <a href="/ElMountada/dons/showDonsPage/">Dons</a></li>
-                        
                         <li> <a  class="underline" href="/ElMountada/contact/showContactForm">Nous Contacter</a></li>
                         
                     </ul>

@@ -375,7 +375,6 @@ echo '</div>';
             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
             echo "</form>";
             echo "</td>";
-
             echo "</tr>";
         }
         echo '</tbody>';

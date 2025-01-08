@@ -171,7 +171,7 @@ echo '</div>';
             echo "<td class='py-5 px-4 text-sm  font-openSans text-principale'>";
 
             echo "<div class='flex flex-col gap-2'>";
-            echo "<form action='/ElMountada/content/deleteContent' method='POST' onsubmit='return confirm(\"Are you sure you want to delete this content?\")'>";
+            echo "<form action='/ElMountada/content/deleteContent' method='POST' onsubmit='return confirm(\"Etes vous sur de vouloir supprimer ce contenu?\")'>";
             echo "<input type='hidden' name='content_id' value='" . htmlspecialchars($item->id) . "'>";
             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
             echo "</form>";
