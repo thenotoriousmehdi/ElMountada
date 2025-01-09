@@ -278,6 +278,82 @@ public function getAllCategories()
     return $this->query($query);
 }
 
+public function getPartnerById($id) {
+    try {
+        $query = "SELECT u.*, p.* 
+                 FROM users u 
+                 JOIN partners p ON u.id = p.id 
+                 WHERE u.id = :id AND u.type = 'partner'";
+        
+        $result = $this->query($query, [':id' => $id]);
+        return !empty($result) ? $result[0] : null;
+    } catch (Exception $e) {
+        error_log("Error in getPartnerById: " . $e->getMessage());
+        return null;
+    }
+}
 
+
+
+
+public function updatePartner($data) {
+    try {
+        $userQuery = "UPDATE users SET 
+                     email = :email, 
+                     full_name = :name, 
+                     phone_number = :phone";
+        
+        $userData = [
+            ':email' => $data['email'],
+            ':name' => $data['name'],
+            ':phone' => $data['phone_number'],
+            ':id' => $data['id']
+        ];
+
+        if (isset($data['password'])) {
+            $userQuery .= ", password = :password";
+            $userData[':password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+
+        $userQuery .= " WHERE id = :id";
+
+        if (!$this->query($userQuery, $userData)) {
+            error_log("Failed to update user data");
+            return false;
+        }
+
+        $partnerQuery = "UPDATE partners SET 
+                        categorie_id = :categorie_id,
+                        description = :description,
+                        ville = :ville,
+                        adresse = :adresse";
+        
+        $partnerData = [
+            ':id' => $data['id'],
+            ':categorie_id' => $data['partner_categorie'],
+            ':description' => $data['description'],
+            ':ville' => $data['ville'],
+            ':adresse' => $data['adresse']
+        ];
+
+        if (isset($data['logo_path'])) {
+            $partnerQuery .= ", logo_path = :logo_path";
+            $partnerData[':logo_path'] = $data['logo_path'];
+        }
+
+        $partnerQuery .= " WHERE id = :id";
+
+        if (!$this->query($partnerQuery, $partnerData)) {
+            error_log("Failed to update partner data");
+            return false;
+        }
+
+        return true;
+
+    } catch (Exception $e) {
+        error_log("Error in updatePartner: " . $e->getMessage());
+        return false;
+    }
+}
 
 }

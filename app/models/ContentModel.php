@@ -19,7 +19,7 @@ class ContentModel {
 
 
     public function getAllContent() {
-        $query ="SELECT title, description, type, event_date, image_path, location 
+        $query ="SELECT id,title, description, type, event_date, image_path, location 
               FROM contenu 
               ORDER BY created_at DESC";
         return $this->query($query);
@@ -28,7 +28,7 @@ class ContentModel {
 
 
     public function getLatest() {
-        $query ="SELECT title, description, type, event_date, image_path, location 
+        $query ="SELECT id, title, description, type, event_date, image_path, location 
               FROM contenu 
               ORDER BY created_at DESC 
               LIMIT 9";

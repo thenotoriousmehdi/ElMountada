@@ -250,4 +250,91 @@ private function handleImageUpload($file) {
 }
 
 
+public function updatePartner() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        header('Location: /ElMountada/auth/showLoginPage');
+        exit();
+    }
+
+    $partnerId = $_GET['id'] ?? null;
+    if (!$partnerId) {
+        $_SESSION['status'] = "ID du partenaire non spécifié";
+        $_SESSION['status_type'] = 'error';
+        header('Location: /ElMountada/partners/ShowPartners');
+        exit();
+    }
+
+    $partner = $this->partnerModel->getPartnerById($partnerId);
+    if (!$partner) {
+        $_SESSION['status'] = "Partenaire non trouvé";
+        $_SESSION['status_type'] = 'error';
+        header('Location: /ElMountada/partners/ShowPartners');
+        exit();
+    }
+
+    $this->View('partners');
+    $view = new PartnersView();
+    $sessionData = $this->getSessionData();
+    $view->Head();
+    $view->displaySessionMessage();
+    $view->header($sessionData);
+    $view->updatePartnerForm($partner);
+    $view->foot();
+    $view->footer();
+}
+
+public function handleUpdatePartner() {
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            if (empty($_POST['email']) || empty($_POST['name']) || 
+                empty($_POST['phone_number']) || empty($_POST['partner_categorie'])) {
+                throw new Exception("Tous les champs obligatoires doivent être remplis.");
+            }
+
+            $data = [
+                'id' => $_POST['partner_id'],
+                'email' => $_POST['email'],
+                'name' => $_POST['name'],
+                'phone_number' => $_POST['phone_number'],
+                'partner_categorie' => $_POST['partner_categorie'],
+                'ville' => $_POST['ville'] ?? null,
+                'adresse' => $_POST['adresse'] ?? null,
+                'description' => $_POST['description'] ?? null,
+                'logo_path' => null
+            ];
+
+            // Handle password update only if a new password is provided
+            if (!empty($_POST['password'])) {
+                $data['password'] = $_POST['password'];
+            }
+
+            // Handle new logo upload if provided
+            if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+                $data['logo_path'] = $this->handleImageUpload($_FILES['logo']);
+            }
+
+            $result = $this->partnerModel->updatePartner($data);
+            if ($result) {
+                $_SESSION['status'] = "Partenaire mis à jour avec succès!";
+                $_SESSION['status_type'] = 'success';
+            } else {
+                throw new Exception("Échec de la mise à jour du partenaire.");
+            }
+        } catch (Exception $e) {
+            $_SESSION['status'] = "Erreur: " . $e->getMessage();
+            $_SESSION['status_type'] = 'error';
+        }
+        header('Location: /ElMountada/partners/ShowPartners');
+        exit();
+    }
+}
+
 }

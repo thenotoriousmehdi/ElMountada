@@ -844,6 +844,10 @@ body{
   height: 100vh;
 }
 
+.h-10{
+  height: 2.5rem;
+}
+
 .max-h-\[400px\]{
   max-height: 400px;
 }
@@ -906,6 +910,10 @@ body{
 
 .w-full{
   width: 100%;
+}
+
+.w-10{
+  width: 2.5rem;
 }
 
 .min-w-full{

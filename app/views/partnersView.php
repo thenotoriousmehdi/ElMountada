@@ -370,10 +370,20 @@ echo '</div>';
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantages) ? htmlspecialchars($partner->advantages) : 'N/A') . "</td>";
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantage_membership_type_names) ? htmlspecialchars($partner->advantage_membership_type_names) : 'N/A') . "</td>";
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+
+            echo "<div class='flex flex-col gap-2'>";
             echo "<form action='/ElMountada/partners/deletePartner' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")' >";
             echo "<input type='hidden' name='partner_id' value='" . htmlspecialchars($partner->partner_id) . "'>";
             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
             echo "</form>";
+
+            echo "<a href='/ElMountada/partners/updatePartner/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+            echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
+            echo "</a>";
+            echo '</div>';
+
+
+        
             echo "</td>";
             echo "</tr>";
         }
@@ -488,6 +498,110 @@ echo '</div>';
         </div>
 
 <?php
+    }
+
+
+    public function updatePartnerForm($partner) {
+        ?>
+        <div class="flex flex-col justify-start gap-2 mb-8">
+            <h2 class="text-start text-[24px] font-poppins font-bold text-text">Modifier le partenaire</h2>
+            <div class="flex flex-col gap-4 bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
+                <form action="/ElMountada/partners/handleUpdatePartner" method="POST" enctype="multipart/form-data" class="space-y-4">
+                    <input type="hidden" name="partner_id" value="<?php echo htmlspecialchars($partner->id); ?>">
+    
+                    <div class="flex items-center justify-between gap-4 w-full">
+                        <div class="w-full">
+                            <label for="email" class="text-[16px] font-poppins font-medium text-text">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Adresse email" 
+                                value="<?php echo htmlspecialchars($partner->email); ?>"
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+    
+                        <div class="w-full">
+                            <label for="name" class="text-[16px] font-poppins font-medium text-text">Nom</label>
+                            <input type="text" id="name" name="name" required placeholder="Nom" 
+                                value="<?php echo htmlspecialchars($partner->full_name); ?>"
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+                    </div>
+    
+                    <div class="flex items-center justify-between gap-4 w-full">
+                        <div class="w-full">
+                            <label for="phone_number" class="text-[16px] font-poppins font-medium text-text">Numéro de téléphone</label>
+                            <input type="tel" id="phone_number" name="phone_number" required placeholder="Numéro de téléphone" 
+                                value="<?php echo htmlspecialchars($partner->phone_number); ?>"
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+    
+                        <div>
+                            <label for="logo" class="text-[16px] font-poppins font-medium text-text">Logo</label>
+                            <?php if (!empty($partner->logo_path)): ?>
+                                <div class="mb-2">
+                                    <img src="<?php echo htmlspecialchars($partner->logo_path); ?>" alt="Current Logo" class="h-10 w-10 object-cover">
+                                </div>
+                            <?php endif; ?>
+                            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg, image/jpg"
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-2 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+                        </div>
+                    </div>
+    
+                    <div class="flex items-center justify-between gap-4 w-full">
+                        <div class="w-full">
+                            <label for="password" class="text-[16px] font-poppins font-medium text-text">Nouveau mot de passe (optionnel)</label>
+                            <input type="password" id="password" name="password" placeholder="Laisser vide pour ne pas modifier" 
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+    
+                        <div class="w-full">
+                            <label for="confirmed_password" class="text-[16px] font-poppins font-medium text-text">Confirmer le nouveau mot de passe</label>
+                            <input type="password" id="confirmed_password" name="confirmed_password" placeholder="Confirmer le nouveau mot de passe" 
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+                    </div>
+    
+                    <div>
+    <label for="partner_categorie" class="text-[16px] font-poppins font-medium text-text">Catégorie</label>
+    <select id="partner_categorie" name="partner_categorie" required
+        class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+        <option value="">Sélectionner une categorie</option>
+        <option value="1" <?php echo ($partner->categorie_id == 1) ? 'selected' : ''; ?>>Hotel</option>
+        <option value="2" <?php echo ($partner->categorie_id == 2) ? 'selected' : ''; ?>>Clinique</option>
+        <option value="3" <?php echo ($partner->categorie_id == 3) ? 'selected' : ''; ?>>Ecole</option>
+        <option value="4" <?php echo ($partner->categorie_id == 4) ? 'selected' : ''; ?>>AgenceDeVoyage</option>
+    </select>
+</div>
+                    <div class="flex items-center justify-between gap-4 w-full">
+                        <div class="w-full">
+                            <label for="ville" class="text-[16px] font-poppins font-medium text-text">Ville</label>
+                            <input type="text" id="ville" name="ville" required placeholder="Ville" 
+                                value="<?php echo htmlspecialchars($partner->ville); ?>"
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+    
+                        <div class="w-full">
+                            <label for="adresse" class="text-[16px] font-poppins font-medium text-text">Adresse</label>
+                            <input type="text" id="adresse" name="adresse" required placeholder="Adresse" 
+                                value="<?php echo htmlspecialchars($partner->adresse); ?>"
+                                class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
+                        </div>
+                    </div>
+    
+                    <div>
+                        <label for="description" class="text-[16px] font-poppins font-medium text-text">Description</label>
+                        <textarea id="description" name="description" required placeholder="Décrivez votre demande"
+                            class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]"><?php echo htmlspecialchars($partner->description); ?></textarea>
+                    </div>
+    
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
+                            Mettre à jour
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <?php
     }
 }
 ?>

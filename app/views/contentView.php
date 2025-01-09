@@ -130,9 +130,9 @@ public function ContentDetails($content, $sessionData, $users)
     <table class="min-w-full bg-white/80 border border-primary rounded-[15px] overflow-hidden">
         <thead class="bg-text sticky top-0 z-10">
             <tr>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Name</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Nom</th>
                 <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Email</th>
-                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Phone</th>
+                <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Numéro de téléphone</th>
                 <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Type</th>
             </tr>
         </thead>

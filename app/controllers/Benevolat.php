@@ -24,11 +24,11 @@ class benevolat
         $view->Head();
         $view->header($sessionData);
     
-        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        // if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
             $view->Benevolat($content);
-        } else {
-            // $view->ContentTable($content, $villes);
-        }
+        // } else {
+        
+        // }
     
         $view->footer();
         $view->foot();
