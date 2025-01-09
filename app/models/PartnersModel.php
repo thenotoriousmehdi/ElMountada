@@ -356,7 +356,7 @@ public function updatePartner($data) {
     }
 }
 
-// Method to add a reduction
+
 public function addReduction($partnerId, $membershipTypeId, $reductionValue) {
     $query = "INSERT INTO reductions (partner_id, membership_type_id, reduction_value) 
               VALUES (:partner_id, :membership_type_id, :reduction_value)";

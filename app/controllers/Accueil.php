@@ -21,7 +21,7 @@ class Accueil
          $this->View('accueil');
          $view = new AccueilView();
          $News = $this->contentModel->getNews();
-         $Latest = $this->contentModel->getLatest();
+         $latest = $this->contentModel->getLatest();
          $offers = $this->offersModel->get10Offers();
          $partnerLogos = $this->partnersModel->getAllPartnersLogos();
          $sessionData = $this->getSessionData();
@@ -30,7 +30,7 @@ class Accueil
          $view ->header($sessionData);
          if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
          $view ->diaporama($News);
-         $view ->latest($Latest);
+         $view ->latest($latest);
          $view ->offers($offers);
          $view ->partnersLogos($partnerLogos);
          $view ->footer();
