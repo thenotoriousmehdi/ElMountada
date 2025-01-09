@@ -2,7 +2,7 @@
 
 trait View
 {
-
+use Controller;
     public function header($sessionData)
     {
 ?>
@@ -194,7 +194,6 @@ trait View
         </head>
 
         <body>
-       
         <?php
     }
 

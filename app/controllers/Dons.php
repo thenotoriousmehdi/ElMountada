@@ -95,7 +95,9 @@ class Dons {
                         $success = $this->donsModel->addDonation($data);
                         
                         if ($success) {
+                            $this->startSession();
                             $_SESSION['status'] = "Donation enregistrée, elle apparaitera dans votre historique dès qu'un admin la confiermera ";
+                            $_SESSION['status_type'] = 'success';
                             header('Location: /ElMountada/dons/showDonsPage/');
                             exit();
                         } else {
@@ -143,7 +145,9 @@ class Dons {
                 $success = $this->donsModel->addDonationRequest($user_id, $name, $dob, $aid_type,  $description, $document);
                 var_dump($success);
                 if ($success) {
+                    $this->startSession();
                     $_SESSION['status'] = "Votre demande de dons a été enregistrée avec success";
+                    $_SESSION['status_type'] = 'success';
                     header('Location: /ElMountada/dons/showDonsPage/');
                     exit();
                 } else {
@@ -159,6 +163,7 @@ class Dons {
     public function acceptDonation($id) {
         $success=$this->donsModel->updateDonationsDoneAccepted($id);
         if ($success) {
+            $this->startSession();
             $_SESSION['status'] = "Donation accéptée";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
@@ -169,7 +174,9 @@ class Dons {
 
     public function RefuseDonation($id) {
         $success=$this->donsModel->updateDonationsDoneRefused($id);
+
         if ($success) {
+            $this->startSession();
             $_SESSION['status'] = "Donation refusée";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
@@ -182,6 +189,7 @@ class Dons {
     public function RefuseRequest($id) {
         $success=$this->donsModel->updateDonationsRequestRefused($id);
         if ($success) {
+            $this->startSession();
             $_SESSION['status'] = "Demande de donation refusée";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');
@@ -194,6 +202,7 @@ class Dons {
     public function AcceptRequest($id) {
         $success=$this->donsModel->updateDonationsRequestAccepted($id);
         if ($success) {
+            $this->startSession();
             $_SESSION['status'] = "Demande de donation accéptée";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/dons/showDonsPage/');

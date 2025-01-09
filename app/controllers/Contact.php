@@ -62,6 +62,7 @@ class Contact {
 
            
             if (empty($type) || empty($message)) {
+                $this->startSession();
                 $_SESSION['status'] = 'Please fill in all required fields.';
                 $_SESSION['status_type'] = 'error';
                 header('Location: /ElMountada/contact/showContactForm');
@@ -71,11 +72,13 @@ class Contact {
             $isSaved = $this->contactModel->saveContactMessage($type, $message, $partnerId);
 
             if ($isSaved) {
-                $_SESSION['status']  = 'Your message has been sent successfully!';
+                $this->startSession();
+                $_SESSION['status']  = 'Votre message a bien été envoyé!';
                 $_SESSION['status_type'] = 'success';
                 header('Location: /ElMountada/');
                 exit;
             } else {
+                $this->startSession();
                 $_SESSION['status'] = 'An error occurred. Please try again.';
                 $_SESSION['status_type'] = 'error';
                 header('Location: /ElMountada/contact/showContactForm');

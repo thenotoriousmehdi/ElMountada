@@ -356,4 +356,48 @@ public function updatePartner($data) {
     }
 }
 
+// Method to add a reduction
+public function addReduction($partnerId, $membershipTypeId, $reductionValue) {
+    $query = "INSERT INTO reductions (partner_id, membership_type_id, reduction_value) 
+              VALUES (:partner_id, :membership_type_id, :reduction_value)";
+    
+    $data = [
+        ':partner_id' => $partnerId,
+        ':membership_type_id' => $membershipTypeId,
+        ':reduction_value' => $reductionValue
+    ];
+    
+    if (!$this->query($query, $data)) {
+        error_log("Failed to insert into reductions table");
+        return false;
+    }
+    return true;
+}
+
+public function addAdvantage($partnerId, $membershipTypeId, $description) {
+    $query = "INSERT INTO advantages (partner_id, membership_type_id, description) 
+              VALUES (:partner_id, :membership_type_id, :description)";
+    
+    $data = [
+        ':partner_id' => $partnerId,
+        ':membership_type_id' => $membershipTypeId,
+        ':description' => $description
+    ];
+
+    if (!$this->query($query, $data)) {
+        error_log("Failed to insert into advantages table");
+        return false;
+    }
+    return true;
+}
+
+
+public function getPartners() {
+    $query  = "SELECT id, full_name FROM users WHERE type = 'partner'";
+    return $this->query($query);
+}
+public function getAllMembershipTypes() {
+    $query  = "SELECT id, name FROM membership_types"; 
+    return $this->query($query);
+}
 }

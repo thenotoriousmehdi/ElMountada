@@ -82,11 +82,13 @@ class Users
             $success = $this->usersModel->deleteUser($user_id);
 
             if ($success) {
-                $_SESSION['status'] = "supprime avec success";
+                $this->startSession();
+                $_SESSION['status'] = "utilisateur supprimé avec success";
                 $_SESSION['status_type'] = 'success';
                 header('Location: /ElMountada/users/ShowUsers'); 
                 exit;
             } else {
+                $this->startSession();
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
                 header('Location: /ElMountada/users/ShowUsers'); 
@@ -106,11 +108,13 @@ class Users
             $success = $this->usersModel->blockUser($user_id);
 
             if ($success) {
-                $_SESSION['status'] = "supprime avec success";
+                $this->startSession();
+                $_SESSION['status'] = "Uilisateur bloqué avec success";
                 $_SESSION['status_type'] = 'success';
                 header('Location: /ElMountada/users/ShowUsers'); 
                 exit;
             } else {
+                $this->startSession();
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
                 header('Location: /ElMountada/users/ShowUsers'); 
@@ -130,11 +134,13 @@ class Users
             $success = $this->usersModel->makeMember($user_id);
 
             if ($success) {
-                $_SESSION['status'] = "supprime avec success";
+                $this->startSession();
+                $_SESSION['status'] = "L'utilisateur est désormais membre";
                 $_SESSION['status_type'] = 'success';
                 header('Location: /ElMountada/users/ShowUsers'); 
                 exit;
             } else {
+                $this->startSession();
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
                 header('Location: /ElMountada/users/ShowUsers'); 

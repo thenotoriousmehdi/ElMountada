@@ -114,6 +114,7 @@ class Membership
                         if (move_uploaded_file($_FILES[$file]['tmp_name'], $targetFile)) {
                             $data[$file] = $targetFile; 
                         } else {
+                            $this->startSession();
                             $_SESSION['status'] = "Erreur lors du téléchargement du fichier $file.";
                             $_SESSION['status_type'] = 'error';
                             header('Location: /ElMountada/');
@@ -125,11 +126,13 @@ class Membership
                 $success = $this->membershipModel->insertMembershipRequest($data);
             
                 if ($success) {
+                    $this->startSession();
                     $_SESSION['status'] = "Votre demande d'abonnement a été envoyée et est en attente de confirmation.";
                     $_SESSION['status_type'] = 'success';
                     header('Location: /ElMountada/');
                     exit();
                 } else {
+                    $this->startSession();
                     $_SESSION['status'] = "L'ajout de votre demande d'abonnement a échoué.";
                     $_SESSION['status_type'] = 'error';
                     header('Location: /ElMountada/');
@@ -183,6 +186,7 @@ class Membership
     public function acceptMembership($id) {
         $success=$this->membershipModel->updateMembershipAccepted($id);
         if ($success) {
+            $this->startSession();
             $_SESSION['status'] = "Membre accepté";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/membership/showMembers/');
@@ -194,6 +198,7 @@ class Membership
     public function refuseMembership($id) {
         $success=$this->membershipModel->updateMembershipRefused($id);
         if ($success) {
+            $this->startSession();
             $_SESSION['status'] = "Membre refusé";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/membership/showMembers/');

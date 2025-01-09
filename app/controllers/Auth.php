@@ -32,19 +32,35 @@ class Auth {
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             $password = $_POST['password'];
             $user = $this->userModel->getUserByEmail($email);
-            if ($user && password_verify($password, $user->password)) {
-                session_start();
-                session_regenerate_id(true);
-                $_SESSION['user_id'] = $user->id;
-                $_SESSION['user_type'] = $user->type;
-                header("Location: /ElMountada/");
-                exit();
-            } else {
-                $_SESSION['status'] = "Mot de passe ou email incorrect";
-                header("Location: /ElMountada/auth/showLoginPage");
+    
+            if ($user) {
+                if ($user->Active != 1) {
+                    session_start();
+                    $_SESSION['status'] = "Votre compte est bloqué. Veuillez contacter le support.";
+                    $_SESSION['status_type'] = 'error'; 
+                    header("Location: /ElMountada/auth/showLoginPage");
+                    exit();
+                }
+    
+                if ($user && password_verify($password, $user->password)) {
+                    session_start();
+                    session_regenerate_id(true);
+                    $_SESSION['user_id'] = $user->id;
+                    $_SESSION['user_type'] = $user->type;
+                    unset($_SESSION['status']);
+                    header("Location: /ElMountada/");
+                    exit();
+                }
             }
+    
+            session_start();
+            $_SESSION['status'] = "Mot de passe ou email incorrect";
+            $_SESSION['status_type'] = 'error'; 
+            header("Location: /ElMountada/auth/showLoginPage");
+            exit();
         }
     }
+    
 
     public function handleSignup() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,7 +72,8 @@ class Auth {
             $phoneNumber = htmlspecialchars($_POST['phone_number'], ENT_QUOTES, 'UTF-8');  
 
             if ($password !== $confirmPassword) {
-                $errorMessage = "Passwords do not match.";
+                $_SESSION['status'] = "Mots de passe incoherents";
+            $_SESSION['status_type'] = 'error';
                 $this->showSignUpPage();
                 return;
             }
@@ -64,7 +81,8 @@ class Auth {
     
             $existingUser = $this->userModel->getUserByEmail($email);
             if ($existingUser) {
-                $errorMessage = "Email is already in use.";
+                $_SESSION['status'] = "Email deja utilise";
+                $_SESSION['status_type'] = 'error';
                 $this->showSignUpPage();
                 return;
             }

@@ -137,11 +137,13 @@ public function showPartners()
                 $success =  $this->partnerModel->deletePartner($partner_id);
             
                 if ($success) {
+                    $this->startSession();
                     $_SESSION['status'] = "Le partenaire a été supprimé avec success";
                     $_SESSION['status_type'] = 'success';
                     header('Location: /ElMountada/partners/showPartners');
                     exit();
                 } else {
+                    $this->startSession();
                     $_SESSION['status'] = "La suppression a échoué";
                     $_SESSION['status_type'] = 'error';
                     header('Location: /ElMountada/partners/showPartners');
@@ -155,9 +157,7 @@ public function showPartners()
 
 
 public function showAddPartner(){
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    $this->startSession();
 
     if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
         header('Location: /ElMountada/auth/showLoginPage'); 
@@ -177,9 +177,7 @@ public function showAddPartner(){
 }
 
 public function handleAddPartner() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    $this->startSession();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
@@ -208,6 +206,7 @@ public function handleAddPartner() {
             $result = $this->partnerModel->addPartner($data);
             
             if ($result) {
+                $this->startSession();
                 $_SESSION['status'] = "Partenaire ajouté avec succès!";
                 $_SESSION['status_type'] = 'success';
                 header('Location: /ElMountada/');
@@ -217,6 +216,7 @@ public function handleAddPartner() {
             }
 
         } catch (Exception $e) {
+            $this->startSession();
             $_SESSION['status'] = "Erreur: " . $e->getMessage();
             $_SESSION['status_type'] = 'error';
             header('Location: /ElMountada/');
@@ -251,9 +251,7 @@ private function handleImageUpload($file) {
 
 
 public function updatePartner() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    $this->startSession();
     
     if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
         header('Location: /ElMountada/auth/showLoginPage');
@@ -262,6 +260,7 @@ public function updatePartner() {
 
     $partnerId = $_GET['id'] ?? null;
     if (!$partnerId) {
+        $this->startSession();
         $_SESSION['status'] = "ID du partenaire non spécifié";
         $_SESSION['status_type'] = 'error';
         header('Location: /ElMountada/partners/ShowPartners');
@@ -270,6 +269,7 @@ public function updatePartner() {
 
     $partner = $this->partnerModel->getPartnerById($partnerId);
     if (!$partner) {
+        $this->startSession();
         $_SESSION['status'] = "Partenaire non trouvé";
         $_SESSION['status_type'] = 'error';
         header('Location: /ElMountada/partners/ShowPartners');
@@ -288,9 +288,7 @@ public function updatePartner() {
 }
 
 public function handleUpdatePartner() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+    $this->startSession();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
@@ -311,29 +309,84 @@ public function handleUpdatePartner() {
                 'logo_path' => null
             ];
 
-            // Handle password update only if a new password is provided
             if (!empty($_POST['password'])) {
                 $data['password'] = $_POST['password'];
             }
-
-            // Handle new logo upload if provided
             if (!empty($_FILES['logo']['name']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
                 $data['logo_path'] = $this->handleImageUpload($_FILES['logo']);
             }
 
             $result = $this->partnerModel->updatePartner($data);
             if ($result) {
+                $this->startSession();
                 $_SESSION['status'] = "Partenaire mis à jour avec succès!";
                 $_SESSION['status_type'] = 'success';
             } else {
                 throw new Exception("Échec de la mise à jour du partenaire.");
             }
         } catch (Exception $e) {
+            $this->startSession();
             $_SESSION['status'] = "Erreur: " . $e->getMessage();
             $_SESSION['status_type'] = 'error';
         }
         header('Location: /ElMountada/partners/ShowPartners');
         exit();
+    }
+}
+
+
+
+ public function showAddOffer() {
+     $this->startSession();
+
+    if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        header('Location: /ElMountada/auth/showLoginPage');
+        exit();
+    }
+    
+    $users = $this->partnerModel->getPartners();
+    $membershipTypes = $this->partnerModel->getAllMembershipTypes();
+    $this->View('partners');
+    $view = new PartnersView();
+    $sessionData = $this->getSessionData();
+    $view->Head();
+    $view->displaySessionMessage();
+    $view->header($sessionData);
+    $view -> addOffer($users, $membershipTypes);
+    $view->foot();
+    $view->footer();
+   
+
+}
+
+public function handleAddOffer() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $partnerId = $_POST['user_id']; 
+        $type = $_POST['type']; 
+        $membershipTypeId = $_POST['membership_type_id'];
+
+        if ($type === 'reduction') {
+            $reductionValue = $_POST['reduction_value'];
+            $success = $this->partnerModel->addReduction($partnerId, $membershipTypeId, $reductionValue);
+        } elseif ($type === 'advantage') {
+            $description = $_POST['description'];
+            $success = $this->partnerModel->addAdvantage($partnerId, $membershipTypeId, $description);
+        }
+        
+     
+        if ($success) {
+            $this->startSession();
+            $_SESSION['status'] = 'La remise/avantages a été ajouté avec succes';
+            $_SESSION['status_type'] = 'success';
+        } else {
+            $this->startSession();
+            $_SESSION['status'] = 'Failed to add the ' . $type . '. Please try again.';
+            $_SESSION['status_type'] = 'error';
+        }
+        
+        header("Location: /ElMountada/partners/showPartners");
+        exit();
+        
     }
 }
 
