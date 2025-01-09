@@ -369,22 +369,6 @@ class DonsView
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         <?php endif; ?>
 <?php

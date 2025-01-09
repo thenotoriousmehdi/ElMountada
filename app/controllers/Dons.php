@@ -26,19 +26,6 @@ class Dons {
         $view->footer();
     }
 
-    public function showMesdonsPage() {
-        $this->startSession();
-        $sessionData = $this->getSessionData();
-        $user_id = $sessionData['user_id'];
-        $this->View('dons');
-        $view = new donsView();
-        $mesDons = $this ->donsModel ->getMesdons($user_id);
-        $view->Head();
-        $view->header($sessionData);
-        $view ->MesDons($mesDons);
-        $view->foot();
-        $view->footer();
-    }
     
 
     public function showAddDon() {

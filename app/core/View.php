@@ -89,7 +89,7 @@ trait View
             <a href="/ElMountada/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member  -->
-            <a href="/ElMountada/dons/showMesDonsPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
+            <a href="/ElMountada/history/showHistoryPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
             <a href="/ElMountada/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
              <!-- simple -->
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>

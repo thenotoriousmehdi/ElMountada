@@ -110,12 +110,15 @@ public function ContentDetails($content, $sessionData, $users)
 
         <?php if (strtolower($content->type ?? '') === 'benevolat'): ?>
             <div class="flex justify-end mt-6">
-    <form action="/ElMountada/benevolat/Participer" method="POST">
+    <form action="/ElMountada/benevolat/Participer" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir participer a cet evenement?')"    >
         <input type="hidden" name="content_id" value="<?= htmlspecialchars($content->id) ?>">
         <button type="submit" class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-[#264653]/80 transition duration-300">
             Participer
         </button>
     </form>
+
+
+
 </div>
 
         <?php endif; ?>

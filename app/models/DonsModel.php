@@ -80,26 +80,7 @@ class DonsModel {
 
 
 
-    public function getMesdons($user_id) {
-        $query = "SELECT 
-        d.id,
-    d.somme,
-    dc.name AS category_name,
-    d.recu,
-    d.status,
-    d.created_at
-FROM 
-    donationsDone d
-
-LEFT JOIN 
-    donationCategories dc ON d.donation_category_id = dc.category_id
-        
-        WHERE user_id = :user_id AND status = 'accepted'";
-        $data = [':user_id' => $user_id]; 
-        return $this->query($query, $data);
-
-       
-    }
+  
 
 
 
