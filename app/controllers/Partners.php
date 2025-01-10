@@ -371,23 +371,29 @@ public function handleAddOffer() {
         } elseif ($type === 'advantage') {
             $description = $_POST['description'];
             $success = $this->partnerModel->addAdvantage($partnerId, $membershipTypeId, $description);
+        } elseif ($type === 'special_offer') {
+
+            $description = $_POST['description'];
+            $reductionValue = $_POST['reduction_value'];
+            $endDate = $_POST['end_date'];
+            error_log("Adding special offer with: " . json_encode(compact('description', 'reductionValue', 'endDate')));
+            $success = $this->partnerModel->addSpecialOffer($partnerId, $membershipTypeId, $reductionValue ,$description,$endDate);
+
         }
-        
-     
+
+        $this->startSession();
         if ($success) {
-            $this->startSession();
-            $_SESSION['status'] = 'La remise/avantages a été ajouté avec succes';
+            $_SESSION['status'] = 'The offer has been added successfully';
             $_SESSION['status_type'] = 'success';
         } else {
-            $this->startSession();
             $_SESSION['status'] = 'Failed to add the ' . $type . '. Please try again.';
             $_SESSION['status_type'] = 'error';
         }
-        
+
         header("Location: /ElMountada/partners/showPartners");
         exit();
-        
     }
 }
+
 
 }

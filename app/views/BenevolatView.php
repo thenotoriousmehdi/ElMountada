@@ -12,7 +12,7 @@ class BenevolatView
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <?php foreach ($content as $item): ?>
                             <div
-                                class="bg-principale/5 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
+                                class="bg-white/80 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
                                 <?php if (!empty($item -> image_path)): ?>
                                     <img src="<?php echo htmlspecialchars($item -> image_path); ?>"
                                         alt="<?php echo htmlspecialchars($item -> title); ?>" class="w-full h-48 object-cover">

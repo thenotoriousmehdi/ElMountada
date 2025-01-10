@@ -86,7 +86,7 @@ class AccueilView
 
                
             
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->reductions) ? htmlspecialchars($offer->reductions) : 'N/A') . " </td>";
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->reductions) ? htmlspecialchars($offer->reductions ) : 'N/A') . " </td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->reduction_membership_type_names) ? htmlspecialchars($offer->reduction_membership_type_names) : 'N/A') . "</td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->advantages) ? htmlspecialchars($offer->advantages) : 'N/A') . "</td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->advantage_membership_type_names) ? htmlspecialchars($offer->advantage_membership_type_names) : 'N/A') . "</td>";
@@ -188,7 +188,7 @@ class AccueilView
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php foreach ($Latest as $item): ?>
                     <div
-                        class="bg-principale/5 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
+                        class="bg-white/80 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
                         <?php if (!empty($item -> image_path)): ?>
                             <img src="<?php echo htmlspecialchars($item -> image_path); ?>"
                                 alt="<?php echo htmlspecialchars($item -> title); ?>" class="w-full h-48 object-cover">

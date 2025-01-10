@@ -9,12 +9,12 @@ class PartnersView
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
 
-            <div class="bg-text bg-opacity-5 w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
+            <div class="bg-white shadow-md  w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
                 <div class="flex flex-wrap gap-4 justify-start">
                     <?php
                     foreach ($partners as $partner) {
                         echo "
-                    <div class='w-[300px] flex flex-col justify-center items-center bg-bg p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative'>
+                    <div class='w-[300px] flex flex-col justify-center items-center bg-text/5 p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative'>
                         <div class='absolute top-2 right-2'>
                             <button onclick='addToFavorites(" . htmlspecialchars($partner->partner_id) . ")' class='p-2 bg-bg border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 '>
                                <img src='/ElMountada/public/assets/star.svg' alt='Add to Favorites' class='h-6 w-6'>
@@ -48,13 +48,13 @@ class PartnersView
     ?>
         <div class="mx-auto p-6">
             <div class="bg-white p-6 rounded-lg shadow-lg">
-
+    
                 <div class="text-center mb-6">
                     <h2 class="text-4xl font-semibold text-gray-800"><?= htmlspecialchars($partner->full_name ?? 'N/A') ?></h2>
                     <p class="text-xl text-gray-600"><?= htmlspecialchars($partner->category_name ?? 'N/A') ?></p>
                 </div>
-
-
+    
+    
                 <div class="flex justify-center items-center bg-text pb-8 rounded-[15px] bg-opacity-10 gap-8 mb-8">
                     <div class="flex flex-col items-center">
                         <img src="<?= htmlspecialchars($partner->logo_path) ?>" alt="Partner Logo" class="h-32 w-32 object-contain rounded-full mb-4">
@@ -65,8 +65,8 @@ class PartnersView
                         <p class="text-md text-gray-500"><strong>Numéro</strong> <?= htmlspecialchars($partner->phone_number ?? 'N/A') ?></p>
                     </div>
                 </div>
-
-
+    
+    
                 <div class="mb-8">
                     <h3 class="text-3xl font-semibold text-gray-800 mb-4">Reductions</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -92,22 +92,22 @@ class PartnersView
                         }
                         ?>
                     </div>
-
-
+    
+    
                     <h3 class="text-3xl font-semibold text-gray-800 mt-8 mb-4">Avantages</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php
-
+    
                         $advantages = !empty($partner->advantages) ? explode(',', $partner->advantages) : [];
                         $advantageMembershipTypes = !empty($partner->advantage_membership_type_names) ? explode(',', $partner->advantage_membership_type_names) : [];
-
-
+    
+    
                         if (empty($advantages)) {
                             echo "<p class='text-gray-500'>Aucun avantage disponible</p>";
                         } else {
                             $seenAdvantageMembershipTypes = [];
                             foreach ($advantageMembershipTypes as $key => $type) {
-
+    
                                 if (!in_array($type, $seenAdvantageMembershipTypes)) {
                                     echo "
                                 <div class='bg-primary bg-opacity-20 p-4 rounded-lg shadow-md'>
@@ -116,9 +116,33 @@ class PartnersView
                                         <li>" . htmlspecialchars($advantages[$key] ?? 'N/A') . "</li>
                                     </ul>
                                 </div>";
-
+    
                                     $seenAdvantageMembershipTypes[] = $type;
                                 }
+                            }
+                        }
+                        ?>
+                    </div>
+    
+                    <h3 class="text-3xl font-semibold text-gray-800 mt-8 mb-4">Offres Spéciales</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <?php
+                        $specialOffers = !empty($partner->special_offer_descriptions) ? explode(',', $partner->special_offer_descriptions) : [];
+                        $specialOfferReductions = !empty($partner->special_offer_reductions) ? explode(',', $partner->special_offer_reductions) : [];
+                        $specialOfferMembershipTypes = !empty($partner->special_offer_membership_types) ? explode(',', $partner->special_offer_membership_types) : [];
+                        $specialOfferEndDates = !empty($partner->special_offer_end_dates) ? explode(',', $partner->special_offer_end_dates) : [];
+    
+                        if (empty($specialOffers)) {
+                            echo "<p class='text-gray-500'>Aucune offre spéciale disponible</p>";
+                        } else {
+                            foreach ($specialOffers as $key => $offer) {
+                                echo "
+                                <div class='bg-blue-100 bg-opacity-20 p-4 rounded-lg shadow-md'>
+                                    <h4 class='text-xl font-semibold text-gray-700'>" . htmlspecialchars($specialOfferMembershipTypes[$key] ?? 'N/A') . "</h4>
+                                    <p class='mt-2 text-gray-600'>Réduction: " . htmlspecialchars($specialOfferReductions[$key] ?? 'N/A') . "%</p>
+                                    <p class='mt-2 text-gray-600'>" . htmlspecialchars($offer ?? 'N/A') . "</p>
+                                    <span class='text-sm text-white inline-block mt-2 bg-primary bg-opacity-80 px-2 py-1 rounded'>Expiration: " . htmlspecialchars($specialOfferEndDates[$key] ?? 'N/A') . "</span>
+                                </div>";
                             }
                         }
                         ?>
@@ -128,7 +152,9 @@ class PartnersView
         </div>
     <?php
     }
-
+    
+    
+    
 
     public function displayFilterForm($cities)
     {
@@ -633,6 +659,7 @@ class PartnersView
                     <option value="">Type</option>
                     <option value="reduction">Réduction</option>
                     <option value="advantage">Avantage</option>
+                    <option value="special_offer">Offre spéciale</option>
                 </select>
             </div>
 
@@ -672,6 +699,12 @@ class PartnersView
                           placeholder="Entrez la description de l'avantage"></textarea>
             </div>
 
+            <div id="end_date" style="display:none;">
+            <label for="end_date" class="text-[16px] font-poppins font-medium text-text">Date de fin</label>
+        <input type="date" name="end_date" id="end_date"
+               class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]" />
+            </div>
+
             <div class="pt-4">
                 <button type="submit" 
                         class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
@@ -684,7 +717,6 @@ class PartnersView
 </div>
 
 <script>
-    // JavaScript to show/hide fields based on type selection
     document.getElementById('type').addEventListener('change', function() {
         var type = this.value;
         if (type === 'reduction') {
@@ -693,6 +725,12 @@ class PartnersView
         } else if (type === 'advantage') {
             document.getElementById('reductionFields').style.display = 'none';
             document.getElementById('advantageFields').style.display = 'block';
+        } else if (type === 'special_offer') {
+
+            document.getElementById('reductionFields').style.display = 'block';
+            document.getElementById('advantageFields').style.display = 'block';
+            document.getElementById('end_date').style.display = 'block';
+
         }
     });
 </script>

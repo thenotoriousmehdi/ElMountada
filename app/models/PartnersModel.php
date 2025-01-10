@@ -232,7 +232,12 @@ public function getPartnerDetails($partnerId)
 
     membership_types.name AS membership_type_name,
     membership_types.description AS membership_type_description,
-    membership_types.price AS membership_type_price
+    membership_types.price AS membership_type_price,
+
+    GROUP_CONCAT(DISTINCT special_offers.reduction_value ORDER BY special_offers.reduction_value) AS special_offer_reductions,
+    GROUP_CONCAT(DISTINCT special_offers.description ORDER BY special_offers.reduction_value) AS special_offer_descriptions,
+    GROUP_CONCAT(DISTINCT special_offers.end_date ORDER BY special_offers.reduction_value) AS special_offer_end_dates,
+    GROUP_CONCAT(DISTINCT special_offer_membership.name ORDER BY special_offers.reduction_value) AS special_offer_membership_types
 
 FROM
     partners
@@ -248,6 +253,9 @@ LEFT JOIN membership_types AS reduction_membership ON reduction_membership.id = 
 LEFT JOIN membership_types AS advantage_membership ON advantage_membership.id = advantages.membership_type_id
 LEFT JOIN membership_types ON membership_types.id = partners.categorie_id
 
+LEFT JOIN special_offers ON special_offers.partner_id = partners.id
+LEFT JOIN membership_types AS special_offer_membership ON special_offer_membership.id = special_offers.membership_type_id
+
 WHERE partners.id = :partner_id
 
 GROUP BY
@@ -255,6 +263,8 @@ GROUP BY
     partners.adresse, partners.logo_path, partners.created_at, users.id, users.email, 
     users.full_name, users.phone_number, users.password, users.type, users.is_member,
     membership_types.name, membership_types.description, membership_types.price;
+
+
 " ;
 
     $data = [':partner_id' => $partnerId];
@@ -386,6 +396,25 @@ public function addAdvantage($partnerId, $membershipTypeId, $description) {
 
     if (!$this->query($query, $data)) {
         error_log("Failed to insert into advantages table");
+        return false;
+    }
+    return true;
+}
+
+public function addSpecialOffer($partnerId, $membershipTypeId, $reductionValue, $description, $endDate) {
+    $query = "INSERT INTO special_offers (partner_id, membership_type_id, reduction_value, description, end_date) 
+              VALUES (:partner_id, :membership_type_id, :reduction_value, :description, :end_date)";
+    
+    $data = [
+        ':partner_id' => $partnerId,
+        ':membership_type_id' => $membershipTypeId,
+        ':reduction_value' => $reductionValue,
+        ':description' => $description,
+        ':end_date' => $endDate
+    ];
+    
+    if (!$this->query($query, $data)) {
+        error_log("Failed to insert into special_offers table");
         return false;
     }
     return true;
