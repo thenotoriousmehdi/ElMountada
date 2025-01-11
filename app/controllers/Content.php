@@ -2,11 +2,13 @@
 class Content {
     
     private $contenuModel;
+    private $notificationsModel;
     private $contenuView;
     use Controller;
     use Database;
     public function __construct() {
         $this->contenuModel = new ContentModel();
+        $this -> notificationsModel = new NotificationsModel();
     }
 
     public function showDetails($id)
@@ -19,7 +21,7 @@ class Content {
     $view = new ContentView();
     $view ->Head();
     $view ->displaySessionMessage();
-    $view ->header( $sessionData);
+    $view->loadHeader($sessionData);
     $view ->ContentDetails($content,   $sessionData, $users);
     $view->footer();
     $view->foot();
@@ -49,7 +51,7 @@ class Content {
         $view = new ContentView();
         $view ->Head();
         $view ->displaySessionMessage();
-        $view ->header( $sessionData);
+        $view->loadHeader($sessionData);
         $view ->addContent();
         $view->footer();
         $view->foot();
@@ -73,7 +75,7 @@ class Content {
         $view = new ContentView();
     
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
     
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
             $view->Content($content);
@@ -132,8 +134,9 @@ class Content {
 
         
              $result = $this->contenuModel->insert($data);
-
+             
              if ($result) {
+                $this->notificationsModel->createNotification($_POST['type'], "Un contenu " . $_POST['title'] . " a été ajouté à ElMountada !");
                 $_SESSION['status'] = "Contenu ajouter avec success";
                 $_SESSION['status_type'] = 'sucess';
                  header('Location: /ElMountada/accueil/showAccueil');
@@ -205,7 +208,7 @@ public function showEditContent($contentId) {
         $view = new ContentView();
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->updateContent($content);
         $view->footer();
         $view->foot();

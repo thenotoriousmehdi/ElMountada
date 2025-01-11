@@ -22,7 +22,7 @@ class benevolat
         $view = new BenevolatView();
     
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
     
         // if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
             $view->Benevolat($content);

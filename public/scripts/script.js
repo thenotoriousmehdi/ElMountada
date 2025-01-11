@@ -86,9 +86,12 @@ function setupCarousel() {
 function setupDropdown() {
     const userBtn = document.querySelector('.user-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
+    const notificationBtn = document.getElementById('notification-btn'); 
+    const notificationDropdown = document.getElementById('notification-dropdown');
 
     if (userBtn && dropdownContent) {
-        userBtn.addEventListener('click', () => {
+        userBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
             dropdownContent.classList.toggle('hidden');
         });
 
@@ -98,7 +101,24 @@ function setupDropdown() {
             }
         });
     }
+
+    if (notificationBtn && notificationDropdown) {
+        notificationBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            notificationDropdown.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                notificationDropdown.classList.add('hidden');
+            }
+        });
+    }
+
 }
+
+
+
 
 
 function enableSaveButtonOnChange() {
@@ -106,12 +126,12 @@ function enableSaveButtonOnChange() {
     const profileSubmit = document.getElementById('profileSubmit');
     const originalValues = {};
   
-    // Save original values
+
     profileForm.querySelectorAll('input').forEach(input => {
       originalValues[input.name] = input.value;
     });
   
-    // Listen for changes in inputs
+
     profileForm.addEventListener('input', () => {
       let isModified = false;
   
@@ -124,6 +144,7 @@ function enableSaveButtonOnChange() {
       profileSubmit.disabled = !isModified;
     });
   }
+  
 // function confirmRefuseDonation(id) {
 //     const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
 //     if (isConfirmed) {

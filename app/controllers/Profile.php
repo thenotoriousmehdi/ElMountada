@@ -19,7 +19,7 @@ class Profile
         $profile = $this->userModel->getProfile($id);
         $view->Head();
         $view->displaySessionMessage();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->myProfile($profile);
         $view->foot();
         $view->footer();

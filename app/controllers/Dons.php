@@ -20,7 +20,7 @@ class Dons {
         $sessionData = $this->getSessionData();
         $view->Head();
         $view ->displaySessionMessage();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->Dons($categoryCounts, $sessionData,  $donationsRequests, $donations, $donationsDone );
         $view->foot();
         $view->footer();
@@ -37,7 +37,7 @@ class Dons {
             $view = new donsView();
             $sessionData = $this->getSessionData();
             $view->Head();
-            $view->header($sessionData);
+            $view->loadHeader($sessionData);
             $view ->displaySessionMessage();
             $view->faireUnDon();
             $view->foot();
@@ -52,7 +52,7 @@ class Dons {
                 $sessionData = $this->getSessionData();
                 $view->Head();
                 $view ->displaySessionMessage();
-                $view->header($sessionData);
+                $view->loadHeader($sessionData);
                 $view->demanderUnDon();
                 $view->foot();
                 $view->footer();

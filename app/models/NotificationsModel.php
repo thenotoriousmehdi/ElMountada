@@ -17,7 +17,18 @@ class NotificationsModel {
     $this->query($query, $data);
 }
 
+public function getNotifications()
+    {
+        $query = "SELECT * FROM notifications ORDER BY created_at DESC";
+        return $this->query($query);
+    }
 
+
+    public function getUnreadNotificationsCount()
+    {
+        $query = "SELECT COUNT(*) FROM notifications WHERE is_read = 0";
+        return $this->query($query);
+    }
 
 
 

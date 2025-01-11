@@ -19,7 +19,7 @@ class Offers
         $offers = $this->offersModel->getAllOffers();
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->offers($offers);
         $view->foot();
         $view->footer();

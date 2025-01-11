@@ -4,9 +4,11 @@
 Trait Controller
 {
 
+	private $notificationsModel;
 	public function __construct()
     {
         $this->startSession();
+		$this-> notificationsModel = new NotificationsModel();
     }
 
     protected function startSession()
@@ -16,6 +18,8 @@ Trait Controller
         }
     }
 
+	
+
     protected function getSessionData()
     {
         return [
@@ -23,6 +27,21 @@ Trait Controller
             'user_type' => isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null,
         ];
     }
+
+	
+
+	public function loadHeader($sessionData)
+	{
+		
+		$notifications = $this->notificationsModel->getNotifications();
+		$this->header($sessionData, $notifications);
+	}
+	
+
+
+
+	
+
 	public function view($name, $data = [])
 	{
 		if(!empty($data))

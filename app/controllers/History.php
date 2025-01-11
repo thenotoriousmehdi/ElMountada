@@ -20,7 +20,7 @@ class History {
         $mesDons = $this ->historyModel ->getMesdons($user_id);
         $mesBenevolats = $this -> historyModel -> getMesBenevolats($user_id);
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view ->MesDons($mesDons);
         $view -> MesBenevolats($mesBenevolats);
         $view->foot();

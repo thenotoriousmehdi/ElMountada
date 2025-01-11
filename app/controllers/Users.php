@@ -21,7 +21,7 @@ class Users
          $view = new UsersView();
          $view ->Head();
          $view ->displaySessionMessage();
-         $view ->header($sessionData);
+         $view->loadHeader($sessionData);
          $view-> Users($users);
          $view ->footer();    
          $view ->foot();
@@ -36,7 +36,7 @@ class Users
         $profile = $this ->usersModel-> getProfile($id);
         $view->Head();
         $view ->displaySessionMessage();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->myProfile($profile);
         $view->foot();
         $view->footer();

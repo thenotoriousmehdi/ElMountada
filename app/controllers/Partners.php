@@ -8,12 +8,15 @@ class Partners
     private $partnerModel;
     private $membershipModel;
     private $favoriteModel;
+    private $notificationsModel;
+
     private $partnersView;
     public function __construct()
     {
         $this->partnerModel = new PartnersModel(); 
         $this-> membershipModel = new MembershipModel();
         $this-> favoriteModel = new FavoriteModel();
+        $this -> notificationsModel = new NotificationsModel();
     }
 
   
@@ -25,7 +28,7 @@ class Partners
         $sessionData = $this->getSessionData();
         $view->Head();
         $view ->displaySessionMessage();
-        $view->header($sessionData); 
+        $view->loadHeader($sessionData);
         $partnersH = $this->partnerModel->getAllPartnersByCategory(1);  
         $partnersC = $this->partnerModel->getAllPartnersByCategory(2);  
         $partnersE = $this->partnerModel->getAllPartnersByCategory(3);  
@@ -52,7 +55,7 @@ class Partners
         $view = new PartnersView();
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view->header($sessionData); 
+        $view->loadHeader($sessionData);
         $view->PartnerDetails($partner);
         $view->foot();
         $view->footer();
@@ -73,7 +76,7 @@ public function showCheckMembers()
     $this->View('partners');
     $view = new PartnersView();
     $view->Head();
-    $view->header($sessionData);
+    $view->loadHeader($sessionData);
     $userData = null;
     $message = '';
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
@@ -95,7 +98,7 @@ public function showCheckMembers()
         $sessionData = $this->getSessionData();
         $partnerCard = $this ->partnerModel->getPartnerCard($id);
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->PartnerCard($partnerCard);
         $view->foot();
         $view->footer();
@@ -120,7 +123,7 @@ public function showPartners()
     $partners = $this->partnerModel->filterPartners($ville, $categorie);
     $view->Head();
     $view->displaySessionMessage();
-    $view->header($sessionData);
+    $view->loadHeader($sessionData);
     $view->Partners($partners, $villes, $categories);
     $view->foot();
     $view->footer();
@@ -169,7 +172,7 @@ public function showAddPartner(){
     $sessionData = $this->getSessionData();
     $view->Head();
     $view ->displaySessionMessage();
-    $view->header($sessionData);
+    $view->loadHeader($sessionData);
     $view->addPartner();
     $view->foot();
     $view->footer();
@@ -207,6 +210,7 @@ public function handleAddPartner() {
             
             if ($result) {
                 $this->startSession();
+                $this->notificationsModel->createNotification("Nouveau Partenaire!", "Le partenaire " . $_POST['name'] . " fait maintenant partie de ElMountada !");
                 $_SESSION['status'] = "Partenaire ajouté avec succès!";
                 $_SESSION['status_type'] = 'success';
                 header('Location: /ElMountada/');
@@ -281,7 +285,7 @@ public function updatePartner() {
     $sessionData = $this->getSessionData();
     $view->Head();
     $view->displaySessionMessage();
-    $view->header($sessionData);
+    $view->loadHeader($sessionData);
     $view->updatePartnerForm($partner);
     $view->foot();
     $view->footer();
@@ -351,7 +355,7 @@ public function handleUpdatePartner() {
     $sessionData = $this->getSessionData();
     $view->Head();
     $view->displaySessionMessage();
-    $view->header($sessionData);
+    $view->loadHeader($sessionData);
     $view -> addOffer($users, $membershipTypes);
     $view->foot();
     $view->footer();
@@ -376,14 +380,14 @@ public function handleAddOffer() {
             $description = $_POST['description'];
             $reductionValue = $_POST['reduction_value'];
             $endDate = $_POST['end_date'];
-            error_log("Adding special offer with: " . json_encode(compact('description', 'reductionValue', 'endDate')));
             $success = $this->partnerModel->addSpecialOffer($partnerId, $membershipTypeId, $reductionValue ,$description,$endDate);
 
         }
 
         $this->startSession();
         if ($success) {
-            $_SESSION['status'] = 'The offer has been added successfully';
+            $this->notificationsModel->createNotification($_POST['type'], "Le partenaire " . $_POST['user_id']. " a ajouté un/une " .$_POST['type'] );
+            $_SESSION['status'] = 'La/Le' . $type . 'a été ajouté(e) avec success';
             $_SESSION['status_type'] = 'success';
         } else {
             $_SESSION['status'] = 'Failed to add the ' . $type . '. Please try again.';

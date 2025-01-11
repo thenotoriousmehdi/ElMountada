@@ -16,7 +16,7 @@ class Notifications
         $view = new NotificationsView();
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->addNotifications();
         $view->foot();
         $view->footer();

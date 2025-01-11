@@ -3,20 +3,19 @@
 trait View
 {
 use Controller;
-    public function header($sessionData)
-    {
+public function header($sessionData, $notifications)
+{
 ?>
+    <div class="sticky top-0 left-0 w-full z-40 bg-bg flex justify-between items-center px-4">
+        <!-- Logo -->
+        <div>
+            <a href="/ElMountada/">
+                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44">
+            </a>
+        </div>
 
-        <div class="sticky top-0 left-0 w-full z-40 bg-bg flex justify-between items-center px-4">
-
-
-            <div>
-                <a href="/ElMountada/"> 
-                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44" >
-                </a>
-            </div>
-
-            <div class="flex items-center my-6 gap-2">
+        <!-- Navigation Menu -->
+        <div class="flex items-center my-6 gap-2">
                 
                 <div class="flex justify-center items-center flex-grow">
                     <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
@@ -74,15 +73,15 @@ use Controller;
                     </ul>
                 </div>
 
-
-                <?php if (isset($sessionData['user_id'])): ?>
-    <div class="flex justify-center items-center bg-primary/75 w-full h-full p-4 rounded-[15px] ">
-        <button class="user-btn flex items-center ">
-            <img src="<?= ROOTIMG ?>user.svg" alt="logo" class="w-6">
-        </button>
-
-        <div class="relative">
-    <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
+            <!-- User Dropdown -->
+            <?php if (isset($sessionData['user_id'])): ?>
+                <div class="relative">
+                    <div class="flex items-center bg-primary/75 p-4 rounded-[15px]">
+                        <button class="user-btn flex items-center">
+                            <img src="<?= ROOTIMG ?>user.svg" alt="User" class="w-6">
+                        </button>
+                    </div>
+                    <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin -->
             <a href="/ElMountada/notifications/showAddNotification" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter une notification</a>
@@ -103,29 +102,84 @@ use Controller;
         <a href="/ElMountada/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
         <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
     </div>
-</div>
-    </div>
-<?php endif; ?>
+                </div>
 
-            </div>
-            <div class="social-media flex items-center space-x-4">
-                <a href="https://facebook.com" target="_blank">
-                    <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
-                </a>
-                <a href="https://instagram.com" target="_blank">
-                    <img src="<?= ROOTIMG ?>instagram.svg" alt="Instagram" class="w-8 h-8">
-                </a>
-                <a href="https://linkedin.com" target="_blank">
-                    <img src="<?= ROOTIMG ?>linkedin.svg" alt="LinkedIn" class="w-8 h-8">
-                </a>
-                <a href="https://x.com" target="_blank">
-                    <img src="<?= ROOTIMG ?>x.svg" alt="X" class="w-8 h-8">
-                </a>
-            </div>
+
+
+                <!-- Notification Button -->
+                <div class="relative ">
+            <button id="notification-btn" class="flex items-center bg-primary/75 p-4 rounded-[15px]">
+                <img src="<?= ROOTIMG ?>bell.svg" alt="Notifications" class="w-6">
+              
+            </button>
+            <div id="notification-dropdown" class="hidden absolute bg-white h-[300px] overflow-y-auto shadow-lg rounded-lg p-4 w-48 mt-2 right-0 z-10">
+                <h4 class="font-semibold text-text mb-2">Notifications</h4>
+                <ul>
+                    <?php if (!empty($notifications)): ?>
+                        <?php foreach ($notifications as $notification): ?>
+                            <li class="py-2 px-4 hover:bg-gray-200  rounded-lg transition-colors mb-1">
+                            <h2 class="text-md font-poppins font-semibold  text-text text-opacity-80"><?= htmlspecialchars($notification->title) ?></h2>
+                                <p class="text-sm text-gray-800"><?= htmlspecialchars($notification->message) ?></p>
+                                <small class="text-gray-500"><?= $notification->created_at ?></small>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <li class="text-gray-500 text-sm">No new notifications.</li>
+                    <?php endif; ?>
+                </ul>
+                    </div>
+
+        </div>
+            <?php endif; ?>
         </div>
 
-    <?php
-    }
+        <!-- Social Media -->
+        <div class="social-media flex items-center space-x-4">
+            <a href="https://facebook.com" target="_blank">
+                <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
+            </a>
+            <a href="https://instagram.com" target="_blank">
+                <img src="<?= ROOTIMG ?>instagram.svg" alt="Instagram" class="w-8 h-8">
+            </a>
+            <a href="https://linkedin.com" target="_blank">
+                <img src="<?= ROOTIMG ?>linkedin.svg" alt="LinkedIn" class="w-8 h-8">
+            </a>
+            <a href="https://x.com" target="_blank">
+                <img src="<?= ROOTIMG ?>x.svg" alt="X" class="w-8 h-8">
+            </a>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    
+        function setupDropdown() {
+            const notificationBtn = document.getElementById('notification-btn');
+            const notificationDropdown = document.getElementById('notification-dropdown');
+            if (notificationBtn && notificationDropdown) {
+                notificationBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); 
+                    notificationDropdown.classList.toggle('hidden');
+                });
+
+                window.addEventListener('click', (e) => {
+                    if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                        notificationDropdown.classList.add('hidden');
+                    }
+                });
+            }
+        }
+
+        setupDropdown();
+    });
+    
+</script>
+
+
+
+<?php
+}
+
 
     public function footer()
     {

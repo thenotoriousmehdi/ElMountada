@@ -17,7 +17,7 @@ class Membership
         $view = new MembershipView();
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $memberships= $this ->membershipModel->getMemberships();
         $view->Memberships($memberships);
         $view->foot();
@@ -32,7 +32,7 @@ class Membership
         $sessionData = $this->getSessionData();
         $view->Head();
         $view ->displaySessionMessage();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->MembershipForm($sessionData);
         $view->foot();
         $view->footer();
@@ -52,7 +52,7 @@ class Membership
         }
         
         $view->Head();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->MembershipCard($membershipCard);
         $view->foot();
         $view->footer();
@@ -75,7 +75,7 @@ class Membership
         $membersRequest = $this ->membershipModel->getMembershipRequests();
         $view->Head();
         $view ->displaySessionMessage();
-        $view->header($sessionData);
+        $view->loadHeader($sessionData);
         $view->displayMembers($members);
         $view->MembershipRequests($membersRequest);
         $view->foot();

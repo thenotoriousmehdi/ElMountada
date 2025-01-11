@@ -27,7 +27,7 @@ class Accueil
          $sessionData = $this->getSessionData();
          $view ->Head();
          $view ->displaySessionMessage();
-         $view ->header($sessionData);
+         $view->loadHeader($sessionData);
          if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
          $view ->diaporama($News);
          $view ->latest($latest);

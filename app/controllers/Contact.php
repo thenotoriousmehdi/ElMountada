@@ -19,7 +19,7 @@ class Contact {
         $sessionData = $this->getSessionData();
         $view->Head();
         $view ->displaySessionMessage();
-        $view ->Header( $sessionData);
+        $view->loadHeader($sessionData);
         $partners = $this -> contactModel ->getPartnerNames();
         $view->ContactForm($partners);
         $view ->footer();
@@ -41,7 +41,7 @@ class Contact {
         $sessionData = $this->getSessionData();
         $view->Head();
         $view ->displaySessionMessage();
-        $view ->Header( $sessionData);
+        $view->loadHeader($sessionData);
         $view ->displaySessionMessage();
         $messages = $this -> contactModel ->getMessages();
         $view->MessagesPage($messages);
