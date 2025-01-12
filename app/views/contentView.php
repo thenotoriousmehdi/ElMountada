@@ -108,7 +108,7 @@ public function ContentDetails($content, $sessionData, $users)
             <p class="text-gray-700"><?= nl2br(htmlspecialchars($content->description ?? 'N/A')) ?></p>
         </div>
 
-        <?php if (strtolower($content->type ?? '') === 'benevolat'): ?>
+        <?php if (isset($_SESSION['user_id']) && strtolower($content->type ?? '') === 'benevolat') :  ?>
             <div class="flex justify-end mt-6">
     <form action="/ElMountada/benevolat/Participer" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir participer a cet evenement?')"    >
         <input type="hidden" name="content_id" value="<?= htmlspecialchars($content->id) ?>">

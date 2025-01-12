@@ -33,8 +33,11 @@ class App
                     
                     call_user_func_array([$controller, $this->method], $this->parameters);
                 } else {
-                    call_user_func_array([$controller, "method_not_found"], []);
-                }
+                    require_once './app/controllers/_404.php';
+                    $this->controller = '_404';
+                    $controller = new _404();
+                    $controller->showPageNotFound();
+                 }
             } else {
                 $this->method = "ShowAccueil";
                 call_user_func_array([$controller, $this->method], $this->parameters);
@@ -42,6 +45,8 @@ class App
         } else {
             require_once './app/controllers/_404.php';
             $this->controller = '_404';
-        }
+            $controller = new _404();
+            $controller->showPageNotFound();
+         }
     }
 }

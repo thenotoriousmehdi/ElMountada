@@ -152,7 +152,7 @@ public function header($sessionData, $notifications)
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-    
+
         function setupDropdown() {
             const notificationBtn = document.getElementById('notification-btn');
             const notificationDropdown = document.getElementById('notification-dropdown');
@@ -169,7 +169,6 @@ public function header($sessionData, $notifications)
                 });
             }
         }
-
         setupDropdown();
     });
     
