@@ -63,29 +63,67 @@ class Partners
         echo "Partner not found.";
     }
 }
-
 public function showCheckMembers()
 {
     $this->startSession();
-
+    
     if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'partner') {
-        header('Location: /ElMountada/auth/showLoginPage'); 
+        header('Location: /ElMountada/auth/showLoginPage');
         exit();
     }
+    
     $sessionData = $this->getSessionData();
     $this->View('partners');
     $view = new PartnersView();
     $view->Head();
     $view->loadHeader($sessionData);
+    
     $userData = null;
     $message = '';
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) {
-        $userData = $this->membershipModel->getMembershipCard($_POST['user_id']);
-        if (!$userData) {
-            $message = 'Aucun membre trouvé avec cet identifiant';
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $searchType = $_POST['search_type'] ?? '';
+        $memberId = $_POST['member_id'] ?? '';
+        $qrCodeData = $_POST['qr_code_data'] ?? '';
+        error_log('QR Data: ' . print_r($qrCodeData, true));  
+
+        $searchValue = '';
+        
+        if ($searchType === 'qr' && !empty($qrCodeData)) {
+            $decodedQrData = json_decode($qrCodeData, true);
+            
+            if ($decodedQrData && isset($decodedQrData['user_id'])) {
+                $searchValue = $decodedQrData['user_id'];
+            } else {
+                $message = 'QR code invalide ou données manquantes.';
+            }
+        } elseif ($searchType === 'id' && !empty($memberId)) {
+            $searchValue = $memberId;
+        } else {
+            $message = 'Veuillez fournir un identifiant ou scanner un QR code.';
+        }
+        
+        if (!empty($searchValue)) {
+            try {
+                $userData = $this->membershipModel->getMembershipCard($searchValue);
+                
+                if (!$userData) {
+                    $message = $searchType === 'qr' 
+                        ? 'Aucun membre trouvé pour ce QR code.' 
+                        : 'Aucun membre trouvé avec cet identifiant.';
+                }
+            } catch (Exception $e) {
+                $message = 'Une erreur est survenue lors de la recherche.';
+                error_log("Error in showCheckMembers: " . $e->getMessage());
+            }
         }
     }
-    $view->CheckMembers(['userData' => $userData, 'message' => $message]);
+    
+    $view->CheckMembers([
+        'userData' => $userData,
+        'message' => $message
+    ]);
+    
     $view->footer();
     $view->foot();
 }

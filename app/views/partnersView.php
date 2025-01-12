@@ -247,30 +247,49 @@ class PartnersView
     <?php
     }
 
+    
     public function CheckMembers($data = [])
     {
-
         $userData = isset($data['userData']) ? $data['userData'] : null;
         $message = isset($data['message']) ? $data['message'] : '';
-
     ?>
         <div class="flex justify-center items-center">
             <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 m-8">
                 <h1 class="text-2xl font-poppins font-semibold text-center text-gray-800 mb-6">Vérifier un Membre</h1>
-
-                <form method="POST" class="mb-6">
-                    <label for="user_id" class="block text-sm text-gray-600">Entrez un identifiant:</label>
-                    <input type="text" id="user_id" name="user_id" required
-                        class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-text" />
-                    <button type="submit"
-                        class="w-full mt-4 py-2 bg-text text-white font-semibold rounded-md hover:bg-text/80 focus:outline-none focus:ring-2 focus:ring-green-500">
+    
+                <form method="POST" id="check-form" class="mb-6">
+                    <input type="hidden" name="qr_code_data" id="qr_code_data">
+                    
+                    <div class="">
+                        <label for="search_type" class="block text-sm text-gray-600">Choisir méthode de recherche:</label>
+                        <select id="search_type" name="search_type" class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+                            <option value="id">Par ID</option>
+                            <option value="qr">Par QR</option>
+                        </select>
+                    </div>
+    
+                    <div id="id_input_section" class="mt-4">
+                        <label for="member_id" class="block text-sm text-gray-600">Entrez un identifiant:</label>
+                        <input type="text" id="member_id" name="member_id" 
+                            class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-text" />
+                    </div>
+    
+                    <div id="qr_scanner_section" class="mt-4 hidden">
+                        <label class="block text-sm text-gray-600">Scannez le QR code:</label>
+                        <div id="scanner-container" class="relative">
+                            <video id="preview" class="w-full h-64 border rounded-lg"></video>
+                            <div id="scanning-overlay" class="absolute top-0 left-0 w-full h-full border-2 border-blue-500 rounded-lg pointer-events-none"></div>
+                        </div>
+                        <div id="scanning-status" class="text-center mt-2 text-gray-600">En attente du scan...</div>
+                    </div>
+    
+                    <button type="submit" id="submit-button" class="w-full mt-4 py-2 bg-text text-white font-semibold rounded-md hover:bg-text/80 focus:outline-none focus:ring-2 focus:ring-green-500">
                         Rechercher
                     </button>
                 </form>
-
+    
                 <?php if ($userData): ?>
                     <div class="flex flex-col lg:flex-row lg:justify-start justify-center items-center lg:items-center gap-4 h-auto w-full">
-
                         <div class="flex flex-col h-full justify-center md:justify-start gap-2 items-center md:items-start w-full sm:w-1/2">
                             <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
                             <p class="text-center text-principale"><strong>Identifiant #</strong> <?= htmlspecialchars($userData->user_id ?? 'N/A'); ?></p>
@@ -280,19 +299,114 @@ class PartnersView
                             <p class="text-principale"><strong>Plan</strong> <?= htmlspecialchars($userData->membership_type_name ?? 'N/A'); ?></p>
                             <p class="text-principale"><strong>Date de facturation</strong> <?= htmlspecialchars($userData->billing_date ?? 'N/A'); ?></p>
                         </div>
-
+    
                         <div class="bg-bg flex justify-center items-center p-2 rounded-[10px] h-full w-full sm:w-1/2">
                             <img src="<?= htmlspecialchars($userData->QrCode); ?>" alt="QR Code" class="w-full h-full rounded-md object-contain" />
                         </div>
-
                     </div>
                 <?php elseif ($message): ?>
                     <p class="text-center text-red-500 text-lg mt-4"><?= htmlspecialchars($message); ?></p>
                 <?php endif; ?>
             </div>
         </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+        <script>
+            let videoStream = null;
+            const searchTypeSelect = document.getElementById('search_type');
+            const idInputSection = document.getElementById('id_input_section');
+            const qrScannerSection = document.getElementById('qr_scanner_section');
+            const preview = document.getElementById('preview');
+            const checkForm = document.getElementById('check-form');
+            const scanningStatus = document.getElementById('scanning-status');
+            const qrCodeDataInput = document.getElementById('qr_code_data');
+    
+            searchTypeSelect.addEventListener('change', function() {
+                if (this.value === 'id') {
+                    stopQRCodeScanner();
+                    idInputSection.classList.remove('hidden');
+                    qrScannerSection.classList.add('hidden');
+                } else {
+                    idInputSection.classList.add('hidden');
+                    qrScannerSection.classList.remove('hidden');
+                    startQRCodeScanner();
+                }
+            });
+    
+            checkForm.addEventListener('submit', function(e) {
+                if (searchTypeSelect.value === 'id' && !document.getElementById('member_id').value) {
+                    e.preventDefault();
+                    alert('Veuillez entrer un identifiant');
+                }
+            });
+    
+            async function startQRCodeScanner() {
+                try {
+                    if (videoStream) {
+                        stopQRCodeScanner();
+                    }
+    
+                    videoStream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: "environment" }
+                    });
+                    
+                    preview.srcObject = videoStream;
+                    preview.setAttribute('playsinline', true);
+                    preview.play();
+                    
+                    scanningStatus.textContent = "Scanner actif...";
+                    requestAnimationFrame(scanQRCode);
+                } catch (error) {
+                    console.error('Erreur camera:', error);
+                    scanningStatus.textContent = "Erreur d'accès à la caméra";
+                }
+            }
+    
+            function stopQRCodeScanner() {
+                if (videoStream) {
+                    videoStream.getTracks().forEach(track => track.stop());
+                    videoStream = null;
+                }
+                if (preview.srcObject) {
+                    preview.srcObject = null;
+                }
+            }
+    
+            function scanQRCode() {
+    if (!preview.videoWidth) {
+        requestAnimationFrame(scanQRCode);
+        return;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = preview.videoWidth;
+    canvas.height = preview.videoHeight;
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: "dontInvert"
+    });
+
+    if (code) {
+        scanningStatus.textContent = "QR Code détecté!";
+        console.log('QR Code Data:', code.data); 
+        qrCodeDataInput.value = code.data;
+        console.log('QR Code Data to submit:', qrCodeDataInput.value);
+
+        checkForm.submit();
+    } else {
+        requestAnimationFrame(scanQRCode);
+    }
+}
+            window.addEventListener('beforeunload', stopQRCodeScanner);
+        </script>
     <?php
     }
+
+
 
     public function Partners($partners, $villes, $categories)
     {

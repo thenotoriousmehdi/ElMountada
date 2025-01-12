@@ -243,6 +243,7 @@ public function header($sessionData, $notifications)
             <title>ElMountada</title>
             <script src="https://cdn.tailwindcss.com"></script>
             <script src="<?= ROOTSCRIPT?>script.js"></script>
+            <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
             <link href="<?= ROOTSTYLE ?>styles.css" rel="stylesheet">
     
         </head>
