@@ -9,7 +9,7 @@ class PartnersView
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
 
-            <div class="bg-white shadow-md  w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
+            <div class="bg-white/80 shadow-md  w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
                 <div class="flex flex-wrap gap-4 justify-start">
                     <?php
                     foreach ($partners as $partner) {
@@ -20,7 +20,10 @@ class PartnersView
                                <img src='/ElMountada/public/assets/star.svg' alt='Add to Favorites' class='h-6 w-6'>
                             </button>
                         </div>
-                        <img src='" . htmlspecialchars($partner->logo_path) . "' alt='Partner Logo' class='h-16  object-contain'>
+                       <img src='" . htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg') . "' 
+                       alt='Partner Logo' 
+                       class=' size-28 object-contain'>
+
                         <h3 class='font-poppins font-bold text-lg mb-2'>" . htmlspecialchars($partner->full_name) . "</h3>
                         <p class='font-openSans font-semibold'> " . htmlspecialchars($partner->ville) . "</p>
                         
@@ -48,16 +51,17 @@ class PartnersView
     ?>
         <div class="mx-auto p-6">
             <div class="bg-white p-6 rounded-lg shadow-lg">
-    
+
                 <div class="text-center mb-6">
                     <h2 class="text-4xl font-semibold text-gray-800"><?= htmlspecialchars($partner->full_name ?? 'N/A') ?></h2>
                     <p class="text-xl text-gray-600"><?= htmlspecialchars($partner->category_name ?? 'N/A') ?></p>
                 </div>
-    
-    
+
+
                 <div class="flex justify-center items-center bg-text pb-8 rounded-[15px] bg-opacity-10 gap-8 mb-8">
                     <div class="flex flex-col items-center">
-                        <img src="<?= htmlspecialchars($partner->logo_path) ?>" alt="Partner Logo" class="h-32 w-32 object-contain rounded-full mb-4">
+
+                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-32 w-32 object-contain rounded-full mb-4">
                         <p class="text-lg text-gray-600"><?= htmlspecialchars($partner->partner_description ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Ville</strong> <?= htmlspecialchars($partner->ville ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Adresse</strong> <?= htmlspecialchars($partner->adresse ?? 'N/A') ?></p>
@@ -65,8 +69,8 @@ class PartnersView
                         <p class="text-md text-gray-500"><strong>Numéro</strong> <?= htmlspecialchars($partner->phone_number ?? 'N/A') ?></p>
                     </div>
                 </div>
-    
-    
+
+
                 <div class="mb-8">
                     <h3 class="text-3xl font-semibold text-gray-800 mb-4">Reductions</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -92,22 +96,22 @@ class PartnersView
                         }
                         ?>
                     </div>
-    
-    
+
+
                     <h3 class="text-3xl font-semibold text-gray-800 mt-8 mb-4">Avantages</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php
-    
+
                         $advantages = !empty($partner->advantages) ? explode(',', $partner->advantages) : [];
                         $advantageMembershipTypes = !empty($partner->advantage_membership_type_names) ? explode(',', $partner->advantage_membership_type_names) : [];
-    
-    
+
+
                         if (empty($advantages)) {
                             echo "<p class='text-gray-500'>Aucun avantage disponible</p>";
                         } else {
                             $seenAdvantageMembershipTypes = [];
                             foreach ($advantageMembershipTypes as $key => $type) {
-    
+
                                 if (!in_array($type, $seenAdvantageMembershipTypes)) {
                                     echo "
                                 <div class='bg-primary bg-opacity-20 p-4 rounded-lg shadow-md'>
@@ -116,14 +120,14 @@ class PartnersView
                                         <li>" . htmlspecialchars($advantages[$key] ?? 'N/A') . "</li>
                                     </ul>
                                 </div>";
-    
+
                                     $seenAdvantageMembershipTypes[] = $type;
                                 }
                             }
                         }
                         ?>
                     </div>
-    
+
                     <h3 class="text-3xl font-semibold text-gray-800 mt-8 mb-4">Offres Spéciales</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php
@@ -131,7 +135,7 @@ class PartnersView
                         $specialOfferReductions = !empty($partner->special_offer_reductions) ? explode(',', $partner->special_offer_reductions) : [];
                         $specialOfferMembershipTypes = !empty($partner->special_offer_membership_types) ? explode(',', $partner->special_offer_membership_types) : [];
                         $specialOfferEndDates = !empty($partner->special_offer_end_dates) ? explode(',', $partner->special_offer_end_dates) : [];
-    
+
                         if (empty($specialOffers)) {
                             echo "<p class='text-gray-500'>Aucune offre spéciale disponible</p>";
                         } else {
@@ -152,9 +156,9 @@ class PartnersView
         </div>
     <?php
     }
-    
-    
-    
+
+
+
 
     public function displayFilterForm($cities)
     {
@@ -247,7 +251,7 @@ class PartnersView
     <?php
     }
 
-    
+
     public function CheckMembers($data = [])
     {
         $userData = isset($data['userData']) ? $data['userData'] : null;
@@ -256,10 +260,10 @@ class PartnersView
         <div class="flex justify-center items-center">
             <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 m-8">
                 <h1 class="text-2xl font-poppins font-semibold text-center text-gray-800 mb-6">Vérifier un Membre</h1>
-    
+
                 <form method="POST" id="check-form" class="mb-6">
                     <input type="hidden" name="qr_code_data" id="qr_code_data">
-                    
+
                     <div class="">
                         <label for="search_type" class="block text-sm text-gray-600">Choisir méthode de recherche:</label>
                         <select id="search_type" name="search_type" class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
@@ -267,13 +271,13 @@ class PartnersView
                             <option value="qr">Par QR</option>
                         </select>
                     </div>
-    
+
                     <div id="id_input_section" class="mt-4">
                         <label for="member_id" class="block text-sm text-gray-600">Entrez un identifiant:</label>
-                        <input type="text" id="member_id" name="member_id" 
+                        <input type="text" id="member_id" name="member_id"
                             class="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-text" />
                     </div>
-    
+
                     <div id="qr_scanner_section" class="mt-4 hidden">
                         <label class="block text-sm text-gray-600">Scannez le QR code:</label>
                         <div id="scanner-container" class="relative">
@@ -282,12 +286,12 @@ class PartnersView
                         </div>
                         <div id="scanning-status" class="text-center mt-2 text-gray-600">En attente du scan...</div>
                     </div>
-    
+
                     <button type="submit" id="submit-button" class="w-full mt-4 py-2 bg-text text-white font-semibold rounded-md hover:bg-text/80 focus:outline-none focus:ring-2 focus:ring-green-500">
                         Rechercher
                     </button>
                 </form>
-    
+
                 <?php if ($userData): ?>
                     <div class="flex flex-col lg:flex-row lg:justify-start justify-center items-center lg:items-center gap-4 h-auto w-full">
                         <div class="flex flex-col h-full justify-center md:justify-start gap-2 items-center md:items-start w-full sm:w-1/2">
@@ -299,7 +303,7 @@ class PartnersView
                             <p class="text-principale"><strong>Plan</strong> <?= htmlspecialchars($userData->membership_type_name ?? 'N/A'); ?></p>
                             <p class="text-principale"><strong>Date de facturation</strong> <?= htmlspecialchars($userData->billing_date ?? 'N/A'); ?></p>
                         </div>
-    
+
                         <div class="bg-bg flex justify-center items-center p-2 rounded-[10px] h-full w-full sm:w-1/2">
                             <img src="<?= htmlspecialchars($userData->QrCode); ?>" alt="QR Code" class="w-full h-full rounded-md object-contain" />
                         </div>
@@ -309,7 +313,7 @@ class PartnersView
                 <?php endif; ?>
             </div>
         </div>
-    
+
         <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
         <script>
             let videoStream = null;
@@ -320,7 +324,7 @@ class PartnersView
             const checkForm = document.getElementById('check-form');
             const scanningStatus = document.getElementById('scanning-status');
             const qrCodeDataInput = document.getElementById('qr_code_data');
-    
+
             searchTypeSelect.addEventListener('change', function() {
                 if (this.value === 'id') {
                     stopQRCodeScanner();
@@ -332,28 +336,30 @@ class PartnersView
                     startQRCodeScanner();
                 }
             });
-    
+
             checkForm.addEventListener('submit', function(e) {
                 if (searchTypeSelect.value === 'id' && !document.getElementById('member_id').value) {
                     e.preventDefault();
                     alert('Veuillez entrer un identifiant');
                 }
             });
-    
+
             async function startQRCodeScanner() {
                 try {
                     if (videoStream) {
                         stopQRCodeScanner();
                     }
-    
+
                     videoStream = await navigator.mediaDevices.getUserMedia({
-                        video: { facingMode: "environment" }
+                        video: {
+                            facingMode: "environment"
+                        }
                     });
-                    
+
                     preview.srcObject = videoStream;
                     preview.setAttribute('playsinline', true);
                     preview.play();
-                    
+
                     scanningStatus.textContent = "Scanner actif...";
                     requestAnimationFrame(scanQRCode);
                 } catch (error) {
@@ -361,7 +367,7 @@ class PartnersView
                     scanningStatus.textContent = "Erreur d'accès à la caméra";
                 }
             }
-    
+
             function stopQRCodeScanner() {
                 if (videoStream) {
                     videoStream.getTracks().forEach(track => track.stop());
@@ -371,36 +377,36 @@ class PartnersView
                     preview.srcObject = null;
                 }
             }
-    
+
             function scanQRCode() {
-    if (!preview.videoWidth) {
-        requestAnimationFrame(scanQRCode);
-        return;
-    }
+                if (!preview.videoWidth) {
+                    requestAnimationFrame(scanQRCode);
+                    return;
+                }
 
-    const canvas = document.createElement('canvas');
-    canvas.width = preview.videoWidth;
-    canvas.height = preview.videoHeight;
+                const canvas = document.createElement('canvas');
+                canvas.width = preview.videoWidth;
+                canvas.height = preview.videoHeight;
 
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(preview, 0, 0, canvas.width, canvas.height);
 
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: "dontInvert"
-    });
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "dontInvert"
+                });
 
-    if (code) {
-        scanningStatus.textContent = "QR Code détecté!";
-        console.log('QR Code Data:', code.data); 
-        qrCodeDataInput.value = code.data;
-        console.log('QR Code Data to submit:', qrCodeDataInput.value);
+                if (code) {
+                    scanningStatus.textContent = "QR Code détecté!";
+                    console.log('QR Code Data:', code.data);
+                    qrCodeDataInput.value = code.data;
+                    console.log('QR Code Data to submit:', qrCodeDataInput.value);
 
-        checkForm.submit();
-    } else {
-        requestAnimationFrame(scanQRCode);
-    }
-}
+                    checkForm.submit();
+                } else {
+                    requestAnimationFrame(scanQRCode);
+                }
+            }
             window.addEventListener('beforeunload', stopQRCodeScanner);
         </script>
     <?php
@@ -664,14 +670,14 @@ class PartnersView
                         <div class="w-full">
                             <label for="email" class="text-[16px] font-poppins font-medium text-text">Email</label>
                             <input type="email" id="email" name="email" required placeholder="Adresse email"
-                                value="<?php echo htmlspecialchars($partner->email); ?>"
+                                value="<?php echo htmlspecialchars($partner->email ?? "null"); ?>"
                                 class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
                         </div>
 
                         <div class="w-full">
                             <label for="name" class="text-[16px] font-poppins font-medium text-text">Nom</label>
                             <input type="text" id="name" name="name" required placeholder="Nom"
-                                value="<?php echo htmlspecialchars($partner->full_name); ?>"
+                                value="<?php echo htmlspecialchars($partner->full_name ?? "null"); ?>"
                                 class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
                         </div>
                     </div>
@@ -680,7 +686,7 @@ class PartnersView
                         <div class="w-full">
                             <label for="phone_number" class="text-[16px] font-poppins font-medium text-text">Numéro de téléphone</label>
                             <input type="tel" id="phone_number" name="phone_number" required placeholder="Numéro de téléphone"
-                                value="<?php echo htmlspecialchars($partner->phone_number); ?>"
+                                value="<?php echo htmlspecialchars($partner->phone_number ?? "null"); ?>"
                                 class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
                         </div>
 
@@ -752,102 +758,102 @@ class PartnersView
                 </form>
             </div>
         </div>
-<?php
+    <?php
     }
 
 
     public function addOffer($users, $membershipTypes)
     {
     ?>
-      <div class="flex flex-col justify-start gap-2 mb-8">
-    <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter une réduction ou avantage</h2>
-    <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-    
-        <form action="/ElMountada/partners/handleAddOffer" method="POST" class="space-y-4">
-        
-        
-            <div>
-                <label for="type" class="text-[16px] font-poppins font-medium text-text">Type </label>
-                <select name="type" id="type" required 
-                    class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]">
-                    <option value="">Type</option>
-                    <option value="reduction">Réduction</option>
-                    <option value="advantage">Avantage</option>
-                    <option value="special_offer">Offre spéciale</option>
-                </select>
+        <div class="flex flex-col justify-start gap-2 mb-8">
+            <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter une réduction ou avantage</h2>
+            <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
+
+                <form action="/ElMountada/partners/handleAddOffer" method="POST" class="space-y-4">
+
+
+                    <div>
+                        <label for="type" class="text-[16px] font-poppins font-medium text-text">Type </label>
+                        <select name="type" id="type" required
+                            class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]">
+                            <option value="">Type</option>
+                            <option value="reduction">Réduction</option>
+                            <option value="advantage">Avantage</option>
+                            <option value="special_offer">Offre spéciale</option>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="user_id" class="text-[16px] font-poppins font-medium text-text">Partenaire</label>
+                        <select name="user_id" id="user_id" required
+                            class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]">
+                            <?php foreach ($users as $user): ?>
+                                <option value="<?= $user->id; ?>"><?= htmlspecialchars($user->full_name, ENT_QUOTES, 'UTF-8'); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+
+                    <div>
+                        <label for="membership_type_id" class="text-[16px] font-poppins font-medium text-text">Choisir le type d'adhésion</label>
+                        <select name="membership_type_id" id="membership_type_id" required
+                            class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]">
+                            <?php foreach ($membershipTypes as $type): ?>
+                                <option value="<?= $type->id; ?>"><?= htmlspecialchars($type->name, ENT_QUOTES, 'UTF-8'); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+
+                    <div id="reductionFields" style="display:none;">
+                        <label for="reduction_value" class="text-[16px] font-poppins font-medium text-text">Valeur de la réduction</label>
+                        <input type="number" name="reduction_value" id="reduction_value" min="1"
+                            class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]" placeholder="Entrez la valeur de la réduction">
+                    </div>
+
+                    <div id="advantageFields" style="display:none;">
+                        <label for="description" class="text-[16px] font-poppins font-medium text-text">Description de l'avantage</label>
+                        <textarea name="description" id="description" rows="6"
+                            class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]"
+                            placeholder="Entrez la description de l'avantage"></textarea>
+                    </div>
+
+                    <div id="end_date" style="display:none;">
+                        <label for="end_date" class="text-[16px] font-poppins font-medium text-text">Date de fin</label>
+                        <input type="date" name="end_date" id="end_date"
+                            class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]" />
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
+                            Ajouter
+                        </button>
+                    </div>
+
+                </form>
             </div>
+        </div>
 
-           
-            <div>
-                <label for="user_id" class="text-[16px] font-poppins font-medium text-text">Partenaire</label>
-                <select name="user_id" id="user_id" required 
-                        class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]">
-                    <?php foreach ($users as $user): ?>
-                        <option value="<?= $user -> id; ?>"><?= htmlspecialchars($user -> full_name, ENT_QUOTES, 'UTF-8'); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+        <script>
+            document.getElementById('type').addEventListener('change', function() {
+                var type = this.value;
+                if (type === 'reduction') {
+                    document.getElementById('reductionFields').style.display = 'block';
+                    document.getElementById('advantageFields').style.display = 'none';
+                } else if (type === 'advantage') {
+                    document.getElementById('reductionFields').style.display = 'none';
+                    document.getElementById('advantageFields').style.display = 'block';
+                } else if (type === 'special_offer') {
 
+                    document.getElementById('reductionFields').style.display = 'block';
+                    document.getElementById('advantageFields').style.display = 'block';
+                    document.getElementById('end_date').style.display = 'block';
 
-            <div>
-                <label for="membership_type_id" class="text-[16px] font-poppins font-medium text-text">Choisir le type d'adhésion</label>
-                <select name="membership_type_id" id="membership_type_id" required 
-                        class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]">
-                    <?php foreach ($membershipTypes as $type): ?>
-                        <option value="<?= $type -> id; ?>"><?= htmlspecialchars($type -> name , ENT_QUOTES, 'UTF-8'); ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-
-        
-            <div id="reductionFields" style="display:none;">
-                <label for="reduction_value" class="text-[16px] font-poppins font-medium text-text">Valeur de la réduction</label>
-                <input type="number" name="reduction_value" id="reduction_value" min="1" 
-                       class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]" placeholder="Entrez la valeur de la réduction">
-            </div>
-
-            <div id="advantageFields" style="display:none;">
-                <label for="description" class="text-[16px] font-poppins font-medium text-text">Description de l'avantage</label>
-                <textarea name="description" id="description" rows="6" 
-                          class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]" 
-                          placeholder="Entrez la description de l'avantage"></textarea>
-            </div>
-
-            <div id="end_date" style="display:none;">
-            <label for="end_date" class="text-[16px] font-poppins font-medium text-text">Date de fin</label>
-        <input type="date" name="end_date" id="end_date"
-               class="mt-1 w-full p-4 border border-primary/20 focus-within:border-primary focus:outline-none rounded-[10px]" />
-            </div>
-
-            <div class="pt-4">
-                <button type="submit" 
-                        class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
-                    Ajouter
-                </button>
-            </div>
-
-        </form>
-    </div>
-</div>
-
-<script>
-    document.getElementById('type').addEventListener('change', function() {
-        var type = this.value;
-        if (type === 'reduction') {
-            document.getElementById('reductionFields').style.display = 'block';
-            document.getElementById('advantageFields').style.display = 'none';
-        } else if (type === 'advantage') {
-            document.getElementById('reductionFields').style.display = 'none';
-            document.getElementById('advantageFields').style.display = 'block';
-        } else if (type === 'special_offer') {
-
-            document.getElementById('reductionFields').style.display = 'block';
-            document.getElementById('advantageFields').style.display = 'block';
-            document.getElementById('end_date').style.display = 'block';
-
-        }
-    });
-</script>
+                }
+            });
+        </script>
 <?php
 
     }

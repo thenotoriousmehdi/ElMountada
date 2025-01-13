@@ -281,7 +281,7 @@ private function handleImageUpload($file) {
         throw new Exception('Invalid logo type. Only JPG, JPEG, PNG, GIF are allowed.');
     }
 
-    $fileName = uniqid() . '.' . $fileExtension;
+    $fileName = 'partner' . uniqid() . '.' . $fileExtension;
     $filePath = $uploadDir . $fileName;
 
     if (!move_uploaded_file($file['tmp_name'], $filePath)) {
