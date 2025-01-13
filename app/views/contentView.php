@@ -298,7 +298,6 @@ public function updateContent($content){
         <form action="/ElMountada/content/updateContent" method="POST" enctype="multipart/form-data" class="space-y-4">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($content->id ?? ''); ?>">
             <input type="hidden" name="existing_image_path" value="<?php echo htmlspecialchars($content->image_path ?? ''); ?>">
-            <?php var_dump($content->id); ?>
             <div>
                 <label for="title" class="text-[16px] font-poppins font-medium text-text">Titre</label>
                 <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($content->title ?? ''); ?>" required placeholder="Titre"
@@ -343,7 +342,7 @@ public function updateContent($content){
 
             <div>
                 <label for="location" class="text-[16px] font-poppins font-medium text-text">Localisation</label>
-                <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($content->location ?? ''); ?>" required placeholder="Localisation"
+                <input type="text" id="location" name="location" value="<?php echo htmlspecialchars($content->location ?? ''); ?>" placeholder="Localisation"
                     class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
             </div>
 

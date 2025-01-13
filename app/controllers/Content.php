@@ -28,15 +28,7 @@ class Content {
 }
 
     
-    public function getNews() {
-        $News = $this->contenuModel->getNews();
-        return $News;
-    }
-
-    public function getLatest() {
-        $latest = $this->contenuModel->getLatest();
-        return $latest;
-    }
+   
 
     public function showAddContent() {
       
@@ -136,10 +128,11 @@ class Content {
              $result = $this->contenuModel->insert($data);
              
              if ($result) {
+                $this->startSession();
                 $this->notificationsModel->createNotification($_POST['type'], "Un contenu " . $_POST['title'] . " a été ajouté à ElMountada !");
                 $_SESSION['status'] = "Contenu ajouter avec success";
                 $_SESSION['status_type'] = 'sucess';
-                 header('Location: /ElMountada/accueil/showAccueil');
+                header('Location: /ElMountada/accueil/showAccueil');
                  exit;
              } else {
                 $_SESSION['status'] = "L'ajout de Contenu a échoué";
@@ -175,7 +168,7 @@ class Content {
 
      private function handleImageUpload($file) {
 
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/content/';
     
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
@@ -188,7 +181,8 @@ class Content {
             throw new Exception('Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.');
         }
     
-        $fileName = uniqid() . '.' . $fileExtension;
+
+       $fileName = 'content' . uniqid() . '.' . $fileExtension;
         $filePath = $uploadDir . $fileName;
     
     
@@ -196,14 +190,13 @@ class Content {
             throw new Exception('Failed to upload image');
         }
     
-        return '/ElMountada/public/uploads/' . $fileName;
+        return '/ElMountada/public/uploads/content/' . $fileName;
     }
     
 
 public function showEditContent($contentId) {
    
         $content = $this->contenuModel->getById($contentId);
-        
         $this->View('content');
         $view = new ContentView();
         $sessionData = $this->getSessionData();
@@ -245,11 +238,13 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $result = $this->contenuModel->update($data);
 
         if ($result) {
+            $this->startSession();
             $_SESSION['status'] = "Contenu mis à jour avec succès";
             $_SESSION['status_type'] = 'success';
             header('Location: /ElMountada/content/showContent');
             exit;
         } else {
+            $this->startSession();
             $_SESSION['status'] = "La mise à jour du contenu a échoué";
             $_SESSION['status_type'] = 'error';
             header('Location: /ElMountada/content/showContent');
