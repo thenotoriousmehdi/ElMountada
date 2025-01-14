@@ -74,6 +74,11 @@ class PartnersView
                 </div>
             </div>
         </div>
+        <script>
+            function viewDetails(partnerId) {
+                window.location.href = '/ElMountada/partners/showPartnerDetails/?id=' + partnerId;
+            }
+        </script>
         <?php
     }
 

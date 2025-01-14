@@ -57,7 +57,6 @@ class AccueilView
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Advantages</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships </th>
-        
         </tr>';
             echo '</thead>';
 
@@ -90,7 +89,7 @@ class AccueilView
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->reduction_membership_type_names) ? htmlspecialchars($offer->reduction_membership_type_names) : 'N/A') . "</td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->advantages) ? htmlspecialchars($offer->advantages) : 'N/A') . "</td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($offer->advantage_membership_type_names) ? htmlspecialchars($offer->advantage_membership_type_names) : 'N/A') . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+            
 
             
                 echo "</td>";

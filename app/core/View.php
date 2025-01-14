@@ -6,72 +6,101 @@ use Controller;
 public function header($sessionData, $notifications)
 {
 ?>
-    <div class="sticky top-0 left-0 w-full z-40 bg-bg flex justify-between items-center px-4">
-        <!-- Logo -->
+    <div class="sticky top-0 left-0 w-full z-40 bg-bg flex justify-between items-center py-10 lg:py-0 lg:pl-0 lg:pr-0  px-4 pl-2 pr-2   lg:m-0">
+       
+
         <div>
             <a href="/ElMountada/">
-                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class="w-44">
+                <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class=" w-44">
             </a>
         </div>
 
-        <!-- Navigation Menu -->
-        <div class="flex items-center my-6 gap-2">
-                
-                <div class="flex justify-center items-center flex-grow">
-                    <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
 
-        <?php if ($sessionData['user_type'] !== 'admin'): ?>
-                    <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/">Accueil</a>
-        </li>
 
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/content/showContent">News</a>
-        </li>
 
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showCatalogue') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/partners/showCatalogue">Catalogue</a>
-        </li>
+<div class="flex items-center gap-2">
 
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/offers/showOffers">Offres</a>
-        </li>
-        <?php endif; ?>
-       
-        <?php if ($sessionData['user_type'] == 'admin'): ?>
-            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showPartners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/partners/showPartners">Partenaires</a>
-        </li>
+    <div class="lg:hidden order-1">
+    <button id="burger-menu-btn" class="flex items-center bg-primary/75 p-4 rounded-[15px] ">
+                <img src="<?= ROOTIMG ?>menu.svg" alt="Burger Menu" class="w-7 h-7">
+              
+            </button>
+    </div>
 
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/membership/showMembers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/membership/showMembers">Membres</a>
-        </li>
 
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/users/ShowUsers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/users/ShowUsers">Utilisateurs</a>
-        </li>
-
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/content/showContent">Contenu</a>
-        </li>
-
+<div class="flex items-center justify-between my-6 gap-2">
+    <div class="hidden lg:flex justify-center items-center flex-grow">
+        <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
+            <?php if ($sessionData['user_type'] !== 'admin'): ?>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/">Accueil</a>
+                </li>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/content/showContent">News</a>
+                </li>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showCatalogue') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/partners/showCatalogue">Catalogue</a>
+                </li>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/offers/showOffers">Offres</a>
+                </li>
             <?php endif; ?>
-
+            <?php if ($sessionData['user_type'] == 'admin'): ?>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showPartners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/partners/showPartners">Partenaires</a>
+                </li>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/membership/showMembers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/membership/showMembers">Membres</a>
+                </li>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/users/ShowUsers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/users/ShowUsers">Utilisateurs</a>
+                </li>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/content/showContent">Contenu</a>
+                </li>
+            <?php endif; ?>
             <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/benevolat/showBenevolat/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/benevolat/showBenevolat/">Bénévolat</a>
-        </li>
-
-        <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-            <a href="/ElMountada/dons/showDonsPage/">Dons</a>
-        </li>
-
-        <?php if (!isset($sessionData['user_id'])): ?>
-            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/auth/showLoginPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                <a href="/ElMountada/auth/showLoginPage/">S'authentifier</a>
+                <a href="/ElMountada/benevolat/showBenevolat/">Bénévolat</a>
             </li>
+            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                <a href="/ElMountada/dons/showDonsPage/">Dons</a>
+            </li>
+            <?php if (!isset($sessionData['user_id'])): ?>
+                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/auth/showLoginPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
+                    <a href="/ElMountada/auth/showLoginPage/">S'authentifier</a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>
+
+<!-- Fullscreen Mobile Menu -->
+<div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-80 text-white z-50 flex flex-col items-center justify-center">
+    <button id="close-menu" class="absolute top-4 right-4 text-white hover:text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+    <ul class="text-center space-y-6">
+        <?php if ($sessionData['user_type'] !== 'admin'): ?>
+            <li><a href="/ElMountada/" class="text-lg hover:underline">Accueil</a></li>
+            <li><a href="/ElMountada/content/showContent" class="text-lg hover:underline">News</a></li>
+            <li><a href="/ElMountada/partners/showCatalogue" class="text-lg hover:underline">Catalogue</a></li>
+            <li><a href="/ElMountada/offers/showOffers" class="text-lg hover:underline">Offres</a></li>
         <?php endif; ?>
-                    </ul>
-                </div>
+        <?php if ($sessionData['user_type'] == 'admin'): ?>
+            <li><a href="/ElMountada/partners/showPartners" class="text-lg hover:underline">Partenaires</a></li>
+            <li><a href="/ElMountada/membership/showMembers" class="text-lg hover:underline">Membres</a></li>
+            <li><a href="/ElMountada/users/ShowUsers" class="text-lg hover:underline">Utilisateurs</a></li>
+            <li><a href="/ElMountada/content/showContent" class="text-lg hover:underline">Contenu</a></li>
+        <?php endif; ?>
+        <li><a href="/ElMountada/benevolat/showBenevolat/" class="text-lg hover:underline">Bénévolat</a></li>
+        <li><a href="/ElMountada/dons/showDonsPage/" class="text-lg hover:underline">Dons</a></li>
+        <?php if (!isset($sessionData['user_id'])): ?>
+            <li><a href="/ElMountada/auth/showLoginPage/" class="text-lg hover:underline">S'authentifier</a></li>
+        <?php endif; ?>
+    </ul>
+</div>
 
             <!-- User Dropdown -->
             <?php if (isset($sessionData['user_id'])): ?>
@@ -133,8 +162,8 @@ public function header($sessionData, $notifications)
             <?php endif; ?>
         </div>
 
-        <!-- Social Media -->
-        <div class="social-media flex items-center space-x-4">
+ <!-- Social Media -->
+ <div class="social-media hidden  xl:flex items-center space-x-4">
             <a href="https://facebook.com" target="_blank">
                 <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
             </a>
@@ -148,7 +177,11 @@ public function header($sessionData, $notifications)
                 <img src="<?= ROOTIMG ?>x.svg" alt="X" class="w-8 h-8">
             </a>
         </div>
-    </div>
+
+
+        </div>
+       
+
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -173,8 +206,19 @@ public function header($sessionData, $notifications)
     });
     
 </script>
+<script>
+    const burgerBtn = document.getElementById('burger-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
 
+    burgerBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('hidden');
+    });
 
+    closeMenu.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
+</script>
 
 <?php
 }

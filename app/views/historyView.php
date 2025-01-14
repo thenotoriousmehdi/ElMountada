@@ -61,7 +61,7 @@ class HistoryView
                                 <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($Benevolat->title); ?></h3>
                                 <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($Benevolat->description); ?></p>
                                 <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($Benevolat->location); ?></p>
-                                <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($Benevolat->event_date); ?></p>
+                                <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($Benevolat->event_date ?? "Aucune Date"); ?></p>
                               
                             </div>
                         <?php endforeach; ?>

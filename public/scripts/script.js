@@ -86,8 +86,8 @@ function setupCarousel() {
 function setupDropdown() {
     const userBtn = document.querySelector('.user-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
-    const notificationBtn = document.getElementById('notification-btn'); 
-    const notificationDropdown = document.getElementById('notification-dropdown');
+    // const notificationBtn = document.getElementById('notification-btn'); 
+    // const notificationDropdown = document.getElementById('notification-dropdown');
 
     if (userBtn && dropdownContent) {
         userBtn.addEventListener('click', (e) => {
@@ -102,18 +102,18 @@ function setupDropdown() {
         });
     }
 
-    if (notificationBtn && notificationDropdown) {
-        notificationBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            notificationDropdown.classList.toggle('hidden');
-        });
+    // if (notificationBtn && notificationDropdown) {
+    //     notificationBtn.addEventListener('click', (e) => {
+    //         e.stopPropagation(); 
+    //         notificationDropdown.classList.toggle('hidden');
+    //     });
 
-        window.addEventListener('click', (e) => {
-            if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
-                notificationDropdown.classList.add('hidden');
-            }
-        });
-    }
+    //     window.addEventListener('click', (e) => {
+    //         if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
+    //             notificationDropdown.classList.add('hidden');
+    //         }
+    //     });
+    // }
 
 }
 

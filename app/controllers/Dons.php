@@ -29,9 +29,7 @@ class Dons {
     
 
     public function showAddDon() {
-        $this->startSession();
-        $this -> checkLogin();
-    
+        $this ->checkLogin();
         $this->View('dons');
      
             $view = new donsView();
@@ -45,7 +43,6 @@ class Dons {
         }
 
         public function showRequestDon() {
-            $this->startSession();
             $this -> checkLogin();
             $this->View('dons');
                 $view = new donsView();
