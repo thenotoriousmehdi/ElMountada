@@ -515,10 +515,6 @@ class PartnersView
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Adresse</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Logo</th>
-            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Réductions</th>
-            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships</th>
-            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Advantages</th>
-            <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Memberships </th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Actions</th>
         </tr>';
             echo '</thead>';
@@ -554,22 +550,30 @@ class PartnersView
                 echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
                 echo "</td>";
 
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reductions) ? htmlspecialchars($partner->reductions) : 'N/A') . " </td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->reduction_membership_type_names) ? htmlspecialchars($partner->reduction_membership_type_names) : 'N/A') . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantages) ? htmlspecialchars($partner->advantages) : 'N/A') . "</td>";
-                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($partner->advantage_membership_type_names) ? htmlspecialchars($partner->advantage_membership_type_names) : 'N/A') . "</td>";
+               
+                
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
 
                 echo "<div class='flex flex-col gap-2'>";
+                echo "<a href='/ElMountada/partners/showPartnerDetails/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+                echo "<button class='bg-green-500 text-white px-4 py-2 rounded-lg'>Détails</button>";
+                echo "</a>";
+
+              
+
+                echo "<a href='/ElMountada/partners/updatePartner/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+                echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
+                echo "</a>";
+
                 echo "<form action='/ElMountada/partners/deletePartner' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")' >";
                 echo "<input type='hidden' name='partner_id' value='" . htmlspecialchars($partner->partner_id) . "'>";
                 echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
                 echo "</form>";
 
-                echo "<a href='/ElMountada/partners/updatePartner/?id=" . htmlspecialchars($partner->partner_id) . "'>";
-                echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
-                echo "</a>";
                 echo '</div>';
+
+               
+              
 
 
 

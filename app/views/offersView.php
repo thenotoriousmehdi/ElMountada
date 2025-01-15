@@ -28,37 +28,37 @@ public function offers($offers)
         foreach ($offers as $offer) {
             echo "<tr class='border-t border-primary/5 hover:bg-primary/10'>";
 
-            // Logo
+          
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->logo_path) && !empty($offer->logo_path) ? "<img src='" . htmlspecialchars($offer->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
             echo "</td>";
 
-            // Partner Name
+            
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->partner_name) ? htmlspecialchars($offer->partner_name ?? 'N/A') : 'N/A';
             echo "</td>";
 
-            // Category
+           
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->category_name) ? htmlspecialchars($offer->category_name ?? 'N/A') : 'N/A';
             echo "</td>";
 
-            // City
+            
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->location) ? htmlspecialchars($offer->location ?? 'N/A') : 'N/A';
             echo "</td>";
 
-            // Type (Reduction, Special Offer, or Advantage)
+           
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->type) ? htmlspecialchars($offer->type ?? 'N/A') : 'N/A';
             echo "</td>";
 
-            // Value (Reduction Value or NULL for Advantages)
+            
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->value) ? htmlspecialchars($offer->value ?? 'N/A') : 'N/A';
             echo "%</td>";
 
-            // Description (Special Offer or Advantage Description)
+          
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->description) ? htmlspecialchars($offer->description ?? 'N/A') : 'N/A';
             echo "</td>";

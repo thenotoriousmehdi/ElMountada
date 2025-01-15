@@ -61,7 +61,7 @@ class ProfileView
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Changer mon mot de passe</h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
             <form id="passwordForm" method="POST" action="/ElMountada/profile/updatePassword" class="space-y-4">
-    <!-- Current Password -->
+   
     <div>
       <label for="current_password" class="text-[16px] font-poppins font-medium text-text">Mot de passe actuel</label>
       <input
@@ -72,7 +72,7 @@ class ProfileView
         class="mt-1  w-full p-4 rounded-[10px] shadow-sm border border-primary/20 focus-within:border-primary focus:outline-none"
       />
     </div>
-    <!-- New Password -->
+   
     <div>
       <label for="new_password" class="text-[16px] font-poppins font-medium text-text">Nouveau mot de passe</label>
       <input
@@ -83,7 +83,7 @@ class ProfileView
 class="mt-1  w-full p-4 rounded-[10px] shadow-sm border border-primary/20 focus-within:border-primary focus:outline-none"
       />
     </div>
-    <!-- Confirm New Password -->
+    
     <div>
       <label for="confirm_password" class="text-[16px] font-poppins font-medium text-text">Confirmez le nouveau mot de passe</label>
       <input
@@ -94,7 +94,7 @@ class="mt-1  w-full p-4 rounded-[10px] shadow-sm border border-primary/20 focus-
        class="mt-1  w-full p-4 rounded-[10px] shadow-sm border border-primary/20 focus-within:border-primary focus:outline-none"
       />
     </div>
-    <!-- Submit Button -->
+   
     <button
       id="passwordSubmit"
       type="submit"
@@ -115,12 +115,12 @@ class="mt-1  w-full p-4 rounded-[10px] shadow-sm border border-primary/20 focus-
             const profileSubmit = document.getElementById('profileSubmit');
             const originalValues = {};
 
-            // Save original values
+        
             profileForm.querySelectorAll('input').forEach(input => {
                 originalValues[input.name] = input.value;
             });
 
-            // Listen for changes in inputs
+            
             profileForm.addEventListener('input', () => {
                 let isModified = false;
 
