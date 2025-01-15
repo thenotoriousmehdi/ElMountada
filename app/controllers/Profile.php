@@ -29,7 +29,7 @@ class Profile
     {
         $this->startSession();
         if (!isset($_SESSION['user_id'])) {
-            header("Location: /ElMountada/auth/showLoginPage/");
+            header("Location:" . ROOT . "/auth/showLoginPage/");
             exit();
         }
 
@@ -50,7 +50,7 @@ class Profile
                 $this->startSession();
                 $_SESSION['status'] = "Profil modifie avec success";
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/profile/showProfilePage?id=' . $id);
+                header('Location:' . ROOT . '/profile/showProfilePage?id=' . $id);
                 exit();
             } else {
                 die('Failed to update profile.');
@@ -65,7 +65,7 @@ class Profile
 
 
         if (!isset($_SESSION['user_id'])) {
-            header("Location: /ElMountada/auth/showLoginPage/");
+            header("Location:" . ROOT . "/auth/showLoginPage/");
             exit();
         }
 
@@ -98,7 +98,7 @@ class Profile
                 $this->startSession();
                 $_SESSION['status'] = "Mot de passe modifier avec success";
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/profile/showProfilePage?id=' . $id);
+                header('Location:' . ROOT .'/profile/showProfilePage?id=' . $id);
                 exit();
             } else {
                 die('Failed to update password.');

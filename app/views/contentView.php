@@ -54,7 +54,7 @@ public function Content($content)
                                 </div>
                             <?php endif; ?>
                             <div class="flex justify-end mt-auto">
-                           <a href="/ElMountada/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
+                           <a href="<?= ROOT ?>/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
                                     class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-text/80 transition duration-300">
                                     Plus de détails
                                 </a>
@@ -110,7 +110,7 @@ public function ContentDetails($content, $sessionData, $users)
 
         <?php if (isset($_SESSION['user_id']) && strtolower($content->type ?? '') === 'benevolat') :  ?>
             <div class="flex justify-end mt-6">
-    <form action="/ElMountada/benevolat/Participer" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir participer a cet evenement?')"    >
+    <form action="<?= ROOT ?>/benevolat/Participer" method="POST" onsubmit="return confirm('Etes-vous sûr de vouloir participer a cet evenement?')"    >
         <input type="hidden" name="content_id" value="<?= htmlspecialchars($content->id) ?>">
         <button type="submit" class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-[#264653]/80 transition duration-300">
             Participer
@@ -174,7 +174,7 @@ public function ContentTable($content, $villes )
 
     echo '<div class="flex justify-between items-end mb-4">';
 
-    echo '<form action="/ElMountada/content/showContent" method="POST" class="flex gap-4 items-end">'; 
+    echo '<form action="<?= ROOT ?>/content/showContent" method="POST" class="flex gap-4 items-end">'; 
     
     echo '<div class="flex flex-col w-1/3">'; 
 echo '<label for="location" class="block text-sm font-semibold mb-2">Ville</label>'; 
@@ -211,7 +211,7 @@ echo '</div>';
     
     echo '</form>';
     
-    echo '<a href="/ElMountada/content/showAddContent">';
+    echo '<a href="<?= ROOT ?>/content/showAddContent">';
     echo '<button class="mt-4 inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter un contenu</button>';
     echo '</a>';
     
@@ -267,12 +267,12 @@ echo '</div>';
             echo "<td class='py-5 px-4 text-sm  font-openSans text-principale'>";
 
             echo "<div class='flex flex-col gap-2'>";
-            echo "<form action='/ElMountada/content/deleteContent' method='POST' onsubmit='return confirm(\"Etes vous sur de vouloir supprimer ce contenu?\")'>";
+            echo "<form action='<?= ROOT ?>/content/deleteContent' method='POST' onsubmit='return confirm(\"Etes vous sur de vouloir supprimer ce contenu?\")'>";
             echo "<input type='hidden' name='content_id' value='" . htmlspecialchars($item->id) . "'>";
             echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
             echo "</form>";
 
-            echo "<a href='/ElMountada/content/showEditContent/?id=" . htmlspecialchars($item->id) . "'>";
+            echo "<a href='<?= ROOT ?>/content/showEditContent/?id=" . htmlspecialchars($item->id) . "'>";
             echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
             echo "</a>";
             echo '</div>';
@@ -295,7 +295,7 @@ public function updateContent($content){
 <div class="flex flex-col justify-start gap-2 mb-8">
     <h2 class="text-start text-[24px] font-poppins font-bold text-text">Modifier le contenu</h2>
     <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-        <form action="/ElMountada/content/updateContent" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="<?= ROOT ?>/content/updateContent" method="POST" enctype="multipart/form-data" class="space-y-4">
             <input type="hidden" name="id" value="<?php echo htmlspecialchars($content->id ?? ''); ?>">
             <input type="hidden" name="existing_image_path" value="<?php echo htmlspecialchars($content->image_path ?? ''); ?>">
             <div>
@@ -372,7 +372,7 @@ public function updateContent($content){
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter un contenu</h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-                <form action="/ElMountada/content/store" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <form action="<?= ROOT ?>/content/store" method="POST" enctype="multipart/form-data" class="space-y-4">
 
                     <div>
                         <label for="title" class="text-[16px] font-poppins font-medium text-text">Titre</label>

@@ -38,7 +38,7 @@ class Auth {
                     session_start();
                     $_SESSION['status'] = "Votre compte est bloqué. Veuillez contacter le support.";
                     $_SESSION['status_type'] = 'error'; 
-                    header("Location: /ElMountada/auth/showLoginPage");
+                    header("Location:" . ROOT . "/auth/showLoginPage");
                     exit();
                 }
     
@@ -48,7 +48,7 @@ class Auth {
                     $_SESSION['user_id'] = $user->id;
                     $_SESSION['user_type'] = $user->type;
                     unset($_SESSION['status']);
-                    header("Location: /ElMountada/");
+                    header("Location:" . ROOT . "/");
                     exit();
                 }
             }
@@ -56,7 +56,7 @@ class Auth {
             session_start();
             $_SESSION['status'] = "Mot de passe ou email incorrect";
             $_SESSION['status_type'] = 'error'; 
-            header("Location: /ElMountada/auth/showLoginPage");
+            header("Location:" . ROOT . "/auth/showLoginPage");
             exit();
         }
     }
@@ -90,7 +90,7 @@ class Auth {
             $this->userModel->createUser($email, $password, $fullName, $phoneNumber);
 
         
-            header("Location: /ElMountada/auth/showLoginPage");
+            header("Location:" . ROOT . "/auth/showLoginPage");
             exit();
         }
     }
@@ -111,7 +111,7 @@ class Auth {
     
             session_destroy();
     
-            header("Location: /ElMountada");
+            header("Location:" . ROOT . "");
             exit();
         }
     }

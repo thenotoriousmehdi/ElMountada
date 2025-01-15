@@ -29,7 +29,7 @@ class Favorite
         
         $partnerId = $_POST['partner_id'] ?? null;
         $userId = $_POST['user_id'] ?? null;
-        $returnUrl = $_POST['return_url'] ?? '/ElMountada/partners/showCatalogue/';
+        $returnUrl = $_POST['return_url'] ?? '<?= ROOT ?>/partners/showCatalogue/';
 
         if (!$partnerId || !$userId) {
             $_SESSION['status'] = "Erreur: Paramètres manquants";

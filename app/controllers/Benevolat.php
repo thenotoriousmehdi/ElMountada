@@ -48,10 +48,10 @@ class benevolat
                 $_SESSION['status'] = "La participation a échoué";
                 $_SESSION['status_type'] = 'error';
             }
-            header('Location: /ElMountada/content/showDetails?id=' . $contentId);
+            header('Location:' . ROOT . '/content/showDetails?id=' . $contentId);
             exit;
         }
-        header('Location: /ElMountada/content/index');
+        header('Location:' . ROOT . '/content/index');
         exit;
     }
 }

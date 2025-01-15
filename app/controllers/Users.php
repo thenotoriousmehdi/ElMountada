@@ -47,7 +47,7 @@ class Users
     {
         $this->startSession();
         if (!isset($_SESSION['user_id'])) {
-            header("Location: /ElMountada/auth/showLoginPage/");
+            header("Location:" . ROOT . "/auth/showLoginPage/");
             exit();
         }
     
@@ -65,7 +65,7 @@ class Users
 
             if ($result) {
                $_SESSION['status'] = "Profil modifie avec success";
-                header('Location: /ElMountada/profile/showProfilePage?id=' . $id);
+                header('Location:' . ROOT .'/profile/showProfilePage?id=' . $id);
                 exit();
             } else {
                 die('Failed to update profile.');
@@ -85,13 +85,13 @@ class Users
                 $this->startSession();
                 $_SESSION['status'] = "utilisateur supprimé avec success";
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/users/ShowUsers'); 
+                header('Location:' . ROOT . '/users/ShowUsers'); 
                 exit;
             } else {
                 $this->startSession();
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/users/ShowUsers'); 
+                header('Location:' . ROOT . '/users/ShowUsers'); 
                 exit;
             }
            
@@ -111,13 +111,13 @@ class Users
                 $this->startSession();
                 $_SESSION['status'] = "Uilisateur bloqué avec success";
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/users/ShowUsers'); 
+                header('Location:' . ROOT  .'/users/ShowUsers'); 
                 exit;
             } else {
                 $this->startSession();
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/users/ShowUsers'); 
+                header('Location:' . ROOT . '/users/ShowUsers'); 
                 exit;
             }
            
@@ -137,13 +137,13 @@ class Users
                 $this->startSession();
                 $_SESSION['status'] = "L'utilisateur est désormais membre";
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/users/ShowUsers'); 
+                header('Location:' . ROOT . '/users/ShowUsers'); 
                 exit;
             } else {
                 $this->startSession();
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/users/ShowUsers'); 
+                header('Location:' . ROOT . '/users/ShowUsers'); 
                 exit;
             }
            

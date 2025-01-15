@@ -12,7 +12,7 @@ public function addNotifications()
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter une notification </h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
         
-            <form action="/ElMountada/notifications/createNotification" method="POST" class="space-y-4">         
+            <form action="<?= ROOT ?>/notifications/createNotification" method="POST" class="space-y-4">         
         <div>
             <label for="title" class="text-[16px] font-poppins font-medium text-text">Titre</label>
             <input type="text" id="title" name="title" required placeholder="Titre"

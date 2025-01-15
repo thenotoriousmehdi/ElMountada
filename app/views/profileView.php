@@ -11,7 +11,7 @@ class ProfileView
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
 
 
-                <form id="profileForm" method="POST" action="/ElMountada/profile/updateProfile" enctype="multipart/form-data" class="space-y-4">
+                <form id="profileForm" method="POST" action="<?= ROOT ?>/profile/updateProfile" enctype="multipart/form-data" class="space-y-4">
 
                     <div>
                         <label for="full_name" class="text-[16px] font-poppins font-medium text-text">Nom Complet</label>
@@ -60,7 +60,7 @@ class ProfileView
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Changer mon mot de passe</h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-            <form id="passwordForm" method="POST" action="/ElMountada/profile/updatePassword" class="space-y-4">
+            <form id="passwordForm" method="POST" action="<?= ROOT ?>/profile/updatePassword" class="space-y-4">
    
     <div>
       <label for="current_password" class="text-[16px] font-poppins font-medium text-text">Mot de passe actuel</label>

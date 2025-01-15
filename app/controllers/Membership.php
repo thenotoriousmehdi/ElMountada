@@ -80,7 +80,7 @@ class Membership
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage'); 
+            header('Location:' . ROOT . '/auth/showLoginPage'); 
             exit();
         }
         $this->View('membership');
@@ -115,8 +115,8 @@ class Membership
                     'receipt' => null
                 ];
     
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/memberships/';
-                $relativePath = '/ElMountada/public/uploads/memberships/'; 
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/memberships/';
+                $relativePath = '<?= ROOT ?>/public/uploads/memberships/'; 
                 
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
@@ -132,7 +132,7 @@ class Membership
                         } else {
                             $_SESSION['status'] = "Erreur lors du téléchargement du fichier $file.";
                             $_SESSION['status_type'] = 'error';
-                            header('Location: /ElMountada/');
+                            header('Location:' . ROOT . '/');
                             exit;
                         }
                     }
@@ -143,19 +143,19 @@ class Membership
                 if ($success) {
                     $_SESSION['status'] = "Votre demande d'abonnement a été envoyée et est en attente de confirmation.";
                     $_SESSION['status_type'] = 'success';
-                    header('Location: /ElMountada/');
+                    header('Location:' . ROOT . '/');
                     exit();
                 } else {
                     $_SESSION['status'] = "L'ajout de votre demande d'abonnement a échoué.";
                     $_SESSION['status_type'] = 'error';
-                    header('Location: /ElMountada/');
+                    header('Location:' . ROOT . '/');
                     exit();
                 }
                 
             } catch (Exception $e) {
                 $_SESSION['status'] = "Erreur: " . $e->getMessage();
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/membership/showMembershipForm');
+                header('Location:' . ROOT . '/membership/showMembershipForm');
                 exit();
             }
         }
@@ -165,7 +165,7 @@ class Membership
 
     private function handleImageUpload($file) {
 
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/';
     
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
@@ -186,7 +186,7 @@ class Membership
             throw new Exception('Failed to upload image');
         }
     
-        return '/ElMountada/public/uploads/' . $fileName;
+        return '<?= ROOT ?>/public/uploads/' . $fileName;
     }
 
 
@@ -201,7 +201,7 @@ class Membership
             $this->startSession();
             $_SESSION['status'] = "Membre accepté";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/membership/showMembers/');
+            header('Location:' . ROOT . '/membership/showMembers/');
         } else {
             return ['success' => false, 'message' => 'Failed to update status'];
         }
@@ -213,7 +213,7 @@ class Membership
             $this->startSession();
             $_SESSION['status'] = "Archivé avec success";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/membership/showSubscriptionsHistory/');
+            header('Location:' . ROOT . '/membership/showSubscriptionsHistory/');
         } else {
             return ['success' => false, 'message' => 'Failed to update status'];
         }
@@ -226,7 +226,7 @@ class Membership
             $this->startSession();
             $_SESSION['status'] = "Membre refusé";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/membership/showMembers/');
+            header('Location:' . ROOT . '/membership/showMembers/');
         } else {
             return ['success' => false, 'message' => 'Failed to update status'];
         }

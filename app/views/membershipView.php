@@ -36,7 +36,7 @@ class MembershipView
     <div class="flex flex-col justify-start gap-2 mb-8">
       <h2 class="text-start text-[24px] font-poppins font-bold text-text">Formulaire d'abonnement </h2>
       <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-        <form action="/ElMountada/membership/handleMembershipRequest" method="POST" enctype="multipart/form-data" class="space-y-4">
+        <form action="<?= ROOT ?>/membership/handleMembershipRequest" method="POST" enctype="multipart/form-data" class="space-y-4">
           <div>
             <label for="membership_type_id" class="text-[16px] font-poppins font-medium text-text">Type d'abonnement</label>
             <select id="membership_type_id" name="membership_type_id" required
@@ -93,14 +93,14 @@ class MembershipView
           <div class="flex flex-col h-full justify-center md:justify-start gap-2 items-center md:items-start w-full sm:w-1/2">
             <img src="<?= ROOTIMG ?>ElMountada4.svg" alt="Logo" class="w-32 h-12" />
             <p class="text-center text-principale"> <strong> Identifiant # </strong> <?= htmlspecialchars($membershipCard->user_id); ?></p>
-            <p class="text-center text-principale"> <strong> Email</strong> <?= htmlspecialchars($membershipCard->email); ?></p>
-            <p class="text-center text-principale"> <strong> Nom complet</strong> <?= htmlspecialchars($membershipCard->full_name) ?: 'null'; ?></p>
-            <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($membershipCard->phone_number) ?: 'null'; ?></p>
-            <p class=" text-principale"> <strong> Plan </strong><?= htmlspecialchars($membershipCard->membership_type_name); ?></p>
-            <p class=" text-principale"> <strong> Date de facturation </strong><?= htmlspecialchars($membershipCard->billing_date); ?></p>
+            <p class="text-center text-principale"> <strong> Email</strong> <?= htmlspecialchars($membershipCard->email ?? "N/A"); ?></p>
+            <p class="text-center text-principale"> <strong> Nom complet</strong> <?= htmlspecialchars($membershipCard->full_name ?? "N/A") ?: 'null'; ?></p>
+            <p class="text-center text-principale"> <strong> Téléphone</strong> <?= htmlspecialchars($membershipCard->phone_number ?? "N/A") ?: 'null'; ?></p>
+            <p class=" text-principale"> <strong> Plan </strong><?= htmlspecialchars($membershipCard->membership_type_name ?? "N/A"); ?></p>
+            <p class=" text-principale"> <strong> Date de facturation </strong><?= htmlspecialchars($membershipCard->billing_date ?? "N/A"); ?></p>
 
             <?php if ($membershipCard->needs_renewal): ?>
-              <a href="/ElMountada/membership/showMembershipForm"
+              <a href="<?= ROOT ?>/membership/showMembershipForm"
                 class="mt-4 px-6 py-2 bg-text text-white rounded-md hover:bg-principale/80 transition-colors">
                 Renouveler l'abonnement
               </a>
@@ -252,14 +252,14 @@ class MembershipView
       function confirmRefuseMembership(user_id) {
         const isConfirmed = confirm("Etes vous sur de vouloir refuser cet abonnement");
         if (isConfirmed) {
-          window.location.href = '/ElMountada/membership/refuseMembership/?id=' + user_id;
+          window.location.href = '<?= ROOT ?>/membership/refuseMembership/?id=' + user_id;
         }
       }
 
       function confirmAcceptMembership(user_id) {
         const isConfirmed = confirm("Etes vous sur de vouloir accepter cet abonnement");
         if (isConfirmed) {
-          window.location.href = '/ElMountada/membership/acceptMembership/?id=' + user_id;
+          window.location.href = '<?= ROOT ?>/membership/acceptMembership/?id=' + user_id;
         }
       }
     </script>
@@ -349,7 +349,7 @@ class MembershipView
       function confirmArchiveSubscription(membership_id) {
         const isConfirmed = confirm("Etes vous sur de vouloir refuser cet abonnement");
         if (isConfirmed) {
-          window.location.href = '/ElMountada/membership/archiveSubscription/?id=' + membership_id;
+          window.location.href = '<?= ROOT ?>/membership/archiveSubscription/?id=' + membership_id;
         }
       }
     </script>

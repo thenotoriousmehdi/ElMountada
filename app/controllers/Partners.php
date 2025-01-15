@@ -106,7 +106,7 @@ class Partners
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'partner') {
-            header('Location: /ElMountada/auth/showLoginPage');
+            header('Location:' . ROOT . '/auth/showLoginPage');
             exit();
         }
 
@@ -186,7 +186,7 @@ class Partners
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage');
+            header('Location:' . ROOT . '/auth/showLoginPage');
             exit();
         }
         $ville = isset($_POST['ville']) ? $_POST['ville'] : null;
@@ -219,13 +219,13 @@ class Partners
                     $this->startSession();
                     $_SESSION['status'] = "Le partenaire a été supprimé avec success";
                     $_SESSION['status_type'] = 'success';
-                    header('Location: /ElMountada/partners/showPartners');
+                    header('Location:' . ROOT . '/partners/showPartners');
                     exit();
                 } else {
                     $this->startSession();
                     $_SESSION['status'] = "La suppression a échoué";
                     $_SESSION['status_type'] = 'error';
-                    header('Location: /ElMountada/partners/showPartners');
+                    header('Location:' . ROOT . '/partners/showPartners');
                     exit();
                 }
             }
@@ -240,7 +240,7 @@ class Partners
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage');
+            header('Location:' . ROOT . '/auth/showLoginPage');
             exit();
         }
 
@@ -292,7 +292,7 @@ class Partners
                     $this->notificationsModel->createNotification("Nouveau Partenaire!", "Le partenaire " . $_POST['name'] . " fait maintenant partie de ElMountada !");
                     $_SESSION['status'] = "Partenaire ajouté avec succès!";
                     $_SESSION['status_type'] = 'success';
-                    header('Location: /ElMountada/');
+                    header('Location:' . ROOT . '/');
                     exit();
                 } else {
                     throw new Exception("Échec de l'ajout du partenaire.");
@@ -301,7 +301,7 @@ class Partners
                 $this->startSession();
                 $_SESSION['status'] = "Erreur: " . $e->getMessage();
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/');
+                header('Location:' . ROOT . '/');
                 exit();
             }
         }
@@ -329,7 +329,7 @@ class Partners
             throw new Exception('Failed to upload logo image.');
         }
 
-        return '/ElMountada/public/uploads/partners/' . $fileName;
+        return '<?= ROOT ?>/public/uploads/partners/' . $fileName;
     }
 
 
@@ -338,7 +338,7 @@ class Partners
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage');
+            header('Location:' . ROOT . '/auth/showLoginPage');
             exit();
         }
 
@@ -347,7 +347,7 @@ class Partners
             $this->startSession();
             $_SESSION['status'] = "ID du partenaire non spécifié";
             $_SESSION['status_type'] = 'error';
-            header('Location: /ElMountada/partners/ShowPartners');
+            header('Location:' . ROOT . '/partners/ShowPartners');
             exit();
         }
 
@@ -356,7 +356,7 @@ class Partners
             $this->startSession();
             $_SESSION['status'] = "Partenaire non trouvé";
             $_SESSION['status_type'] = 'error';
-            header('Location: /ElMountada/partners/ShowPartners');
+            header('Location:' . ROOT . '/partners/ShowPartners');
             exit();
         }
 
@@ -416,7 +416,7 @@ class Partners
                 $_SESSION['status'] = "Erreur: " . $e->getMessage();
                 $_SESSION['status_type'] = 'error';
             }
-            header('Location: /ElMountada/partners/ShowPartners');
+            header('Location:' . ROOT . '/partners/ShowPartners');
             exit();
         }
     }
@@ -428,7 +428,7 @@ class Partners
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage');
+            header('Location:' . ROOT . '/auth/showLoginPage');
             exit();
         }
 
@@ -476,7 +476,7 @@ class Partners
                 $_SESSION['status_type'] = 'error';
             }
 
-            header("Location: /ElMountada/partners/showPartners");
+            header("Location:" . ROOT . "/partners/showPartners");
             exit();
         }
     }

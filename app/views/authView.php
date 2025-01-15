@@ -34,7 +34,7 @@ class AuthView
                     </div>
                 <?php endif; ?>
 
-                <form action="/ElMountada/auth/handleLogin" method="post">
+                <form action="<?= ROOT ?>/auth/handleLogin" method="post">
                     <div class="flex flex-col gap-[25px]">
                         <div>
                             <label>
@@ -74,7 +74,7 @@ class AuthView
 
      <div>
      <p class="flex justify-center items-center font-openSans text-center text-[14px] text-PrimaryBlack/80">
-                    Vous n'avez pas de compte? <a href="/ElMountada/auth/showSignUpPage/" class="ml-2 font-poppins font-semibold text-[14px] underline text-primary"> Créer un compte </a>
+                    Vous n'avez pas de compte? <a href="<?= ROOT ?>/auth/showSignUpPage/" class="ml-2 font-poppins font-semibold text-[14px] underline text-primary"> Créer un compte </a>
                 </p>
      </div>
 
@@ -113,7 +113,7 @@ class AuthView
                     </div>
                 <?php endif; ?>
 
-                <form action="/ElMountada/auth/handleSignup" method="post">
+                <form action="<?= ROOT ?>/auth/handleSignup" method="post">
                     <div class="flex flex-col gap-[15px]">
                         <div class="flex justify-between">
                             <label>
@@ -194,7 +194,7 @@ class AuthView
 
      <div>
      <p class="flex justify-center items-center font-openSans text-center text-[14px] text-PrimaryBlack/80">
-                    Vous avez un compte? <a href="/ElMountada/auth/showLoginPage/" class="ml-2 font-poppins font-semibold text-[14px] underline text-primary"> Se Connecter </a>
+                    Vous avez un compte? <a href="<?= ROOT ?>/auth/showLoginPage/" class="ml-2 font-poppins font-semibold text-[14px] underline text-primary"> Se Connecter </a>
                 </p>
      </div>
 

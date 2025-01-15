@@ -10,7 +10,7 @@ public function header($sessionData, $notifications)
        
 
         <div>
-            <a href="/ElMountada/">
+            <a href="<?= ROOT ?>/">
                 <img src="<?= ROOTIMG ?>ElMountada2.svg" alt="logo" class=" w-44">
             </a>
         </div>
@@ -33,48 +33,48 @@ public function header($sessionData, $notifications)
         <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
             <?php if ($sessionData['user_type'] !== 'admin'): ?>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/">Accueil</a>
+                    <a href="<?= ROOT ?>/">Accueil</a>
                 </li>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/content/showContent">News</a>
+                    <a href="<?= ROOT ?>/content/showContent">News</a>
                 </li>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showCatalogue') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/partners/showCatalogue">Catalogue</a>
+                    <a href="<?= ROOT ?>/partners/showCatalogue">Catalogue</a>
                 </li>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/offers/showOffers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/offers/showOffers">Offres</a>
+                    <a href="<?= ROOT ?>/offers/showOffers">Offres</a>
                 </li>
             <?php endif; ?>
             <?php if ($sessionData['user_type'] == 'admin'): ?>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showPartners') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/partners/showPartners">Partenaires</a>
+                    <a href="<?= ROOT ?>/partners/showPartners">Partenaires</a>
                 </li>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/membership/showMembers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/membership/showMembers">Membres</a>
+                    <a href="<?= ROOT ?>/membership/showMembers">Membres</a>
                 </li>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/users/ShowUsers') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/users/ShowUsers">Utilisateurs</a>
+                    <a href="<?= ROOT ?>/users/ShowUsers">Utilisateurs</a>
                 </li>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/content/showContent') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/content/showContent">Contenu</a>
+                    <a href="<?= ROOT ?>/content/showContent">Contenu</a>
                 </li>
             <?php endif; ?>
             <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/benevolat/showBenevolat/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                <a href="/ElMountada/benevolat/showBenevolat/">Bénévolat</a>
+                <a href="<?= ROOT ?>/benevolat/showBenevolat/">Bénévolat</a>
             </li>
             <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                <a href="/ElMountada/dons/showDonsPage/">Dons</a>
+                <a href="<?= ROOT ?>/dons/showDonsPage/">Dons</a>
             </li>
             <?php if (!isset($sessionData['user_id'])): ?>
                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/auth/showLoginPage/') echo 'text-text font-semibold'; else echo 'text-bg'; ?>">
-                    <a href="/ElMountada/auth/showLoginPage/">S'authentifier</a>
+                    <a href="<?= ROOT ?>/auth/showLoginPage/">S'authentifier</a>
                 </li>
             <?php endif; ?>
         </ul>
     </div>
 </div>
 
-<!-- Fullscreen Mobile Menu -->
+<!-- Mobile Menu -->
 <div id="mobile-menu" class="hidden fixed inset-0 bg-black bg-opacity-80 text-white z-50 flex flex-col items-center justify-center">
     <button id="close-menu" class="absolute top-4 right-4 text-white hover:text-gray-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
@@ -83,21 +83,21 @@ public function header($sessionData, $notifications)
     </button>
     <ul class="text-center space-y-6">
         <?php if ($sessionData['user_type'] !== 'admin'): ?>
-            <li><a href="/ElMountada/" class="text-lg hover:underline">Accueil</a></li>
-            <li><a href="/ElMountada/content/showContent" class="text-lg hover:underline">News</a></li>
-            <li><a href="/ElMountada/partners/showCatalogue" class="text-lg hover:underline">Catalogue</a></li>
-            <li><a href="/ElMountada/offers/showOffers" class="text-lg hover:underline">Offres</a></li>
+            <li><a href="<?= ROOT ?>/" class="text-lg hover:underline">Accueil</a></li>
+            <li><a href="<?= ROOT ?>/content/showContent" class="text-lg hover:underline">News</a></li>
+            <li><a href="<?= ROOT ?>/partners/showCatalogue" class="text-lg hover:underline">Catalogue</a></li>
+            <li><a href="<?= ROOT ?>/offers/showOffers" class="text-lg hover:underline">Offres</a></li>
         <?php endif; ?>
         <?php if ($sessionData['user_type'] == 'admin'): ?>
-            <li><a href="/ElMountada/partners/showPartners" class="text-lg hover:underline">Partenaires</a></li>
-            <li><a href="/ElMountada/membership/showMembers" class="text-lg hover:underline">Membres</a></li>
-            <li><a href="/ElMountada/users/ShowUsers" class="text-lg hover:underline">Utilisateurs</a></li>
-            <li><a href="/ElMountada/content/showContent" class="text-lg hover:underline">Contenu</a></li>
+            <li><a href="<?= ROOT ?>/partners/showPartners" class="text-lg hover:underline">Partenaires</a></li>
+            <li><a href="<?= ROOT ?>/membership/showMembers" class="text-lg hover:underline">Membres</a></li>
+            <li><a href="<?= ROOT ?>/users/ShowUsers" class="text-lg hover:underline">Utilisateurs</a></li>
+            <li><a href="<?= ROOT ?>/content/showContent" class="text-lg hover:underline">Contenu</a></li>
         <?php endif; ?>
-        <li><a href="/ElMountada/benevolat/showBenevolat/" class="text-lg hover:underline">Bénévolat</a></li>
-        <li><a href="/ElMountada/dons/showDonsPage/" class="text-lg hover:underline">Dons</a></li>
+        <li><a href="<?= ROOT ?>/benevolat/showBenevolat/" class="text-lg hover:underline">Bénévolat</a></li>
+        <li><a href="<?= ROOT ?>/dons/showDonsPage/" class="text-lg hover:underline">Dons</a></li>
         <?php if (!isset($sessionData['user_id'])): ?>
-            <li><a href="/ElMountada/auth/showLoginPage/" class="text-lg hover:underline">S'authentifier</a></li>
+            <li><a href="<?= ROOT ?>/auth/showLoginPage/" class="text-lg hover:underline">S'authentifier</a></li>
         <?php endif; ?>
     </ul>
 </div>
@@ -113,26 +113,26 @@ public function header($sessionData, $notifications)
                     <div class="dropdown-content absolute bg-white shadow-lg rounded-lg p-4 w-48 mt-2 right-0 hidden z-10">
         <?php if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin'): ?>
             <!-- Admin -->
-            <a href="/ElMountada/notifications/showAddNotification" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter une notification</a>
-            <a href="/ElMountada/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
-            <a href="/ElMountada/membership/showSubscriptionsHistory" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique d'abonnement</a>
+            <a href="<?= ROOT ?>/notifications/showAddNotification" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter une notification</a>
+            <a href="<?= ROOT ?>/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
+            <a href="<?= ROOT ?>/membership/showSubscriptionsHistory" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique d'abonnement</a>
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
             <!-- Member  -->
-            <a href="/ElMountada/history/showHistoryPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
-            <a href="/ElMountada/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
-            <a href="/ElMountada/favorite/showFavorite/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes Favoris</a>
+            <a href="<?= ROOT ?>/history/showHistoryPage/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique</a>
+            <a href="<?= ROOT ?>/membership/showMembershipCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma carte d'abonnement</a>
+            <a href="<?= ROOT ?>/favorite/showFavorite/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes Favoris</a>
              <!-- simple -->
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'simple'): ?>
             <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
-            <a href="/ElMountada/favorite/showFavorite/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes Favoris</a>
+            <a href="<?= ROOT ?>/favorite/showFavorite/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes Favoris</a>
              <!-- Partner -->
             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'partner'): ?>
-                <a href="/ElMountada/partners/showCheckMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors"> Vérifier un membre</a>
-                <a href="/ElMountada/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma Carte</a>
+                <a href="<?= ROOT ?>/partners/showCheckMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors"> Vérifier un membre</a>
+                <a href="<?= ROOT ?>/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id'])?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma Carte</a>
   <!-- Everyone -->
         <?php endif; ?>
-        <a href="/ElMountada/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
-        <a href="/ElMountada/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
+        <a href="<?= ROOT ?>/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id'])?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
+        <a href="<?= ROOT ?>/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
     </div>
                 </div>
 
@@ -235,12 +235,12 @@ public function header($sessionData, $notifications)
 
                 <nav class="mb-4">
                     <ul class="flex flex-wrap justify-center gap-6 text-primary font-poppins font-medium">
-                        <li>  <a href="/ElMountada/">Accueil</a></li>
-                        <li> <a href="/ElMountada/content/showContent">News</a></li>
-                        <li><a href="/ElMountada/partners/showCatalogue">Catalogue</a></li>
-                        <li><a href="/ElMountada/offers/showOffers">Offres</a></li>
-                        <li> <a href="/ElMountada/dons/showDonsPage/">Dons</a></li>
-                        <li> <a  class="underline" href="/ElMountada/contact/showContactForm">Nous Contacter</a></li>
+                        <li>  <a href="<?= ROOT ?>/">Accueil</a></li>
+                        <li> <a href="<?= ROOT ?>/content/showContent">News</a></li>
+                        <li><a href="<?= ROOT ?>/partners/showCatalogue">Catalogue</a></li>
+                        <li><a href="<?= ROOT ?>/offers/showOffers">Offres</a></li>
+                        <li> <a href="<?= ROOT ?>/dons/showDonsPage/">Dons</a></li>
+                        <li> <a  class="underline" href="<?= ROOT ?>/contact/showContactForm">Nous Contacter</a></li>
                         
                     </ul>
                 </nav>

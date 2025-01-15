@@ -49,7 +49,7 @@ class BenevolatView
                                         </div>
                                     <?php endif; ?>
                                     <div class="flex justify-end mt-auto">
-                                    <a href="/ElMountada/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
+                                    <a href="<?= ROOT ?>/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
                                     class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-text/80 transition duration-300">
                                     Plus de détails
                                 </a>

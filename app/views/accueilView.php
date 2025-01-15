@@ -98,7 +98,7 @@ class AccueilView
         echo '</table>';
 
         echo '<div class="pr-2">';
-        echo '<a href="/ElMountada/offers/showOffers" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>';
+        echo '<a href="<?= ROOT ?>/offers/showOffers" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -118,10 +118,10 @@ class AccueilView
             <div class="overflow-hidden">
                 <div class="flex gap-8 animate-slide" style="animation: slide 5s linear infinite;">
                     <?php foreach ($partnersLogos as $partner): ?>
-                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class=" h-24 w-24 object-contain rounded-[10px] mb-4">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '<?= ROOT ?>/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class=" h-24 w-24 object-contain rounded-[10px] mb-4">
                     <?php endforeach; ?>
                     <?php foreach ($partnersLogos as $partner): ?>
-                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-24 w-24object-contain rounded-full mb-4">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '<?= ROOT ?>/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-24 w-24object-contain rounded-full mb-4">
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -181,7 +181,7 @@ class AccueilView
         <div class="flex justify-between items-end "> 
         <h2 class="text-center text-[32px] font-poppins font-bold text-text">Nouvautés</h2>
         
-            <a href="/ElMountada/content/showContent" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>
+            <a href="<?= ROOT ?>/content/showContent" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>
     </div>
 
         
@@ -228,7 +228,7 @@ class AccueilView
                                 </div>
                             <?php endif; ?>
                             <div class="flex justify-end mt-auto">
-                            <a href="/ElMountada/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
+                            <a href="<?= ROOT ?>/content/showDetails/?id=<?= htmlspecialchars($item->id) ?>"
                                     class="inline-block bg-[#264653] text-white px-4 py-2 rounded hover:bg-text/80 transition duration-300">
                                     Plus de détails
                                 </a>

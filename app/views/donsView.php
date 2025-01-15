@@ -8,7 +8,7 @@ class DonsView
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter une demande de don</h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-                <form action="/ElMountada/dons/storeRequest/" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <form action="<?= ROOT ?>/dons/storeRequest/" method="POST" enctype="multipart/form-data" class="space-y-4">
 
                     <!-- Name -->
                     <div>
@@ -119,7 +119,7 @@ class DonsView
         <div class="flex flex-col justify-start gap-2 mb-8">
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Ajouter une donation</h2>
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
-                <form action="/ElMountada/dons/store" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <form action="<?= ROOT ?>/dons/store" method="POST" enctype="multipart/form-data" class="space-y-4">
 
                     <div>
                         <label for="somme" class="text-[16px] font-poppins font-medium text-text">Montant de la donation</label>
@@ -206,12 +206,12 @@ class DonsView
                     </div>
                     <div class="flex gap-2">
 
-                        <a class="w-full bg-bg  border-2 border-text hover:bg-text text-center hover:bg-opacity-20 text-text font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="/ElMountada/dons/showRequestDon/">
+                        <a class="w-full bg-bg  border-2 border-text hover:bg-text text-center hover:bg-opacity-20 text-text font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="<?= ROOT ?>/dons/showRequestDon/">
                             <button>
                                 Demander un don
                             </button>
                         </a>
-                        <a class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg text-center font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="/ElMountada/dons/showAddDon/">
+                        <a class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg text-center font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="<?= ROOT ?>/dons/showAddDon/">
                             <button>
                                 Faire un don
                             </button>
@@ -283,14 +283,14 @@ class DonsView
                                 function confirmRefuseRequest(id) {
                                     const isConfirmed = confirm("Etes vous sur de vouloir refuser cette demande de donation?");
                                     if (isConfirmed) {
-                                        window.location.href = '/ElMountada/dons/refuseRequest/?id=' + id;
+                                        window.location.href = '<?= ROOT ?>/dons/refuseRequest/?id=' + id;
                                     }
                                 }
 
                                 function confirmAcceptRequest(id) {
                                     const isConfirmed = confirm("Etes vous sur de vouloir Accepter cette demande de donation?");
                                     if (isConfirmed) {
-                                        window.location.href = '/ElMountada/dons/acceptRequest/?id=' + id;
+                                        window.location.href = '<?= ROOT ?>/dons/acceptRequest/?id=' + id;
                                     }
                                 }
                             </script>
@@ -376,14 +376,14 @@ class DonsView
                                     function confirmRefuseDonation(id) {
                                         const isConfirmed = confirm("Etes vous sur de vouloir refuser cette donation?");
                                         if (isConfirmed) {
-                                            window.location.href = '/ElMountada/dons/refuseDonation/?id=' + id;
+                                            window.location.href = '<?= ROOT ?>/dons/refuseDonation/?id=' + id;
                                         }
                                     }
 
                                     function confirmAcceptDonation(id) {
                                         const isConfirmed = confirm("Etes vous sur de vouloir accepter cette donation?");
                                         if (isConfirmed) {
-                                            window.location.href = '/ElMountada/dons/acceptDonation/?id=' + id;
+                                            window.location.href = '<?= ROOT ?>/dons/acceptDonation/?id=' + id;
                                         }
                                     }
                                 </script>

@@ -12,7 +12,7 @@ class _404View
                 <p class="text-lg text-gray-700 mb-6">
                 Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
                 </p>
-                <a href="/ElMountada/" class="inline-block bg-text text-white px-6 py-2 rounded hover:bg-text/80 transition">
+                <a href="<?= ROOT ?>/" class="inline-block bg-text text-white px-6 py-2 rounded hover:bg-text/80 transition">
                 Retour à l'Accueil
                 </a>
             </div>

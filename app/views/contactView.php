@@ -12,7 +12,7 @@ class ContactView
     <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2">
       <h2 class="text-xl font-poppins text-text font-semibold text-center mb-4">Envoyez vos avis ou suggestions !</h2>
       
-      <form id="suggestion-form" method="POST" action="/ElMountada/contact/handleFormSubmit">
+      <form id="suggestion-form" method="POST" action="<?= ROOT ?>/contact/handleFormSubmit">
        
         <div class="mb-4">
           <label for="message-type" class="block text-gray-700 font-medium mb-2">Type du Message</label>

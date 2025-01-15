@@ -32,7 +32,7 @@ class Contact {
 
         $this->startSession();
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location: /ElMountada/auth/showLoginPage'); 
+            header('Location:' . ROOT . '/auth/showLoginPage'); 
             exit();
         }
 
@@ -65,7 +65,7 @@ class Contact {
                 $this->startSession();
                 $_SESSION['status'] = 'Please fill in all required fields.';
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/contact/showContactForm');
+                header('Location:' . ROOT . '/contact/showContactForm');
                 exit;
             }
 
@@ -75,13 +75,13 @@ class Contact {
                 $this->startSession();
                 $_SESSION['status']  = 'Votre message a bien été envoyé!';
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/');
+                header('Location:' . ROOT . '/');
                 exit;
             } else {
                 $this->startSession();
                 $_SESSION['status'] = 'An error occurred. Please try again.';
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/contact/showContactForm');
+                header('Location:' . ROOT . '/contact/showContactForm');
                 exit;
             }
         }

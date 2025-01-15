@@ -71,8 +71,8 @@ class Dons {
             
                     
                     if (!empty($_FILES['recu']['name'])) {
-                        $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/donationsDone/';
-                        $relativePath = '/ElMountada/public/uploads/donationsDone/';
+                        $targetDir = '<?= ROOTUPL ?>' . '/donationsDone/';
+                        $relativePath = '/public/uploads/donationsDone/';
                         
                         if (!file_exists($targetDir)) {
                             mkdir($targetDir, 0755, true);
@@ -98,7 +98,7 @@ class Dons {
                             $this->startSession();
                             $_SESSION['status'] = "Donation enregistrée, elle apparaitera dans votre historique dès qu'un admin la confiermera ";
                             $_SESSION['status_type'] = 'success';
-                            header('Location: /ElMountada/dons/showDonsPage/');
+                            header('Location: ' . ROOT . '/dons/showDonsPage/');
                             exit();
                         } else {
                             echo "Une erreur s'est produite lors de l'ajout de la donation.";
@@ -118,7 +118,7 @@ class Dons {
             $user_id = $_SESSION['user_id'] ?? null;
 
             if (!$user_id) {
-                header('Location: /ElMountada/auth/showLoginPage');
+                header('Location:' . ROOT . '/auth/showLoginPage');
                 exit();
             }
 
@@ -129,8 +129,8 @@ class Dons {
             $document = null;
 
             if (!empty($_FILES['document']['name'])) {
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/donationsRequests/';
-                $relativePath = '/ElMountada/public/uploads/donationsRequests/';
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/donationsRequests/';
+                $relativePath = '<?= ROOT ?>/public/uploads/donationsRequests/';
                 
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
@@ -151,7 +151,7 @@ class Dons {
                     $this->startSession();
                     $_SESSION['status'] = "Votre demande de dons a été enregistrée avec success";
                     $_SESSION['status_type'] = 'success';
-                    header('Location: /ElMountada/dons/showDonsPage/');
+                    header('Location:' . ROOT . '/dons/showDonsPage/');
                     exit();
                 } else {
                     echo  "Une erreur s'est produite lors de l'ajout de la demande de don.";
@@ -169,7 +169,7 @@ class Dons {
             $this->startSession();
             $_SESSION['status'] = "Donation accéptée";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/dons/showDonsPage/');
+            header('Location:' . ROOT . '/dons/showDonsPage/');
         } else {
             return ['success' => false, 'message' => 'Failed to update status'];
         }
@@ -182,7 +182,7 @@ class Dons {
             $this->startSession();
             $_SESSION['status'] = "Donation refusée";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/dons/showDonsPage/');
+            header('Location:' . ROOT . '/dons/showDonsPage/');
         } else {
             echo  "Une erreur s'est produite ";
         }
@@ -195,7 +195,7 @@ class Dons {
             $this->startSession();
             $_SESSION['status'] = "Demande de donation refusée";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/dons/showDonsPage/');
+            header('Location:' . ROOT . '/dons/showDonsPage/');
         } else {
             echo  "Une erreur s'est produite ";
         }
@@ -208,7 +208,7 @@ class Dons {
             $this->startSession();
             $_SESSION['status'] = "Demande de donation accéptée";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/dons/showDonsPage/');
+            header('Location:' . ROOT . '/dons/showDonsPage/');
         } else {
             echo  "Une erreur s'est produite ";
         }

@@ -31,7 +31,7 @@ class Notifications
         $this->notificationsModel->createNotification($title, $message);
         $_SESSION['status'] = "Notification ajoutée avec success.";
         $_SESSION['status_type'] = 'success';
-        header('Location: /ElMountada');
+        header('Location:' . ROOT . '');
     }
 }
 

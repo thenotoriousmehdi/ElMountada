@@ -35,7 +35,7 @@ class Content {
         $this->startSession();
 
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-                header("Location: /ElMountada/auth/showLoginPage/");
+                header("Location:' . ROOT . '/auth/showLoginPage/");
                 exit();
         }
         $sessionData = $this->getSessionData();
@@ -89,12 +89,12 @@ class Content {
             if ($success) {
                 $_SESSION['status'] = "supprime avec success";
                 $_SESSION['status_type'] = 'success';
-                header('Location: /ElMountada/content/showContent'); 
+                header('Location:' . ROOT . '/content/showContent'); 
                 exit;
             } else {
                 $_SESSION['status'] = "L'operation a échoué.";
                 $_SESSION['status_type'] = 'error';
-                header('Location: /ElMountada/content/showContent'); 
+                header('Location:' . ROOT . '/content/showContent'); 
                 exit;
             }
            
@@ -132,12 +132,12 @@ class Content {
                 $this->notificationsModel->createNotification($_POST['type'], "Un contenu " . $_POST['title'] . " a été ajouté à ElMountada !");
                 $_SESSION['status'] = "Contenu ajouter avec success";
                 $_SESSION['status_type'] = 'sucess';
-                header('Location: /ElMountada/accueil/showAccueil');
+                header('Location:' . ROOT . '/accueil/showAccueil');
                  exit;
              } else {
                 $_SESSION['status'] = "L'ajout de Contenu a échoué";
                 $_SESSION['status_type'] = 'error';
-                 header('Location: /ElMountada/accueil/showAccueil');
+                 header('Location:' . ROOT . '/accueil/showAccueil');
             }
 
          } catch (Exception $e) {
@@ -168,7 +168,7 @@ class Content {
 
      private function handleImageUpload($file) {
 
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/content/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/content/';
     
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
@@ -190,7 +190,7 @@ class Content {
             throw new Exception('Failed to upload image');
         }
     
-        return '/ElMountada/public/uploads/content/' . $fileName;
+        return '<?= ROOT ?>/public/uploads/content/' . $fileName;
     }
     
 
@@ -241,18 +241,18 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $this->startSession();
             $_SESSION['status'] = "Contenu mis à jour avec succès";
             $_SESSION['status_type'] = 'success';
-            header('Location: /ElMountada/content/showContent');
+            header('Location:' . ROOT . '/content/showContent');
             exit;
         } else {
             $this->startSession();
             $_SESSION['status'] = "La mise à jour du contenu a échoué";
             $_SESSION['status_type'] = 'error';
-            header('Location: /ElMountada/content/showContent');
+            header('Location:' . ROOT . '/content/showContent');
             exit;
         }
     } catch (Exception $e) {
         $_SESSION['error'] = $e->getMessage();
-        header('Location: /ElMountada/content/showContent');
+        header('Location:' . ROOT . '/content/showContent');
         exit;
     }
 }
