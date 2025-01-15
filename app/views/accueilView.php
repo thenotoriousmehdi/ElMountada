@@ -115,12 +115,10 @@ class AccueilView
             <div class="overflow-hidden">
                 <div class="flex gap-8 animate-slide" style="animation: slide 5s linear infinite;">
                     <?php foreach ($partnersLogos as $partner): ?>
-                        <img src="<?php echo htmlspecialchars($partner -> logo_path); ?>" alt="Partner Logo"
-                            class="h-16 object-contain">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class=" h-24 w-24 object-contain rounded-[10px] mb-4">
                     <?php endforeach; ?>
                     <?php foreach ($partnersLogos as $partner): ?>
-                        <img src="<?php echo htmlspecialchars($partner -> logo_path); ?>" alt="Partner Logo"
-                            class="h-16 object-contain">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-24 w-24object-contain rounded-full mb-4">
                     <?php endforeach; ?>
                 </div>
             </div>

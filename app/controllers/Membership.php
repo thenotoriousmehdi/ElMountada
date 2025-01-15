@@ -84,12 +84,10 @@ class Membership
 
 
     public function handleMembershipRequest() {
-       
         $this->startSession();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                
                 if (empty($_POST['membership_type_id'])) {
                     throw new Exception("Le type d'abonnement est requis.");
                 }
@@ -101,20 +99,22 @@ class Membership
                     'identity' => null,
                     'receipt' => null
                 ];
-
-                $targetDir = './public/uploads/';
+    
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/memberships/';
+                $relativePath = '/ElMountada/public/uploads/memberships/'; 
+                
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
                 }
     
                 $files = ['photo', 'identity', 'receipt'];
+                
                 foreach ($files as $file) {
                     if (!empty($_FILES[$file]['name']) && $_FILES[$file]['error'] === UPLOAD_ERR_OK) {
                         $targetFile = $targetDir . basename($_FILES[$file]['name']);
                         if (move_uploaded_file($_FILES[$file]['tmp_name'], $targetFile)) {
-                            $data[$file] = $targetFile; 
+                            $data[$file] = $relativePath . basename($_FILES[$file]['name']); 
                         } else {
-                            $this->startSession();
                             $_SESSION['status'] = "Erreur lors du téléchargement du fichier $file.";
                             $_SESSION['status_type'] = 'error';
                             header('Location: /ElMountada/');
@@ -122,23 +122,21 @@ class Membership
                         }
                     }
                 }
-
+    
                 $success = $this->membershipModel->insertMembershipRequest($data);
-            
+                
                 if ($success) {
-                    $this->startSession();
                     $_SESSION['status'] = "Votre demande d'abonnement a été envoyée et est en attente de confirmation.";
                     $_SESSION['status_type'] = 'success';
                     header('Location: /ElMountada/');
                     exit();
                 } else {
-                    $this->startSession();
                     $_SESSION['status'] = "L'ajout de votre demande d'abonnement a échoué.";
                     $_SESSION['status_type'] = 'error';
                     header('Location: /ElMountada/');
                     exit();
                 }
-    
+                
             } catch (Exception $e) {
                 $_SESSION['status'] = "Erreur: " . $e->getMessage();
                 $_SESSION['status_type'] = 'error';
@@ -147,7 +145,6 @@ class Membership
             }
         }
     }
-    
     
 
 

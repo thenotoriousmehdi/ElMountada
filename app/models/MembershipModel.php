@@ -70,10 +70,12 @@ class MembershipModel
             ':idpiece' => $data['identity'],
             ':recu' => $data['receipt'],
         ];
+        $query2 = "INSERT INTO memberships (user_id, membership_type_id, photo, idpiece, recu, membership_date)
+              VALUES (:user_id, :membership_type_id, :photo, :idpiece, :recu, NOW())";
 
         try {
             $result = $this->query($query, $params);
-
+                     $this->query($query2, $params);
             if ($result) {
                 $query = "SELECT
                         m.user_id,
@@ -212,19 +214,24 @@ WHERE m.status= 'pending'
     }
 
     public function updateMembershipAccepted($id)
-    {
-        $query = "UPDATE users SET type = 'member' WHERE id = :id";
-        $data = ['id' => $id];
-        $this->query($query, $data);
+{
+    $query = "UPDATE users SET type = 'member' WHERE id = :id";
+    $data = ['id' => $id];
+    if ($this->query($query, $data)) {
         $query = "UPDATE members SET status = 'active' WHERE user_id = :id";
-        $this->query($query, $data);
+        return $this->query($query, $data); 
     }
+    
+    return false; 
+}
 
 
-    public function updateMembershipRefused($id)
-    {
-        $query = "UPDATE members SET status = 'refused' WHERE user_id = :id";
-        $data = ['id' => $id];
-        $this->query($query, $data);
-    }
+
+public function updateMembershipRefused($id)
+{
+    $query = "UPDATE members SET status = 'refused' WHERE user_id = :id";
+    $data = ['id' => $id];
+    return $this->query($query, $data);  
+}
+
 }
