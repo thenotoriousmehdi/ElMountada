@@ -19,10 +19,12 @@ class History {
         $view = new HistoryView();
         $mesDons = $this ->historyModel ->getMesdons($user_id);
         $mesBenevolats = $this -> historyModel -> getMesBenevolats($user_id);
+        $subscriptions = $this ->historyModel -> getMesPaiements($user_id);
         $view->Head();
         $view->loadHeader($sessionData);
         $view ->MesDons($mesDons);
         $view -> MesBenevolats($mesBenevolats);
+        $view -> MesPayments($subscriptions);
         $view->foot();
         $view->footer();
     }

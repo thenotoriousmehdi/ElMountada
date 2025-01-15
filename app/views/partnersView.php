@@ -3,13 +3,14 @@ class PartnersView
 {
     use View;
 
-    public function displayFilterFormm($cities, $categories) {
-        ?>
+    public function displayFilterFormm($cities, $categories)
+    {
+?>
         <div class="bg-white/80 shadow-md rounded-[15px] p-6 mb-8">
             <form method="POST" class="flex flex-wrap gap-4 items-end">
                 <div class="flex flex-col gap-2">
                     <label for="ville" class="font-poppins font-semibold">Ville</label>
-                    <select name="ville" id="ville"  class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+                    <select name="ville" id="ville" class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
                         <option value="">Toutes les villes</option>
                         <?php foreach ($cities as $city): ?>
                             <option value="<?= htmlspecialchars($city->ville) ?>"
@@ -22,7 +23,7 @@ class PartnersView
 
                 <div class="flex flex-col gap-2">
                     <label for="category" class="font-poppins font-semibold">Catégorie</label>
-                    <select name="category" id="category"  class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
+                    <select name="category" id="category" class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
                         <option value="">Toutes les catégories</option>
                         <?php foreach ($categories as $id => $name): ?>
                             <option value="<?= htmlspecialchars($id) ?>"
@@ -38,52 +39,99 @@ class PartnersView
                     Filtrer
                 </button>
 
-                
+
             </form>
         </div>
-        <?php
+    <?php
     }
 
-    public function showPartnersByCategory($categoryTitle, $partners) {
+    public function showPartnersByCategory($categoryTitle, $partners, $favoritePartners)
+    {
         if (!empty($partners)) {
-            $this->PartnerSection($categoryTitle, $partners);
+            $this->PartnerSection($categoryTitle, $partners, $favoritePartners);
         } else {
             echo "<p>Aucun partenaire trouvé pour cette catégorie.</p>";
         }
     }
-    public function PartnerSection($title, $partners) {
-        ?>
+    public function PartnerSection($title, $partners, $favoritePartners)
+    {
+    ?>
         <div class="flex flex-col justify-start gap-2 mb-8">
-            <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
-            <div class="bg-white/80 shadow-md w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
-                <div class="flex flex-wrap gap-4 justify-start">
-                    <?php foreach ($partners as $partner): ?>
-                        <div class="w-[300px] flex flex-col justify-center items-center bg-text/5 p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative">
-                            <div class="absolute top-2 right-2">
-                                <button onclick="addToFavorites(<?= htmlspecialchars($partner->partner_id ?? '') ?>)" class="p-2 bg-bg border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70">
-                                    <img src="/ElMountada/public/assets/star.svg" alt="Add to Favorites" class="h-6 w-6">
-                                </button>
-                            </div>
-                            <img src="<?= htmlspecialchars($partner->logo_path ?? '/ElMountada/public/assets/ElMountada1.svg') ?>"
-                                alt="Partner Logo" class="size-28 object-contain">
-                            <h3 class="font-poppins font-bold text-lg mb-2"><?= htmlspecialchars($partner->full_name ?? 'N/A') ?></h3>
-                            <p class="font-openSans font-semibold"><?= htmlspecialchars($partner->ville ?? 'N/A') ?></p>
-                            <button class="bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80" onclick="viewDetails(<?= htmlspecialchars($partner->partner_id ?? '') ?>)">Voir plus</button>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+    <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
+    
+    <?php if (isset($_SESSION['status'])): ?>
+        <div class="status-message <?= $_SESSION['status_type'] ?? 'info' ?>">
+            <?= htmlspecialchars($_SESSION['status']) ?>
         </div>
-        <script>
-            function viewDetails(partnerId) {
-                window.location.href = '/ElMountada/partners/showPartnerDetails/?id=' + partnerId;
-            }
-        </script>
-        <?php
+        <?php 
+        unset($_SESSION['status']);
+        unset($_SESSION['status_type']);
+        ?>
+    <?php endif; ?>
+
+    <div class="bg-white/80 shadow-md w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
+        <div class="flex flex-wrap gap-4 justify-start">
+            <?php foreach ($partners as $partner): 
+            ?>
+            <div class="w-[300px] flex flex-col justify-center items-center bg-text/5 p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative">
+                <div class="absolute top-2 right-2">
+                    <form action="/ElMountada/favorite/toggleFavorite/" method="POST" class="inline">
+                        <input type="hidden" name="partner_id" value="<?= htmlspecialchars($partner->partner_id ?? $partner->id) ?>">
+                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? '') ?>">
+                        <input type="hidden" name="return_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
+                        <button type="submit" 
+                                class="p-2 border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 <?= isset($favoritePartners[$partner->partner_id ?? $partner->id]) ? 'bg-[#E76F51]' : 'bg-[#E76F51] bg-opacity-10' ?>">
+                            <img src="/ElMountada/public/assets/star.svg" 
+                                 alt="<?= $favoritePartners ? 'Remove from Favorites' : 'Add to Favorites' ?>" 
+                                 class="h-6 w-6 <?= $favoritePartners ? 'brightness-0 invert' : '' ?>">
+                        </button>
+                    </form>
+                </div>
+                <img src="<?= htmlspecialchars($partner->logo_path ?? '/ElMountada/public/assets/ElMountada1.svg') ?>"
+                     alt="Partner Logo" 
+                     class="size-28 object-contain">
+                <h3 class="font-poppins font-bold text-lg mb-2">
+                    <?= htmlspecialchars($partner->full_name ?? 'N/A') ?>
+                </h3>
+                <p class="font-openSans font-semibold">
+                    <?= htmlspecialchars($partner->ville ?? 'N/A') ?>
+                </p>
+                <a href="/ElMountada/partners/showPartnerDetails/?id=<?= htmlspecialchars($partner->partner_id ?? $partner->id) ?>"
+                   class="bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80">
+                    Voir plus
+                </a>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<style>
+.status-message {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+.status-message.success {
+    background-color: #4CAF50;
+    color: white;
+}
+.status-message.error {
+    background-color: #f44336;
+    color: white;
+}
+.status-message.info {
+    background-color: #2196F3;
+    color: white;
+}
+</style>
+    <?php
     }
 
-    public function displayFilterForm($cities, $categories) {
-        ?>
+    public function displayFilterForm($cities, $categories)
+    {
+    ?>
         <div class="bg-white/80 shadow-md rounded-[15px] p-6 mb-8">
             <form method="POST" class="flex flex-wrap gap-4 items-end">
                 <div class="flex flex-col gap-2">
@@ -91,14 +139,14 @@ class PartnersView
                     <select name="ville" id="ville" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
                         <option value="">Toutes les villes</option>
                         <?php foreach ($cities as $city): ?>
-                            <option value="<?= htmlspecialchars($city) ?>" 
+                            <option value="<?= htmlspecialchars($city) ?>"
                                 <?= (isset($_POST['ville']) && $_POST['ville'] === $city) ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($city) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-    
+
                 <div class="flex flex-col gap-2">
                     <label for="category" class="font-poppins font-semibold">Catégorie</label>
                     <select name="category" id="category" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
@@ -111,21 +159,21 @@ class PartnersView
                         <?php endforeach; ?>
                     </select>
                 </div>
-    
-                <button type="submit" name="filter_submit" 
+
+                <button type="submit" name="filter_submit"
                     class="bg-text text-white py-2 px-6 rounded-lg hover:bg-text/80 font-poppins">
                     Filtrer
                 </button>
-    
+
                 <?php if (isset($_POST['filter_submit'])): ?>
-                    <a href="<?= $_SERVER['PHP_SELF'] ?>" 
+                    <a href="<?= $_SERVER['PHP_SELF'] ?>"
                         class="bg-text/10 text-text py-2 px-6 rounded-lg hover:bg-text/20 font-poppins">
                         Réinitialiser
                     </a>
                 <?php endif; ?>
             </form>
         </div>
-        <?php
+    <?php
     }
 
     private function filterPartners($partners)
@@ -157,7 +205,7 @@ class PartnersView
                 <div class="flex justify-center items-center bg-text pb-8 rounded-[15px] bg-opacity-10 gap-8 mb-8">
                     <div class="flex flex-col items-center">
 
-                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-32 w-32 object-contain rounded-full mb-4">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '/ElMountada/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-32 w-32 object-contain rounded-[10px] mb-4">
                         <p class="text-lg text-gray-600"><?= htmlspecialchars($partner->partner_description ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Ville</strong> <?= htmlspecialchars($partner->ville ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Adresse</strong> <?= htmlspecialchars($partner->adresse ?? 'N/A') ?></p>
@@ -253,9 +301,9 @@ class PartnersView
     <?php
     }
 
-   
 
-    
+
+
 
     public function PartnerCard($partnerCard)
     {
@@ -550,8 +598,8 @@ class PartnersView
                 echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
                 echo "</td>";
 
-               
-                
+
+
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
 
                 echo "<div class='flex flex-col gap-2'>";
@@ -559,7 +607,7 @@ class PartnersView
                 echo "<button class='bg-green-500 text-white px-4 py-2 rounded-lg'>Détails</button>";
                 echo "</a>";
 
-              
+
 
                 echo "<a href='/ElMountada/partners/updatePartner/?id=" . htmlspecialchars($partner->partner_id) . "'>";
                 echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
@@ -572,8 +620,8 @@ class PartnersView
 
                 echo '</div>';
 
-               
-              
+
+
 
 
 

@@ -10,8 +10,8 @@ class HistoryView
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Mes Dons</h2>
             <?php if (empty($mesDons)): ?>
                 <div class="bg-text/5 flex justify-center items-center shadow-sm w-full h-full max-h-[470px] overflow-y-auto rounded-[15px] p-6">
-<div class="flex justify-center items-center bg-white shadow-md rounded-lg"> 
-                    <p class="text-center text-text/80">Aucun don trouvé.</p>
+<div> 
+                    <p class="text-center text-lg text-gray-500">Aucun don trouvé.</p>
                 </div>
 
                 </div>
@@ -47,8 +47,8 @@ class HistoryView
             <h2 class="text-start text-[24px] font-poppins font-bold text-text">Mes Participations aux bénévolats</h2>
             <?php if (empty($mesBenevolats)): ?>
                 <div class="bg-text/5 flex justify-center items-center shadow-sm w-full h-full max-h-[470px] overflow-y-auto rounded-[15px] p-6">
-<div class="flex justify-center items-center bg-white shadow-md rounded-lg"> 
-                    <p class="text-center text-text/80">Aucune benevolat trouvée.</p>
+<div > 
+<p class="text-center text-lg text-gray-500">Aucune benevolat trouvée</p>
                 </div>
 
                 </div>
@@ -73,7 +73,70 @@ class HistoryView
 
     <?php
     }
+    public function MesPayments($subscriptions)
+    {
+    ?>
+       <div class="flex flex-col justify-start gap-2 mb-8">
+        <h2 class="text-start text-[24px] font-poppins font-bold text-text">Mes Paiements</h2>
+        <div class="bg-text/5 shadow-sm w-full h-[470px] overflow-y-auto rounded-[15px] p-6">
+            <div class="flex flex-wrap gap-4">
+          <?php if (!empty($subscriptions)): ?>
+            <?php foreach ($subscriptions as $request): ?>
+              <div class="flex justify-between w-full gap-2 border border-primary/10 bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md">
+                <div class="flex flex-col gap-8 md:flex-row flex-wrap justify-start w-full items-center">
 
+            
+                  <p class="text-sm font-semibold w-1/12  text-text text-center">
+                    <?= htmlspecialchars($request->membership_date ?? 'N/A'); ?>
+                  </p>
+                  <p class="text-sm w-1/12  text-text text-center">
+                    <?= htmlspecialchars($request->membership_name ?? 'N/A'); ?>
+                  </p>
+
+                  <?php
+                  $photoPath = htmlspecialchars($request->photo);
+                  $idPath = htmlspecialchars($request->idpiece);
+                  $recuPath = htmlspecialchars($request->recu);
+                  $photoName = basename($photoPath);
+                  $idName = basename($idPath);
+                  $recuName = basename($recuPath);
+                  ?>
+
+
+                  <a href="<?= $photoPath; ?>"
+                    class="text-white bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                    download="<?= $photoName; ?>">
+                    Photo
+                  </a>
+
+
+                  <a href="<?=  $idPath; ?>"
+                    class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                    download="<?= $idName; ?>">
+                    Pièce d'identité
+                  </a>
+
+                  <a href="<?= $recuPath;?>"
+                    class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                    download="<?= $recuName; ?>">
+                    Reçu de paiement
+                  </a>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+        
+                 <p class="text-center text-lg text-gray-500">Aucun historique de paiement</p>
+         
+           
+          <?php endif; ?>
+        </div>
+      </div>
+
+      </div>
+
+    <?php
+    }
 
 
 

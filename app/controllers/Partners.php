@@ -15,13 +15,12 @@ class Partners
     {
         $this->partnerModel = new PartnersModel();
         $this->membershipModel = new MembershipModel();
-        $this->favoriteModel = new FavoriteModel();
+        $this ->favoriteModel = new FavoriteModel();
         $this->notificationsModel = new NotificationsModel();
     }
 
 
-    public function showCatalogue()
-    {
+    public function showCatalogue() {
         $this->startSession();
         $sessionData = $this->getSessionData();
         $cities = $this->partnerModel->getAllCities();
@@ -31,27 +30,40 @@ class Partners
             3 => 'Ecoles',
             4 => 'Agences de voyages'
         ];
+
         $this->View('partners');
         $view = new PartnersView();
         $view->Head();
         $view->displaySessionMessage();
+        $userId = $sessionData['user_id'];
+
+        $favoritePartners = [];
+        if ($userId) {
+            $favorites = $this->favoriteModel->getFavoritesByUser($userId);
+            foreach ($favorites as $favorite) {
+                $favoritePartners[$favorite->id] = true;
+            
+            }
+        }
+
         $view->loadHeader($sessionData);
         $view->displayFilterFormm($cities, $categories);
+
         if (isset($_POST['filter_submit'])) {
             $selectedVille = !empty($_POST['ville']) ? $_POST['ville'] : null;
             $selectedCategory = !empty($_POST['category']) ? $_POST['category'] : null;
-
             $partners = $this->partnerModel->getFilteredPartners($selectedVille, $selectedCategory);
+
             if ($selectedCategory) {
                 $categoryTitle = $categories[$selectedCategory];
-                $view->showPartnersByCategory($categoryTitle, $partners);
+                $view->showPartnersByCategory($categoryTitle, $partners, $favoritePartners);
             } else {
                 foreach ($categories as $id => $title) {
                     $categoryPartners = array_filter($partners, function ($partner) use ($id) {
                         return $partner->categorie_id == $id;
                     });
                     if (!empty($categoryPartners)) {
-                        $view->showPartnersByCategory($title, $categoryPartners);
+                        $view->showPartnersByCategory($title, $categoryPartners, $favoritePartners);
                     }
                 }
             }
@@ -59,7 +71,7 @@ class Partners
             foreach ($categories as $id => $title) {
                 $partners = $this->partnerModel->getAllPartnersByCategory($id);
                 if (!empty($partners)) {
-                    $view->showPartnersByCategory($title, $partners);
+                    $view->showPartnersByCategory($title, $partners, $favoritePartners);
                 }
             }
         }

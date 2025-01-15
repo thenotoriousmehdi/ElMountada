@@ -22,6 +22,18 @@ LEFT JOIN
         return $this->query($query, $data);  
     }
 
+    public function getMesPaiements($user_id) {
+        $query = " SELECT * 
+    FROM memberships 
+    WHERE user_id = :user_id";
+        $data = [':user_id' => $user_id]; 
+        return $this->query($query, $data);  
+    }
+
+
+
+   
+
     public function getMesBenevolats($user_id) {
         $query = "
     SELECT 
