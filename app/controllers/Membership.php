@@ -38,6 +38,21 @@ class Membership
         $view->footer();
     }
 
+    public function showSubscriptionsHistory()
+    {
+        $this->startSession();
+        $this->View('membership');
+        $view = new MembershipView();
+        $sessionData = $this->getSessionData();
+        $subscriptions= $this ->membershipModel->getSubscriptionsHistory();
+        $view->Head();
+        $view ->displaySessionMessage();
+        $view->loadHeader($sessionData);
+        $view->SubscriptionsHistory($subscriptions);
+        $view->foot();
+        $view->footer();
+    }
+
     public function showMembershipCard($id)
     {
         $this->startSession();
@@ -191,6 +206,19 @@ class Membership
             return ['success' => false, 'message' => 'Failed to update status'];
         }
     }
+    public function archiveSubscription($membership_id) {
+
+        $success=$this->membershipModel->archiveSubscription($membership_id);
+        if ($success) {
+            $this->startSession();
+            $_SESSION['status'] = "Archivé avec success";
+            $_SESSION['status_type'] = 'success';
+            header('Location: /ElMountada/membership/showSubscriptionsHistory/');
+        } else {
+            return ['success' => false, 'message' => 'Failed to update status'];
+        }
+    }
+
 
     public function refuseMembership($id) {
         $success=$this->membershipModel->updateMembershipRefused($id);

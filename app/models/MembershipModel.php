@@ -70,8 +70,8 @@ class MembershipModel
             ':idpiece' => $data['identity'],
             ':recu' => $data['receipt'],
         ];
-        $query2 = "INSERT INTO memberships (user_id, membership_type_id, photo, idpiece, recu, membership_date)
-              VALUES (:user_id, :membership_type_id, :photo, :idpiece, :recu, NOW())";
+        $query2 = "INSERT INTO memberships (user_id, membership_type_id, photo, idpiece, recu, status, membership_date)
+              VALUES (:user_id, :membership_type_id, :photo, :idpiece, :recu, 'active', NOW())";
 
         try {
             $result = $this->query($query, $params);
@@ -233,5 +233,38 @@ public function updateMembershipRefused($id)
     $data = ['id' => $id];
     return $this->query($query, $data);  
 }
+
+public function archiveSubscription($membership_id)
+{
+    $query = "UPDATE memberships SET status = 'archived' WHERE id = :membership_id";
+    $data = ['membership_id' => $membership_id];
+    return $this->query($query, $data);  
+}
+
+
+public function getSubscriptionsHistory(){
+
+    $query = "SELECT 
+    u.id AS user_id, 
+    u.full_name, 
+    u.email, 
+    u.phone_number,
+    m.id AS membership_id, 
+    m.photo,   
+    m.idpiece, 
+    m.recu, 
+    m.membership_date, 
+    m.membership_type_id,
+    mt.name AS membership_name 
+FROM users u
+INNER JOIN memberships m ON u.id = m.user_id  
+LEFT JOIN membership_types mt ON m.membership_type_id = mt.id
+Where m.status = 'active'
+        ";
+        $result = $this->query($query);
+        return !empty($result) ? $result : false;
+
+}
+
 
 }

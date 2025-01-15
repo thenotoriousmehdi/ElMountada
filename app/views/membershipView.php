@@ -264,5 +264,95 @@ class MembershipView
 
 <?php
   }
+
+
+  public function SubscriptionsHistory($subscriptions)
+  {
+  ?>
+
+    <div class="flex flex-col justify-start gap-2 mb-8">
+      <h2 class="text-start text-[24px] font-poppins font-bold text-text">Historique d'abonnements</h2>
+
+      <div class="bg-text/5 shadow-sm w-full h-[400px] overflow-y-auto rounded-[15px] p-6">
+        <div class="flex flex-wrap gap-4">
+          <?php if (!empty($subscriptions)): ?>
+            <?php foreach ($subscriptions as $request): ?>
+              <div class="flex justify-between w-full gap-2 border border-primary/10 bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md">
+                <div class="flex flex-col gap-8 md:flex-row flex-wrap w-full items-center">
+                  <h3 class="text-lg w-1/12 font-semibold text-text text-center">
+                    <?= htmlspecialchars($request->full_name); ?>
+                  </h3>
+                  <p class="text-sm w-1/12  text-text text-center">
+                    <?= htmlspecialchars($request->email); ?>
+                  </p>
+                  <p class="text-sm w-1/12  text-text text-center">
+                    <?= htmlspecialchars($request->phone_number ?? 'N/A'); ?>
+                  </p>
+                  <p class="text-sm w-1/12  text-text text-center">
+                    <?= htmlspecialchars($request->membership_date ?? 'N/A'); ?>
+                  </p>
+                  <p class="text-sm w-1/12  text-text text-center">
+                    <?= htmlspecialchars($request->membership_name ?? 'N/A'); ?>
+                  </p>
+
+                  <?php
+                  $photoPath = htmlspecialchars($request->photo);
+                  $idPath = htmlspecialchars($request->idpiece);
+                  $recuPath = htmlspecialchars($request->recu);
+                  $photoName = basename($photoPath);
+                  $idName = basename($idPath);
+                  $recuName = basename($recuPath);
+                  ?>
+
+
+                  <a href="<?= $photoPath; ?>"
+                    class="text-white bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                    download="<?= $photoName; ?>">
+                    Photo
+                  </a>
+
+
+                  <a href="<?=  $idPath; ?>"
+                    class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                    download="<?= $idName; ?>">
+                    Pièce d'identité
+                  </a>
+
+                  <a href="<?= $recuPath;?>"
+                    class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
+                    download="<?= $recuName; ?>">
+                    Reçu de paiement
+                  </a>
+
+
+                </div>
+                <div class="flex items-center gap-2">
+                  <a class="bg-bg border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px]"
+                    href="javascript:void(0);"
+                    onclick="confirmArchiveSubscription(<?= htmlspecialchars($request->membership_id) ?>)">
+                   Archiver
+                  </a>
+              
+                </div>
+              </div>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <p class="text-center text-lg text-gray-500">Aucune demande d'abonnement pour le moment.</p>
+          <?php endif; ?>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function confirmArchiveSubscription(membership_id) {
+        const isConfirmed = confirm("Etes vous sur de vouloir refuser cet abonnement");
+        if (isConfirmed) {
+          window.location.href = '/ElMountada/membership/archiveSubscription/?id=' + membership_id;
+        }
+      }
+    </script>
+
+<?php
+  }
 }
 ?>
