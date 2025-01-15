@@ -120,7 +120,7 @@ GROUP BY
     partners.created_at DESC
     Limit 10
 ";
-
+//fgfdgbg
    return $this->query($query);
     }
 }
