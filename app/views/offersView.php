@@ -74,10 +74,12 @@ class OffersView
                 <div class="flex flex-col gap-2">
                     <label for="sort_direction" class="font-poppins font-semibold">Direction</label>
                     <select name="sort_direction" id="sort_direction" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
-                        <option value="ASC" <?= (isset($_POST['sort_direction']) && $_POST['sort_direction'] === 'DESC') ? 'selected' : '' ?>>
+
+                    <option value="">Sélectionner la direction</option>
+                        <option value="DESC" <?= (isset($_POST['sort_direction']) && $_POST['sort_direction'] === 'DESC') ? 'selected' : '' ?>>
                             Croissant
                         </option>
-                        <option value="DESC" <?= (isset($_POST['sort_direction']) && $_POST['sort_direction'] === 'ASC') ? 'selected' : '' ?>>
+                        <option value="ASC" <?= (isset($_POST['sort_direction']) && $_POST['sort_direction'] === 'ASC') ? 'selected' : '' ?>>
                             Décroissant
                         </option>
                     </select>
@@ -162,89 +164,5 @@ class OffersView
         echo '</div>';
     }
 
-    public function displayFilterForm($cities, $categories, $types) {
-        $sortableColumns = [
-            'partner_name' => 'Nom du partenaire',
-            'category_name' => 'Catégorie',
-            'location' => 'Ville',
-            'type' => 'Type',
-            'value' => 'Valeur',
-            'created_at' => 'Date de création'
-        ];
-        ?>
-        <div class="bg-white/80 shadow-md rounded-[15px] p-6 mb-8">
-            <form method="POST" class="flex flex-wrap gap-4 items-end">
-                <div class="flex flex-col gap-2">
-                    <label for="ville" class="font-poppins font-semibold">Ville</label>
-                    <select name="ville" id="ville" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
-                        <option value="">Toutes les villes</option>
-                        <?php foreach ($cities as $city): ?>
-                            <option value="<?= htmlspecialchars($city) ?>"
-                                <?= (isset($_POST['ville']) && $_POST['ville'] === $city) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($city) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-    
-                <div class="flex flex-col gap-2">
-                    <label for="category" class="font-poppins font-semibold">Catégorie</label>
-                    <select name="category" id="category" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
-                        <option value="">Toutes les catégories</option>
-                        <?php foreach ($categories as $id => $name): ?>
-                            <option value="<?= htmlspecialchars($id) ?>"
-                                <?= (isset($_POST['category']) && $_POST['category'] == $id) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($name) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-    
-                <div class="flex flex-col gap-2">
-                    <label for="type" class="font-poppins font-semibold">Type</label>
-                    <select name="type" id="type" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
-                        <option value="">Tous les types</option>
-                        <?php foreach ($types as $id => $type): ?>
-                            <option value="<?= htmlspecialchars($id) ?>"
-                                <?= (isset($_POST['type']) && $_POST['type'] == $id) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($type) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <label for="sort_column" class="font-poppins font-semibold">Trier par</label>
-                    <select name="sort_column" id="sort_column" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
-                        <option value="">Sélectionner un tri</option>
-                        <?php foreach ($sortableColumns as $column => $label): ?>
-                            <option value="<?= htmlspecialchars($column) ?>"
-                                <?= (isset($_POST['sort_column']) && $_POST['sort_column'] === $column) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($label) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-    
-                <div class="flex flex-col gap-2">
-                    <label for="sort_direction" class="font-poppins font-semibold">Direction</label>
-                    <select name="sort_direction" id="sort_direction" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
-                        <option value="ASC" <?= (isset($_POST['sort_direction']) && $_POST['sort_direction'] === 'DESC') ? 'selected' : '' ?>>
-                            Croissant
-                        </option>
-                        <option value="DESC" <?= (isset($_POST['sort_direction']) && $_POST['sort_direction'] === 'ASC') ? 'selected' : '' ?>>
-                            Décroissant
-                        </option>
-                    </select>
-                </div>
-    
-                <button type="submit" name="filter_submit" 
-                    class="bg-text text-white py-2 px-6 rounded-lg hover:bg-text/80 font-poppins">
-                    Appliquer
-                </button>
-
-            </form>
-        </div>
-        <?php
-    }
+  
 }
