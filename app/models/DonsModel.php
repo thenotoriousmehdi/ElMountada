@@ -33,7 +33,6 @@ class DonsModel {
         $updateQuery = "UPDATE donationsRequests SET status = 'Accepted' WHERE id = :id";
     $this->query($updateQuery, ['id' => $id]);
 
-   
     $query = "SELECT id, user_id, name, document, aid_type FROM donationsRequests WHERE id = :id LIMIT 1";
     $result = $this->query($query, ['id' => $id]);
 
@@ -49,19 +48,20 @@ class DonsModel {
             'aid_type' => $requestData->aid_type
         ];
 
-        $this->query($insertQuery, $params);
+       return $this->query($insertQuery, $params);
     } 
     }
 
 
 
-
-
-
-
-
     public function getDonations() {
-        $query = "SELECT * FROM donations";
+        $query = "SELECT 
+        donations.*, 
+        users.full_name, 
+        users.email, 
+        users.phone_number 
+    FROM donations
+    INNER JOIN users ON donations.user_id = users.id";
         return $this->query($query);
     }
 
@@ -88,6 +88,7 @@ class DonsModel {
         $query = "SELECT 
     d.id,
     u.email AS user_name,
+    U.full_name,
     d.somme,
     dc.name AS category_name,
     d.recu,

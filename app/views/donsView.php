@@ -33,18 +33,15 @@ class DonsView
                         <select id="aid_type" name="aid_type" required
                             class="mt-1 w-full rounded-[10px] p-4 border border-primary/20 focus-within:border-primary focus:outline-none">
                             <option value="">Sélectionner une type</option>
-                            <option value="1">Alimentation</option>
-                            <option value="2">Vêtements</option>
-                            <option value="3">Santé</option>
-                            <option value="4">Éducation</option>
-                            <option value="5">Logement</option>
-                            <option value="6">Environnement</option>
-                            <option value="7">Animaux</option>
-                            <option value="8">Technologie</option>
-                            <option value="9">Culture</option>
-                            <option value="10">Aide d’urgence</option>
-                            <option value="11">Ramadan</option>
-                            <option value="12">Aide</option>
+                            <option value="Financière">Financière</option>
+                            <option value="Matérielle">Matérielle</option>
+                            <option value="Sociale">Sociale</option>
+                            <option value="Éducative">Éducative</option>
+                            <option value="Juridique">Juridique</option>
+                            <option value="Humanitaire">Humanitaire</option>
+                            <option value="Santé">Santé</option>
+                            <option value="Accessibilité">Accessibilité</option>
+
                         </select>
                     </div>
                     <!-- Description -->
@@ -58,7 +55,7 @@ class DonsView
                     <div>
                         <label for="document" class="text-[16px] font-poppins font-medium text-text">Document justificatif</label>
                         <input type="file" id="document" name="document" accept="application/zip"
-                        class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+                            class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
                     </div>
 
                     <!-- Submit Button -->
@@ -82,9 +79,9 @@ class DonsView
 
             <?php if (empty($mesDons)): ?>
                 <div class="bg-text/5 flex justify-center items-center shadow-sm w-full h-[470px] overflow-y-auto rounded-[15px] p-6">
-<div class="flex justify-center items-center bg-white shadow-md rounded-lg"> 
-                    <p class="text-center text-text/80">Aucun don trouvé.</p>
-                </div>
+                    <div class="flex justify-center items-center bg-white shadow-md rounded-lg">
+                        <p class="text-center text-text/80">Aucun don trouvé.</p>
+                    </div>
 
                 </div>
             <?php else: ?>
@@ -134,7 +131,7 @@ class DonsView
                     <div>
                         <label for="recu" class="text-[16px] font-poppins font-medium text-text">Reçu de donation</label>
                         <input type="file" id="recu" name="recu" accept="application/pdf"
-                        class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
+                            class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
                     </div>
 
 
@@ -178,18 +175,18 @@ class DonsView
         <?php if ((!isset($sessionData['user_type']) || $sessionData['user_type'] != 'admin')): ?>
             <div class="flex flex-col justify-start gap-4 mt-4 mb-8">
 
-            <div class="flex  w-full items-center justify-between"> 
-                <h2 class="text-start text-[24px] font-poppins font-bold text-text">Dons </h2>
-                <a href="<?= ROOTIMG ?>mehdi.pdf" 
-                 download="ReglesDeDons.pdf" 
-                 class="inline-flex items-center gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                 <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                 Plus d'informations
-                </a>
+                <div class="flex  w-full items-center justify-between">
+                    <h2 class="text-start text-[24px] font-poppins font-bold text-text">Dons </h2>
+                    <a href="<?= ROOTIMG ?>mehdi.pdf"
+                        download="ReglesDeDons.pdf"
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Plus d'informations
+                    </a>
                 </div>
 
 
@@ -245,23 +242,32 @@ class DonsView
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->dob); ?></p>
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->aid_type); ?></p>
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->description); ?></p>
-                                        <a href="<?= htmlspecialchars($request->document); ?>"
+
+
+                                        <?php
+                                        $documentPath = htmlspecialchars($request->document);
+                                        $documentName = basename($documentPath);
+                                        ?>
+
+
+
+                                        <a href="<?= $documentPath ?>"
                                             class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                            download="<?= htmlspecialchars($request->document); ?>">
+                                            download="<?= $documentName  ?>">
                                             Dossier
                                         </a>
                                     </div>
 
                                     <div class="flex items-center gap-2">
                                         <a class=" bg-bg  border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px]"
-                                         href="javascript:void(0);"
+                                            href="javascript:void(0);"
                                             onclick="confirmRefuseRequest(<?= htmlspecialchars($request->id) ?>)">
-                        
+
                                             <img src="<?= ROOTIMG ?>cross.svg" alt="refuser" class=" size-5" />
                                         </a>
-                                        <a class=" bg-[#0c9621] bg-opacity-50 hover:bg-[#0c9621] hover:bg-opacity-40   p-4 rounded-[10px] " 
-                                        href="javascript:void(0);"
-                                        onclick="confirmAcceptRequest(<?= htmlspecialchars($request->id) ?>)">
+                                        <a class=" bg-[#0c9621] bg-opacity-50 hover:bg-[#0c9621] hover:bg-opacity-40   p-4 rounded-[10px] "
+                                            href="javascript:void(0);"
+                                            onclick="confirmAcceptRequest(<?= htmlspecialchars($request->id) ?>)">
                                             <img src="<?= ROOTIMG ?>done.svg" alt="confirm" class=" size-6" />
                                         </a>
                                     </div>
@@ -274,22 +280,20 @@ class DonsView
                             <?php endforeach; ?>
 
                             <script>
-                                    function confirmRefuseRequest(id) {
-                                        const isConfirmed = confirm("Etes vous sur de vouloir refuser cette demande de donation?");
-                                        if (isConfirmed) {
-                                            window.location.href = '/ElMountada/dons/refuseRequest/?id=' + id;
-                                        }
+                                function confirmRefuseRequest(id) {
+                                    const isConfirmed = confirm("Etes vous sur de vouloir refuser cette demande de donation?");
+                                    if (isConfirmed) {
+                                        window.location.href = '/ElMountada/dons/refuseRequest/?id=' + id;
                                     }
+                                }
 
-                                    function confirmAcceptRequest(id) {
-                                        const isConfirmed = confirm("Etes vous sur de vouloir Accepter cette demande de donation?");
-                                        if (isConfirmed) {
-                                            window.location.href = '/ElMountada/dons/acceptRequest/?id=' + id;
-                                        }
+                                function confirmAcceptRequest(id) {
+                                    const isConfirmed = confirm("Etes vous sur de vouloir Accepter cette demande de donation?");
+                                    if (isConfirmed) {
+                                        window.location.href = '/ElMountada/dons/acceptRequest/?id=' + id;
                                     }
-
-                                   
-                                </script>
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
@@ -302,12 +306,20 @@ class DonsView
                         <div class="flex flex-wrap gap-4">
                             <?php foreach ($donations as $don): ?>
                                 <div class="flex flex-col justify-between md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md ">
-                                    <h3 class="text-lg  font-semibold  text-text text-center"><?= htmlspecialchars($don->name); ?></h3>
-                                    <p class="text-center   text-principale "> <?= htmlspecialchars($don->aid_type); ?></p>
-                                    <p class="text-center   text-principale "> <?= htmlspecialchars($don->donation_category_id ?? 'N/A'); ?> </p>
-                                    <a href="<?= htmlspecialchars($don->document); ?>"
+                                    <h3 class="text-lg w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->name); ?></h3>
+                                    <h3 class="text-lg  w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->email); ?></h3>
+                                    <h3 class="text-lg w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->phone_number ?? "N/A" ); ?></h3>
+                                    <p class="text-center  w-1/6  text-principale "> <strong class="text-text"> Type </strong> <?= htmlspecialchars($don->aid_type ?? "N/A"); ?></p>
+                                    <p class="text-center  w-1/6  text-principale "> <strong class="text-text"> categorie</strong> <?= htmlspecialchars($don->donation_category_id ?? 'N/A'); ?> </p>
+
+                                    <?php
+                                        $documentPath = htmlspecialchars($don->document);
+                                        $documentName = basename($documentPath);
+                                        ?>
+
+                                    <a href="<?= $documentPath ?>"
                                         class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                        download="<?= htmlspecialchars($don->document); ?>">
+                                        download="<?= $documentName ?>">
                                         Dossier
                                     </a>
                                 </div>
@@ -327,11 +339,23 @@ class DonsView
                                 <div class=" flex justify-between  w-full gap-2 border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md">
                                     <div class="flex flex-col md:flex-row flex-wrap w-full items-center ">
                                         <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($donDone->user_name); ?></h3>
-                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->somme); ?></p>
-                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->category_name); ?></p>
-                                        <a href="<?= htmlspecialchars($donDone->recu); ?>"
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->full_name); ?></p>
+                                        <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Somme </strong>  <?= htmlspecialchars($donDone->somme); ?>DA</p>
+                                        <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Catégorie </strong>  <?= htmlspecialchars($donDone->category_name); ?></p>
+
+                                        <?php
+                                        $recuPath = htmlspecialchars($donDone->recu);
+                                        $recuName = basename($recuPath);
+                                        ?>
+
+
+
+
+
+
+                                        <a href="<?= $recuPath ?>"
                                             class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                            download="<?= htmlspecialchars($donDone->recu); ?>">
+                                            download="<?= $recuName ?>">
                                             Reçu
                                         </a>
                                     </div>

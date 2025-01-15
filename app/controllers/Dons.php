@@ -71,14 +71,17 @@ class Dons {
             
                     
                     if (!empty($_FILES['recu']['name'])) {
-                        $targetDir = './public/uploads/';
-                        $targetFile = $targetDir . basename($_FILES['recu']['name']);
+                        $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/donationsDone/';
+                        $relativePath = '/ElMountada/public/uploads/donationsDone/';
+                        
                         if (!file_exists($targetDir)) {
                             mkdir($targetDir, 0755, true);
                         }
-        
+                        
+                        $targetFile = $targetDir . basename($_FILES['recu']['name']);
+                        
                         if (move_uploaded_file($_FILES['recu']['tmp_name'], $targetFile)) {
-                            $data ['recu'] = $targetFile;
+                            $data['recu'] = $relativePath . basename($_FILES['recu']['name']);
                         }
                     }
             
@@ -126,14 +129,17 @@ class Dons {
             $document = null;
 
             if (!empty($_FILES['document']['name'])) {
-                $targetDir = '../public/uploads/';
-                $targetFile = $targetDir . basename($_FILES['document']['name']);
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/donationsRequests/';
+                $relativePath = '/ElMountada/public/uploads/donationsRequests/';
+                
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
                 }
-
+                
+                $targetFile = $targetDir . basename($_FILES['document']['name']);
+                
                 if (move_uploaded_file($_FILES['document']['tmp_name'], $targetFile)) {
-                    $document = $targetFile;
+                    $document = $relativePath . basename($_FILES['document']['name']);
                 }
             }
 

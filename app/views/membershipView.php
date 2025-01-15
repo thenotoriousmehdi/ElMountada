@@ -156,7 +156,9 @@ class MembershipView
         echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($member->status) ? htmlspecialchars($member->status) : 'N/A') . "</td>";
         echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($member->membership_date) ? htmlspecialchars($member->membership_date) : 'N/A') . "</td>";
         echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($member->billing_date) ? htmlspecialchars($member->billing_date) : 'N/A') . "</td>";
-        echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($member->QrCode) && !empty($member->QrCode) ? htmlspecialchars($member->QrCode) : 'No QR Code') . "</td>";
+        echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+        echo isset($member->QrCode) && !empty($member->QrCode) ? "<img src='" . htmlspecialchars($member->QrCode) . "' alt='Logo' width='50'>" : 'No Qr';
+        echo "</td>";
         echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>" . (isset($member->membership_type_id) ? htmlspecialchars($member->membership_name) : 'N/A') . "</td>";
 
         echo "</tr>";
