@@ -48,6 +48,7 @@ class AccueilView
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Catégorie</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Ville</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Type</th>
+             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Abonnement</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Valeur</th>
             <th class="py-5 px-4 text-left text-sm font-poppins font-semibold text-bg">Description</th>
         </tr>';
@@ -86,6 +87,9 @@ class AccueilView
                 echo isset($offer->type) ? htmlspecialchars($offer->type ?? 'N/A') : 'N/A';
                 echo "</td>";
 
+                echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
+                echo isset($offer->membership_name) ? htmlspecialchars($offer->membership_name ?? 'N/A') : 'N/A';
+                echo "</td>";
 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
                 echo isset($offer->value) ? htmlspecialchars($offer->value ?? 'N/A') : 'N/A';

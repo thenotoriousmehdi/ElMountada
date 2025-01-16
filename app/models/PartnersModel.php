@@ -466,4 +466,35 @@ GROUP BY
         $query  = "SELECT id, name FROM membership_types";
         return $this->query($query);
     }
+
+    public function deleteItem($type, $id) {
+        $table = $this->getTableName($type);
+        $query = "DELETE FROM $table WHERE id = :id";
+        return $this->query($query, [':id' => $id]);
+    }
+
+    public function updateItem($type, $id, $data) {
+        $table = $this->getTableName($type);
+        $column = ($type === 'reduction') ? 'reduction_value' : 'description';
+        $query = "UPDATE $table SET $column = :value WHERE id = :id";
+        return $this->query($query, [':value' => $data['value'], ':id' => $id]);
+    }
+
+    private function getTableName($type) {
+        switch ($type) {
+            case 'reduction':
+                return 'reductions';
+            case 'advantage':
+                return 'advantages';
+            case 'special_offer':
+                return 'special_offers';
+            default:
+                throw new Exception('Invalid type');
+        }
+    }
+
+
+
+
+
 }

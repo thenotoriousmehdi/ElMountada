@@ -3,7 +3,7 @@ class OffersView
 {
     use View;
 
-    public function offers($offers, $cities = [], $categories = [], $types = [])
+    public function offers($offers, $cities = [], $categories = [], $types = [], $membershipTypes = [])
     {
         echo '<div class="bg-primary bg-opacity-5 p-5 rounded-[15px] mb-8">';
         echo '<h2 class="text-center text-[32px] font-poppins font-bold mb-8 text-text">Avantages</h2>';
@@ -53,6 +53,19 @@ class OffersView
                         <?php foreach ($types as $id => $type): ?>
                             <option value="<?= htmlspecialchars($id) ?>"
                                 <?= (isset($_POST['type']) && $_POST['type'] == $id) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($type) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="membership_type" class="font-poppins font-semibold">Abonnement</label>
+                    <select name="membership_type" id="membership_type" class="p-2 rounded-lg border border-text/20 min-w-[200px]">
+                        <option value="">Tous les types</option>
+                        <?php foreach ($membershipTypes as $id => $type): ?>
+                            <option value="<?= htmlspecialchars($id) ?>"
+                                <?= (isset($_POST['membership_type']) && $_POST['membership_type'] == $id) ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($type) ?>
                             </option>
                         <?php endforeach; ?>

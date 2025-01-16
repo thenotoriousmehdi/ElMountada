@@ -194,25 +194,22 @@ class PartnersView
         });
     }
 
+    
     public function partnerDetails($partner, $sessionData)
     {
-    ?>
+        ?>
         <div class="mx-auto p-6">
             <div class="bg-white p-6 rounded-lg shadow-lg">
-
                 <div class="text-center mb-6">
                     <h2 class="text-4xl font-semibold text-gray-800"><?= htmlspecialchars($partner->full_name ?? 'N/A') ?></h2>
                     <p class="text-xl text-gray-600"><?= htmlspecialchars($partner->category_name ?? 'N/A') ?></p>
                 </div>
-
-
+    
                 <div class="flex justify-center items-center bg-text pb-8 rounded-[15px] bg-opacity-10 gap-8 mb-8">
                     <div class="flex flex-col items-center">
-
                         <img src="<?= htmlspecialchars($partner->logo_path ? ROOT . $partner->logo_path : ROOT . '/public/assets/ElMountada1.svg') ?>"
-                            alt="Partner Logo"
-                            class="h-32 w-32 object-contain rounded-[10px] mb-4">
-
+                             alt="Partner Logo"
+                             class="h-32 w-32 object-contain rounded-[10px] mb-4">
                         <p class="text-lg text-gray-600"><?= htmlspecialchars($partner->partner_description ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Ville</strong> <?= htmlspecialchars($partner->ville ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Adresse</strong> <?= htmlspecialchars($partner->adresse ?? 'N/A') ?></p>
@@ -220,15 +217,16 @@ class PartnersView
                         <p class="text-md text-gray-500"><strong>Numéro</strong> <?= htmlspecialchars($partner->phone_number ?? 'N/A') ?></p>
                     </div>
                 </div>
-
-
+    
+                <!-- Reductions Section -->
                 <div class="mb-8">
                     <h3 class="text-3xl font-semibold text-gray-800 mb-4">Reductions</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php
                         $reductions = !empty($partner->reductions) ? explode(',', $partner->reductions) : [];
                         $reductionMembershipTypes = !empty($partner->reduction_membership_type_names) ? explode(',', $partner->reduction_membership_type_names) : [];
-
+                        $reductionIds = !empty($partner->reduction_ids) ? explode(',', $partner->reduction_ids) : [];
+    
                         if (empty($reductions)) {
                             echo "<p class='text-gray-500'>Aucune réduction disponible</p>";
                         } else {
@@ -236,41 +234,39 @@ class PartnersView
                             foreach ($reductionMembershipTypes as $key => $type) {
                                 if (!in_array($type, $seenMembershipTypes)) {
                                     echo "
-            <div class='bg-[#E9C46A] bg-opacity-20 p-4 rounded-lg shadow-md'>
-                <h4 class='text-xl font-semibold text-gray-700'>$type</h4>
-                <ul class='mt-2 text-gray-600'>
-                    <li>" . htmlspecialchars($reductions[$key] ?? 'N/A') . "%</li>
-                </ul>";
-
-
+                                        <div class='bg-[#E9C46A] bg-opacity-20 p-4 rounded-lg shadow-md'>
+                                            <h4 class='text-xl font-semibold text-gray-700'>$type</h4>
+                                            <ul class='mt-2 text-gray-600'>
+                                                <li>" . htmlspecialchars($reductions[$key] ?? 'N/A') . "%</li>
+                                            </ul>";
+    
                                     if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin') {
-                                        echo "
-                <form action='" . ROOT . "/partners/deleteReduction' method='POST'>
-                    <input type='hidden' name='reduction_id' value='" . htmlspecialchars($key) . "'>
-                    <button type='submit' class='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg mt-2'>Supprimer</button>
-                </form>
-                <form action='" . ROOT . "/partners/updateReduction' method='POST'>
-                    <input type='hidden' name='reduction_id' value='" . htmlspecialchars($key) . "'>
-                    <button type='submit' class='text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg mt-2'>Modifier</button>
-                </form>";
+                                        echo "<form action='" . ROOT . "/partners/deleteItem' method='POST' 
+                                                  onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette réduction ?\")'>";
+                                        echo "<input type='hidden' name='type' value='reduction'>";
+                                        echo "<input type='hidden' name='id' value='" . htmlspecialchars($reductionIds[$key] ?? '') . "'>";
+                                        echo "<button type='submit' class='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg mt-2'>Supprimer</button>";
+                                        echo "</form>";
                                     }
-
+    
                                     echo "</div>";
                                     $seenMembershipTypes[] = $type;
                                 }
                             }
                         }
                         ?>
-
                     </div>
-
-
-                    <h3 class="text-3xl font-semibold text-gray-800 mt-8 mb-4">Avantages</h3>
+                </div>
+    
+                <!-- Advantages Section -->
+                <div class="mb-8">
+                    <h3 class="text-3xl font-semibold text-gray-800 mb-4">Avantages</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php
                         $advantages = !empty($partner->advantages) ? explode(',', $partner->advantages) : [];
                         $advantageMembershipTypes = !empty($partner->advantage_membership_type_names) ? explode(',', $partner->advantage_membership_type_names) : [];
-
+                        $advantageIds = !empty($partner->advantage_ids) ? explode(',', $partner->advantage_ids) : [];
+    
                         if (empty($advantages)) {
                             echo "<p class='text-gray-500'>Aucun avantage disponible</p>";
                         } else {
@@ -278,25 +274,21 @@ class PartnersView
                             foreach ($advantageMembershipTypes as $key => $type) {
                                 if (!in_array($type, $seenAdvantageMembershipTypes)) {
                                     echo "
-            <div class='bg-primary bg-opacity-20 p-4 rounded-lg shadow-md'>
-                <h4 class='text-xl font-semibold text-gray-700'>$type</h4>
-                <ul class='mt-2 text-gray-600'>
-                    <li>" . htmlspecialchars($advantages[$key] ?? 'N/A') . "</li>
-                </ul>";
-
-
+                                        <div class='bg-primary bg-opacity-20 p-4 rounded-lg shadow-md'>
+                                            <h4 class='text-xl font-semibold text-gray-700'>$type</h4>
+                                            <ul class='mt-2 text-gray-600'>
+                                                <li>" . htmlspecialchars($advantages[$key] ?? 'N/A') . "</li>
+                                            </ul>";
+    
                                     if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin') {
-                                        echo "
-                <form action='" . ROOT . "/partners/deleteAdvantage' method='POST'>
-                    <input type='hidden' name='advantage_id' value='" . htmlspecialchars($key) . "'>
-                    <button type='submit' class='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg mt-2'>Supprimer</button>
-                </form>
-                <form action='" . ROOT . "/partners/updateAdvantage' method='POST'>
-                    <input type='hidden' name='advantage_id' value='" . htmlspecialchars($key) . "'>
-                    <button type='submit' class='text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg mt-2'>Modifier</button>
-                </form>";
+                                        echo "<form action='" . ROOT . "/partners/deleteItem' method='POST' 
+                                                  onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cet avantage ?\")'>";
+                                        echo "<input type='hidden' name='type' value='advantage'>";
+                                        echo "<input type='hidden' name='id' value='" . htmlspecialchars($advantageIds[$key] ?? '') . "'>";
+                                        echo "<button type='submit' class='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg mt-2'>Supprimer</button>";
+                                        echo "</form>";
                                     }
-
+    
                                     echo "</div>";
                                     $seenAdvantageMembershipTypes[] = $type;
                                 }
@@ -304,49 +296,48 @@ class PartnersView
                         }
                         ?>
                     </div>
-
-                    <h3 class="text-3xl font-semibold text-gray-800 mt-8 mb-4">Offres Spéciales</h3>
+                </div>
+    
+                <!-- Special Offers Section -->
+                <div class="mb-8">
+                    <h3 class="text-3xl font-semibold text-gray-800 mb-4">Offres Spéciales</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <?php
                         $specialOffers = !empty($partner->special_offer_descriptions) ? explode(',', $partner->special_offer_descriptions) : [];
                         $specialOfferReductions = !empty($partner->special_offer_reductions) ? explode(',', $partner->special_offer_reductions) : [];
                         $specialOfferMembershipTypes = !empty($partner->special_offer_membership_types) ? explode(',', $partner->special_offer_membership_types) : [];
                         $specialOfferEndDates = !empty($partner->special_offer_end_dates) ? explode(',', $partner->special_offer_end_dates) : [];
-
+                        $specialOfferIds = !empty($partner->special_offer_ids) ? explode(',', $partner->special_offer_ids) : [];
+    
                         if (empty($specialOffers)) {
                             echo "<p class='text-gray-500'>Aucune offre spéciale disponible</p>";
                         } else {
                             foreach ($specialOffers as $key => $offer) {
                                 echo "
-        <div class='bg-blue-100 bg-opacity-20 p-4 rounded-lg shadow-md'>
-            <h4 class='text-xl font-semibold text-gray-700'>" . htmlspecialchars($specialOfferMembershipTypes[$key] ?? 'N/A') . "</h4>
-            <p class='mt-2 text-gray-600'>Réduction: " . htmlspecialchars($specialOfferReductions[$key] ?? 'N/A') . "%</p>
-            <p class='mt-2 text-gray-600'>" . htmlspecialchars($offer ?? 'N/A') . "</p>
-            <span class='text-sm text-white inline-block mt-2 bg-primary bg-opacity-80 px-2 py-1 rounded'>Expiration: " . htmlspecialchars($specialOfferEndDates[$key] ?? 'N/A') . "</span>";
-
-
+                                    <div class='bg-blue-100 bg-opacity-20 p-4 rounded-lg shadow-md'>
+                                        <h4 class='text-xl font-semibold text-gray-700'>" . htmlspecialchars($specialOfferMembershipTypes[$key] ?? 'N/A') . "</h4>
+                                        <p class='mt-2 text-gray-600'>Réduction: " . htmlspecialchars($specialOfferReductions[$key] ?? 'N/A') . "%</p>
+                                        <p class='mt-2 text-gray-600'>" . htmlspecialchars($offer) . "</p>
+                                        <span class='text-sm text-white inline-block mt-2 bg-primary bg-opacity-80 px-2 py-1 rounded'>Expiration: " . htmlspecialchars($specialOfferEndDates[$key] ?? 'N/A') . "</span>";
+    
                                 if (isset($sessionData['user_type']) && $sessionData['user_type'] == 'admin') {
-                                    echo "
-            <form action='" . ROOT . "/partners/deleteSpecialOffer' method='POST'>
-                <input type='hidden' name='special_offer_id' value='" . htmlspecialchars($key) . "'>
-                <button type='submit' class='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg mt-2'>Supprimer</button>
-            </form>
-            <form action='" . ROOT . "/partners/updateSpecialOffer' method='POST'>
-                <input type='hidden' name='special_offer_id' value='" . htmlspecialchars($key) . "'>
-                <button type='submit' class='text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg mt-2'>Modifier</button>
-            </form>";
+                                    echo "<form action='" . ROOT . "/partners/deleteItem' method='POST' 
+                                              onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette offre spéciale ?\")'>";
+                                    echo "<input type='hidden' name='type' value='special_offer'>";
+                                    echo "<input type='hidden' name='id' value='" . htmlspecialchars($specialOfferIds[$key] ?? '') . "'>";
+                                    echo "<button type='submit' class='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg mt-2'>Supprimer</button>";
+                                    echo "</form>";
                                 }
-
+    
                                 echo "</div>";
                             }
                         }
                         ?>
-
                     </div>
                 </div>
             </div>
         </div>
-    <?php
+        <?php
     }
 
 
