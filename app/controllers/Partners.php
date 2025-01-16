@@ -481,37 +481,39 @@ class Partners
     }
 
     public function deleteItem()
-    {
-        $this->startSession();
+{
+    error_log("Type: " . $_POST['type']); 
+    error_log("ID: " . $_POST['id']); 
+    $this->startSession();
 
-        if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location:' . ROOT . '/auth/showLoginPage');
-            exit();
-        }
+    if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
+        header('Location:' . ROOT . '/auth/showLoginPage');
+        exit();
+    }
 
-        $type = $_POST['type'];
-        $id = $_POST['id'];
-        var_dump($_POST);
-        if (empty($type) || empty($id)) {
-            $_SESSION['status'] = 'Invalid input';
-            $_SESSION['status_type'] = 'error';
-            header("Location:" . ROOT . "/partners/showPartners");
-            exit();
-        }
+    $type = $_POST['type'];
+    $id = $_POST['id'];
 
-        $success = $this->partnerModel->deleteItem($type, $id);
-        var_dump($this->partnerModel->deleteItem($type, $id));
-        if ($success) {
-            $_SESSION['status'] = 'Ofrre supprimée avec success';
-            $_SESSION['status_type'] = 'success';
-        } else {
-            $_SESSION['status'] = 'Failed to delete item';
-            $_SESSION['status_type'] = 'error';
-        }
-
+    if (empty($type) || empty($id)) {
+        $_SESSION['status'] = 'Invalid input';
+        $_SESSION['status_type'] = 'error';
         header("Location:" . ROOT . "/partners/showPartners");
         exit();
     }
+
+    $success = $this->partnerModel->deleteItem($type, $id);
+
+    if ($success) {
+        $_SESSION['status'] = 'Offre supprimée avec succès';
+        $_SESSION['status_type'] = 'success';
+    } else {
+        $_SESSION['status'] = 'Failed to delete item';
+        $_SESSION['status_type'] = 'error';
+    }
+
+    header("Location:" . ROOT . "/partners/showPartners");
+    exit();
+}
 
     public function updateItem()
     {

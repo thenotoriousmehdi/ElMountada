@@ -75,8 +75,8 @@ class Dons
 
 
             if (!empty($_FILES['recu']['name'])) {
-                $targetDir = '<?= ROOTUPL ?>' . '/donationsDone/';
-                $relativePath = '/public/uploads/donationsDone/';
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/donationsDone/';
+                        $relativePath = '/public/uploads/donationsDone/';
 
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
