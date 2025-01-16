@@ -2,33 +2,35 @@
 
 class Accueil
 {
-     use Controller;
-    
+    use Controller;
 
-     private $contentModel;
-     private $partnersModel;
+
+    private $contentModel;
+    private $partnersModel;
     private $offersModel;
 
-    public function __construct() {
-        $this-> partnersModel = new PartnersModel();
+    public function __construct()
+    {
+        $this->partnersModel = new PartnersModel();
+        $this->contentModel = new ContentModel();
+        $this->offersModel = new OffersModel();
     }
 
-    public function ShowAccueil() 
+    public function ShowAccueil()
     {
-         $this->startSession();
-         $this->contentModel = new ContentModel();
-         $this->offersModel = new OffersModel();
-         $this->View('accueil');
-         $view = new AccueilView();
-         $News = $this->contentModel->getNews();
-         $latest = $this->contentModel->getLatest();
-         $offers = $this->offersModel->get10Offers();
-         $partnerLogos = $this->partnersModel->getAllPartnersLogos();
-         $sessionData = $this->getSessionData();
-         $view ->Head();
-         $view ->displaySessionMessage();
-         $view->loadHeader($sessionData);
-         if (isset($_SESSION['user_id'])) {
+        $this->startSession();
+       
+        $this->View('accueil');
+        $view = new AccueilView();
+        $News = $this->contentModel->getNews();
+        $latest = $this->contentModel->getLatest();
+        $offers = $this->offersModel->get10Offers();
+        $partnerLogos = $this->partnersModel->getAllPartnersLogos();
+        $sessionData = $this->getSessionData();
+        $view->Head();
+        $view->displaySessionMessage();
+        $view->loadHeader($sessionData);
+        if (isset($_SESSION['user_id'])) {
             if ($_SESSION['user_type'] === 'admin') {
                 $view->adminWelcome();
             } elseif ($_SESSION['user_type'] === 'partner') {
@@ -47,8 +49,8 @@ class Accueil
             $view->partnersLogos($partnerLogos);
             $view->footer();
         }
-        
-        
-         $view ->foot();
+
+
+        $view->foot();
     }
 }

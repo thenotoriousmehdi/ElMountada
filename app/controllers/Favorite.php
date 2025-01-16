@@ -2,31 +2,35 @@
 
 class Favorite
 {
-     use Controller;
-    
+    use Controller;
 
-     private $favoriteModel;
 
-    public function __construct() {
-        $this-> favoriteModel = new FavoriteModel();
+    private $favoriteModel;
+
+    public function __construct()
+    {
+        $this->favoriteModel = new FavoriteModel();
     }
 
-    public function showFavorite($user_id) {
+    public function showFavorite($user_id)
+    {
         $this->startSession();
         $sessionData = $this->getSessionData();
         $this->View('favorite');
         $view = new FavoriteView();
-        $favorites= $this->favoriteModel->getFavoritesByUser($user_id);
+        $favorites = $this->favoriteModel->getFavoritesByUser($user_id);
         $view->Head();
         $view->loadHeader($sessionData);
-        $view ->FavoritePage($favorites);
+        $view->FavoritePage($favorites);
         $view->foot();
         $view->footer();
     }
+
     
-    public function toggleFavorite() {
+    public function toggleFavorite()
+    {
         $this->startSession();
-        
+
         $partnerId = $_POST['partner_id'] ?? null;
         $userId = $_POST['user_id'] ?? null;
         $returnUrl = $_POST['return_url'] ?? '<?= ROOT ?>/partners/showCatalogue/';
@@ -39,7 +43,7 @@ class Favorite
         }
 
         $isFavorite = $this->favoriteModel->isFavorite($userId, $partnerId);
-        
+
         if ($isFavorite) {
             $success = $this->favoriteModel->removeFavorite($userId, $partnerId);
             $message = "Partenaire retiré de vos favoris";
@@ -50,10 +54,7 @@ class Favorite
 
         $_SESSION['status'] = $success ? $message : "Une erreur est survenue";
         $_SESSION['status_type'] = $success ? 'success' : 'error';
-        
+
         header("Location: $returnUrl");
     }
-
-
-
 }

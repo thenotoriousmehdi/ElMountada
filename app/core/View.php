@@ -175,11 +175,11 @@ trait View
                     </div>
 
                     <div class="relative">
-                       
+
                         <button id="notification-btn" class="flex items-center bg-primary/75 p-4 rounded-[15px] relative">
-                        
+
                             <img src="<?= ROOTIMG ?>bell.svg" alt="Notifications" class="w-6">
-                        
+
                             <?php if ($unreadCount > 0): ?>
                                 <span id="notification-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
                                     <?= $unreadCount ?>

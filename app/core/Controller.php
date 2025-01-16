@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 
-Trait Controller
+trait Controller
 {
 
-	private $notificationsModel;
-	public function __construct()
+    private $notificationsModel;
+    public function __construct()
     {
         $this->startSession();
-		$this-> notificationsModel = new NotificationsModel();
+        $this->notificationsModel = new NotificationsModel();
     }
 
     protected function startSession()
@@ -18,7 +18,7 @@ Trait Controller
         }
     }
 
-	
+
 
     protected function getSessionData()
     {
@@ -28,9 +28,9 @@ Trait Controller
         ];
     }
 
-	
 
-	public function loadHeader($sessionData)
+
+    public function loadHeader($sessionData)
     {
         $user_id = $sessionData["user_id"];
         $unreadCount = $this->notificationsModel->getUnreadNotifications($user_id);
@@ -38,31 +38,31 @@ Trait Controller
         $this->header($sessionData, $notifications, $unreadCount);
     }
 
-	
 
-	public function view($name, $data = [])
-	{
-		if(!empty($data))
-			extract($data);
-		
-		$filename = "./app/views/".$name."View.php";
-		if(file_exists($filename))
-		{
-			require $filename;
-		}else{
-			$filename = "./app/views/404View.php";
-			require $filename;
-		}
-	}
 
-	function checkLogin() {
-		session_start(); 
-		if (!isset($_SESSION['user_id'])) {
-			header("Location:" .ROOT . "/auth/showLoginPage/");
-			exit();
-		}
-	}
-	
+    public function view($name, $data = [])
+    {
+        if (!empty($data))
+            extract($data);
+
+        $filename = "./app/views/" . $name . "View.php";
+        if (file_exists($filename)) {
+            require $filename;
+        } else {
+            $filename = "./app/views/404View.php";
+            require $filename;
+        }
+    }
+
+    function checkLogin()
+    {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header("Location:" . ROOT . "/auth/showLoginPage/");
+            exit();
+        }
+    }
+
 
 
     public function method_not_found()

@@ -339,9 +339,10 @@ class ContentView
 
                         <?php if (!empty($content->image_path)): ?>
                             <div class="mt-2">
-                                <img src="<?php echo htmlspecialchars($content->image_path); ?>" alt="Current Image" width="100">
+                                <img src="<?= ROOT ?>/<?php echo htmlspecialchars($content->image_path); ?>" alt="Current Image" width="100">
                             </div>
                         <?php endif; ?>
+
                     </div>
 
                     <div>

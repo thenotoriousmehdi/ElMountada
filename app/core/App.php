@@ -30,14 +30,14 @@ class App
             if (!empty($URL[1])) {
                 if (method_exists($controller, $URL[1])) {
                     $this->method = $URL[1];
-                    
+
                     call_user_func_array([$controller, $this->method], $this->parameters);
                 } else {
                     require_once './app/controllers/_404.php';
                     $this->controller = '_404';
                     $controller = new _404();
                     $controller->showPageNotFound();
-                 }
+                }
             } else {
                 $this->method = "ShowAccueil";
                 call_user_func_array([$controller, $this->method], $this->parameters);
@@ -47,6 +47,6 @@ class App
             $this->controller = '_404';
             $controller = new _404();
             $controller->showPageNotFound();
-         }
+        }
     }
 }

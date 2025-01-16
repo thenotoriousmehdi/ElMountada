@@ -15,7 +15,7 @@ class FavoriteView
 
                             </div>
                             <img src="<?= htmlspecialchars(ROOT . '/' . ($partner->logo_path ?? 'public/assets/ElMountada1.svg')) ?>"
-     alt="Partner Logo" class="size-28 object-contain">
+                                alt="Partner Logo" class="size-28 object-contain">
                             <h3 class="font-poppins font-bold text-lg mb-2"><?= htmlspecialchars($partner->full_name ?? 'N/A') ?></h3>
                             <p class="font-openSans font-semibold"><?= htmlspecialchars($partner->ville ?? 'N/A') ?></p>
                             <a class="bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80" href="<?= ROOT ?>/partners/showPartnerDetails/?id=<?= htmlspecialchars($partner->id) ?>">Voir plus</a>

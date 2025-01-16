@@ -75,7 +75,7 @@ class MembershipModel
 
         try {
             $result = $this->query($query, $params);
-                     $this->query($query2, $params);
+            $this->query($query2, $params);
             if ($result) {
                 $query = "SELECT
                         m.user_id,
@@ -214,37 +214,38 @@ WHERE m.status= 'pending'
     }
 
     public function updateMembershipAccepted($id)
-{
-    $query = "UPDATE users SET type = 'member' WHERE id = :id";
-    $data = ['id' => $id];
-    if ($this->query($query, $data)) {
-        $query = "UPDATE members SET status = 'active' WHERE user_id = :id";
-        return $this->query($query, $data); 
+    {
+        $query = "UPDATE users SET type = 'member' WHERE id = :id";
+        $data = ['id' => $id];
+        if ($this->query($query, $data)) {
+            $query = "UPDATE members SET status = 'active' WHERE user_id = :id";
+            return $this->query($query, $data);
+        }
+
+        return false;
     }
-    
-    return false; 
-}
 
 
 
-public function updateMembershipRefused($id)
-{
-    $query = "UPDATE members SET status = 'refused' WHERE user_id = :id";
-    $data = ['id' => $id];
-    return $this->query($query, $data);  
-}
+    public function updateMembershipRefused($id)
+    {
+        $query = "UPDATE members SET status = 'refused' WHERE user_id = :id";
+        $data = ['id' => $id];
+        return $this->query($query, $data);
+    }
 
-public function archiveSubscription($membership_id)
-{
-    $query = "UPDATE memberships SET status = 'archived' WHERE id = :membership_id";
-    $data = ['membership_id' => $membership_id];
-    return $this->query($query, $data);  
-}
+    public function archiveSubscription($membership_id)
+    {
+        $query = "UPDATE memberships SET status = 'archived' WHERE id = :membership_id";
+        $data = ['membership_id' => $membership_id];
+        return $this->query($query, $data);
+    }
 
 
-public function getSubscriptionsHistory(){
+    public function getSubscriptionsHistory()
+    {
 
-    $query = "SELECT 
+        $query = "SELECT 
     u.id AS user_id, 
     u.full_name, 
     u.email, 
@@ -263,8 +264,5 @@ Where m.status = 'active'
         ";
         $result = $this->query($query);
         return !empty($result) ? $result : false;
-
-}
-
-
+    }
 }

@@ -100,7 +100,7 @@ class Profile
                 $this->startSession();
                 $_SESSION['status'] = "Mot de passe modifier avec success";
                 $_SESSION['status_type'] = 'success';
-                header('Location:' . ROOT .'/profile/showProfilePage?id=' . $id);
+                header('Location:' . ROOT . '/profile/showProfilePage?id=' . $id);
                 exit();
             } else {
                 die('Failed to update password.');

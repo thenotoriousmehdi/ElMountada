@@ -197,9 +197,9 @@ class MembershipView
                   </p>
 
                   <?php
-                  $photoPath = ROOT. htmlspecialchars($request->photo);
-                  $idPath = ROOT. htmlspecialchars($request->idpiece);
-                  $recuPath = ROOT. htmlspecialchars($request->recu);
+                  $photoPath = ROOT . htmlspecialchars($request->photo);
+                  $idPath = ROOT . htmlspecialchars($request->idpiece);
+                  $recuPath = ROOT . htmlspecialchars($request->recu);
                   $photoName = basename($photoPath);
                   $idName = basename($idPath);
                   $recuName = basename($recuPath);
@@ -213,13 +213,13 @@ class MembershipView
                   </a>
 
 
-                  <a href="<?=  $idPath; ?>"
+                  <a href="<?= $idPath; ?>"
                     class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
                     download="<?= $idName; ?>">
                     Pièce d'identité
                   </a>
 
-                  <a href="<?= $recuPath;?>"
+                  <a href="<?= $recuPath; ?>"
                     class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
                     download="<?= $recuName; ?>">
                     Reçu de paiement
@@ -264,7 +264,7 @@ class MembershipView
       }
     </script>
 
-<?php
+  <?php
   }
 
 
@@ -314,13 +314,13 @@ class MembershipView
                   </a>
 
 
-                  <a href="<?=  $idPath; ?>"
+                  <a href="<?= $idPath; ?>"
                     class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
                     download="<?= $idName; ?>">
                     Pièce d'identité
                   </a>
 
-                  <a href="<?= $recuPath;?>"
+                  <a href="<?= $recuPath; ?>"
                     class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
                     download="<?= $recuName; ?>">
                     Reçu de paiement
@@ -332,9 +332,9 @@ class MembershipView
                   <a class="bg-bg border-2 border-[#f12323] hover:bg-[#f12323] hover:bg-opacity-10 p-4 rounded-[10px]"
                     href="javascript:void(0);"
                     onclick="confirmArchiveSubscription(<?= htmlspecialchars($request->membership_id) ?>)">
-                   Archiver
+                    Archiver
                   </a>
-              
+
                 </div>
               </div>
             <?php endforeach; ?>

@@ -15,12 +15,13 @@ class Partners
     {
         $this->partnerModel = new PartnersModel();
         $this->membershipModel = new MembershipModel();
-        $this ->favoriteModel = new FavoriteModel();
+        $this->favoriteModel = new FavoriteModel();
         $this->notificationsModel = new NotificationsModel();
     }
 
 
-    public function showCatalogue() {
+    public function showCatalogue()
+    {
         $this->startSession();
         $sessionData = $this->getSessionData();
         $cities = $this->partnerModel->getAllCities();
@@ -42,7 +43,6 @@ class Partners
             $favorites = $this->favoriteModel->getFavoritesByUser($userId);
             foreach ($favorites as $favorite) {
                 $favoritePartners[$favorite->id] = true;
-            
             }
         }
 

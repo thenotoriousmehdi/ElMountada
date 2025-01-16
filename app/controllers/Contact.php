@@ -1,16 +1,19 @@
 
 <?php
 
-class Contact {
+class Contact
+{
     private $contactModel;
-  
+
     use Controller;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->contactModel = new ContactModel();
     }
 
-    public function showContactForm() {
+    public function showContactForm()
+    {
 
         $this->startSession();
         $this->View('Contact');
@@ -18,21 +21,21 @@ class Contact {
 
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view ->displaySessionMessage();
+        $view->displaySessionMessage();
         $view->loadHeader($sessionData);
-        $partners = $this -> contactModel ->getPartnerNames();
+        $partners = $this->contactModel->getPartnerNames();
         $view->ContactForm($partners);
-        $view ->footer();
+        $view->footer();
         $view->foot();
-        
     }
-  
 
-    public function showMessagesPage() {
+
+    public function showMessagesPage()
+    {
 
         $this->startSession();
         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-            header('Location:' . ROOT . '/auth/showLoginPage'); 
+            header('Location:' . ROOT . '/auth/showLoginPage');
             exit();
         }
 
@@ -40,12 +43,12 @@ class Contact {
         $view = new ContactView();
         $sessionData = $this->getSessionData();
         $view->Head();
-        $view ->displaySessionMessage();
+        $view->displaySessionMessage();
         $view->loadHeader($sessionData);
-        $view ->displaySessionMessage();
-        $messages = $this -> contactModel ->getMessages();
+        $view->displaySessionMessage();
+        $messages = $this->contactModel->getMessages();
         $view->MessagesPage($messages);
-        $view ->footer();
+        $view->footer();
         $view->foot();
     }
 
@@ -54,13 +57,13 @@ class Contact {
     public function handleFormSubmit()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           
+
             $type = $_POST['message_type'] ?? '';
             $message = $_POST['message_content'] ?? '';
             $partnerId = ($type === 'avis') ? ($_POST['partner_id'] ?? null) : null;
 
 
-           
+
             if (empty($type) || empty($message)) {
                 $this->startSession();
                 $_SESSION['status'] = 'Please fill in all required fields.';
@@ -86,8 +89,5 @@ class Contact {
             }
         }
     }
-
-   
-    
 }
 ?>

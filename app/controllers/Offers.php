@@ -4,13 +4,14 @@ class Offers
 {
     private $offersModel;
     use Controller;
-    
+
     public function __construct()
     {
         $this->offersModel = new OffersModel();
     }
 
-    public function showOffers() {
+    public function showOffers()
+    {
         $this->startSession();
         $sessionData = $this->getSessionData();
 
@@ -34,7 +35,7 @@ class Offers
             $selectedType = !empty($_POST['type']) ? $_POST['type'] : null;
             $sortColumn = !empty($_POST['sort_column']) ? $_POST['sort_column'] : null;
             $sortDirection = !empty($_POST['sort_direction']) ? $_POST['sort_direction'] : 'ASC';
-    
+
             $offers = $this->offersModel->getFilteredOffers(
                 $selectedVille,
                 $selectedCategory,
@@ -50,7 +51,7 @@ class Offers
         $view = new OffersView();
         $view->Head();
         $view->loadHeader($sessionData);
-       // $view->displayFilterForm($formattedCities, $formattedCategories, $types);
+        // $view->displayFilterForm($formattedCities, $formattedCategories, $types);
         $view->offers($offers, $formattedCities, $formattedCategories, $types);
         $view->footer();
         $view->foot();

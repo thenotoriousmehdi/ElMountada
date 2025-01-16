@@ -1,7 +1,8 @@
 <?php
 
 
-class NotificationsModel {
+class NotificationsModel
+{
     use Database;
 
 
@@ -9,39 +10,39 @@ class NotificationsModel {
     public function createNotification($title, $message)
     {
         try {
-            
+
             $userQuery = "SELECT id FROM users";
             $users = $this->query($userQuery);
-    
+
             if (empty($users)) {
                 error_log("No users found.");
-                return false; 
+                return false;
             }
-    
+
             foreach ($users as $user) {
                 $query = "INSERT INTO notifications (title, message, is_read, is_active, user_id) 
                           VALUES (:title, :message, :is_read, :is_active, :user_id)";
                 $data = [
                     ':title' => $title,
                     ':message' => $message,
-                    ':is_read' => 0, 
-                    ':is_active' => 1, 
-                    ':user_id' => $user->id 
+                    ':is_read' => 0,
+                    ':is_active' => 1,
+                    ':user_id' => $user->id
                 ];
-    
-                
+
+
                 $this->query($query, $data);
             }
-    
-            return true; 
+
+            return true;
         } catch (PDOException $e) {
             error_log("Error in creating notification: " . $e->getMessage());
-            return false; 
+            return false;
         }
     }
 
 
-    
+
 
 
 
@@ -51,7 +52,7 @@ class NotificationsModel {
                  WHERE user_id = :user_id AND is_read = 0";
         $data = [':user_id' => $user_id];
         $result = $this->query($query, $data);
-        
+
         if (!empty($result)) {
             return $result[0]->unread_count;
         }
@@ -74,7 +75,4 @@ class NotificationsModel {
         $data = [':user_id' => $user_id];
         return $this->query($query, $data);
     }
-
-
 }
-?>

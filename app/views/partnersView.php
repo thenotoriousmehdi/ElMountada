@@ -337,7 +337,7 @@ class PartnersView
             </form>";
                                 }
 
-                                echo "</div>"; 
+                                echo "</div>";
                             }
                         }
                         ?>
@@ -386,7 +386,7 @@ class PartnersView
         $userData = isset($data['userData']) ? $data['userData'] : null;
         $message = isset($data['message']) ? $data['message'] : '';
     ?>
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-cente p-12">
             <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 m-8">
                 <h1 class="text-2xl font-poppins font-semibold text-center text-gray-800 mb-6">Vérifier un Membre</h1>
 
@@ -833,9 +833,10 @@ class PartnersView
                             <label for="logo" class="text-[16px] font-poppins font-medium text-text">Logo</label>
                             <?php if (!empty($partner->logo_path)): ?>
                                 <div class="mb-2">
-                                    <img src="<?php echo htmlspecialchars($partner->logo_path); ?>" alt="Current Logo" class="h-10 w-10 object-cover">
+                                    <img src="<?= ROOT ?>/<?php echo htmlspecialchars($partner->logo_path); ?>" alt="Current Logo" class="h-10 w-10 object-cover">
                                 </div>
                             <?php endif; ?>
+
                             <input type="file" id="logo" name="logo" accept="image/png, image/jpeg, image/jpg"
                                 class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-2 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
                         </div>

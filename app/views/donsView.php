@@ -10,23 +10,21 @@ class DonsView
             <div class="bg-text/5 shadow-sm w-full h-full overflow-y-auto rounded-[15px] p-6">
                 <form action="<?= ROOT ?>/dons/storeRequest/" method="POST" enctype="multipart/form-data" class="space-y-4">
 
-                    <!-- Name -->
+          
                     <div>
                         <label for="name" class="text-[16px] font-poppins font-medium text-text">Nom</label>
                         <input type="text" id="name" name="name" required placeholder="Nom complet"
                             class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
                     </div>
 
-
-
-                    <!-- Date of Birth -->
+                    
                     <div>
                         <label for="dob" class="text-[16px] font-poppins font-medium text-text">Date de naissance</label>
                         <input type="date" id="dob" name="dob" required
                             class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]">
                     </div>
 
-                    <!-- Aid Type -->
+                   
 
                     <div>
                         <label for="aid_type" class="text-[16px] font-poppins font-medium text-text">Type d'aide</label>
@@ -44,21 +42,21 @@ class DonsView
 
                         </select>
                     </div>
-                    <!-- Description -->
+                   
                     <div>
                         <label for="description" class="text-[16px] font-poppins font-medium text-text">Description</label>
                         <textarea id="description" name="description" required placeholder="Décrivez votre demande"
                             class="mt-1 border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px]"></textarea>
                     </div>
 
-                    <!-- Document -->
+              
                     <div>
                         <label for="document" class="text-[16px] font-poppins font-medium text-text">Document justificatif</label>
                         <input type="file" id="document" name="document" accept="application/zip"
                             class="mt-1  border-primary/20 focus-within:border-primary focus:outline-none block w-full p-4 rounded-[10px] bg-white text-sm text-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:bg-opacity-20 file:text-primary hover:file:text-bg hover:file:bg-primary">
                     </div>
 
-                    <!-- Submit Button -->
+                   
                     <div class="pt-4">
                         <button type="submit"
                             class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg font-poppins font-bold p-4 rounded-[15px] focus:outline-none focus:shadow-outline">
@@ -306,14 +304,14 @@ class DonsView
                                 <div class="flex flex-col justify-between md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md ">
                                     <h3 class="text-lg w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->name); ?></h3>
                                     <h3 class="text-lg  w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->email); ?></h3>
-                                    <h3 class="text-lg w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->phone_number ?? "N/A" ); ?></h3>
+                                    <h3 class="text-lg w-1/6  font-semibold  text-text text-center"><?= htmlspecialchars($don->phone_number ?? "N/A"); ?></h3>
                                     <p class="text-center  w-1/6  text-principale "> <strong class="text-text"> Type </strong> <?= htmlspecialchars($don->aid_type ?? "N/A"); ?></p>
                                     <p class="text-center  w-1/6  text-principale "> <strong class="text-text"> categorie</strong> <?= htmlspecialchars($don->donation_category_id ?? 'N/A'); ?> </p>
 
                                     <?php
-                                        $documentPath = ROOT . htmlspecialchars($don->document);
-                                        $documentName = basename($documentPath);
-                                        ?>
+                                    $documentPath = ROOT . htmlspecialchars($don->document);
+                                    $documentName = basename($documentPath);
+                                    ?>
 
                                     <a href="<?= $documentPath ?>"
                                         class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
@@ -338,11 +336,11 @@ class DonsView
                                     <div class="flex flex-col md:flex-row flex-wrap w-full items-center ">
                                         <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($donDone->user_name); ?></h3>
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->full_name); ?></p>
-                                        <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Somme </strong>  <?= htmlspecialchars($donDone->somme); ?>DA</p>
-                                        <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Catégorie </strong>  <?= htmlspecialchars($donDone->category_name); ?></p>
+                                        <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Somme </strong> <?= htmlspecialchars($donDone->somme); ?>DA</p>
+                                        <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Catégorie </strong> <?= htmlspecialchars($donDone->category_name); ?></p>
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->created_at); ?></p>
                                         <?php
-                                       $recuPath = ROOT . htmlspecialchars($donDone->recu);
+                                        $recuPath = ROOT . htmlspecialchars($donDone->recu);
                                         $recuName = basename($recuPath);
                                         ?>
 

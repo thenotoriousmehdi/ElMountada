@@ -1,9 +1,10 @@
 <?php
 
-class HistoryModel 
+class HistoryModel
 {
     use Database;
-    public function getMesdons($user_id) {
+    public function getMesdons($user_id)
+    {
         $query = "SELECT 
         d.id,
     d.somme,
@@ -18,23 +19,24 @@ LEFT JOIN
     donationCategories dc ON d.donation_category_id = dc.category_id
         
         WHERE user_id = :user_id AND status = 'accepted'";
-        $data = [':user_id' => $user_id]; 
-        return $this->query($query, $data);  
+        $data = [':user_id' => $user_id];
+        return $this->query($query, $data);
     }
 
-    public function getMesPaiements($user_id) {
+    public function getMesPaiements($user_id)
+    {
         $query = " SELECT * 
     FROM memberships 
     WHERE user_id = :user_id";
-        $data = [':user_id' => $user_id]; 
-        return $this->query($query, $data);  
+        $data = [':user_id' => $user_id];
+        return $this->query($query, $data);
     }
 
 
 
-   
 
-    public function getMesBenevolats($user_id) {
+    public function getMesBenevolats($user_id)
+    {
         $query = "
     SELECT 
         ep.id AS participation_id,
@@ -56,8 +58,7 @@ LEFT JOIN
         ep.user_id = :user_id
         AND c.type = 'benevolat'
 ";
-        $data = [':user_id' => $user_id]; 
-        return $this->query($query, $data);  
+        $data = [':user_id' => $user_id];
+        return $this->query($query, $data);
     }
-
 }
