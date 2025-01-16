@@ -337,7 +337,7 @@ class PartnersView
             </form>";
                                 }
 
-                                echo "</div>"; // Closing div for each offer
+                                echo "</div>"; 
                             }
                         }
                         ?>
