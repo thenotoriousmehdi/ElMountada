@@ -206,12 +206,12 @@ class DonsView
                     </div>
                     <div class="flex gap-2">
 
-                        <a class="w-full bg-bg  border-2 border-text hover:bg-text text-center hover:bg-opacity-20 text-text font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="<?= ROOT ?>/dons/showRequestDon/">
+                        <a class="w-full bg-bg  border-2 border-text hover:bg-text text-center hover:bg-opacity-20 text-text font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="<?= ROOT . '/dons/showRequestDon/ ' ?>">
                             <button>
                                 Demander un don
                             </button>
                         </a>
-                        <a class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg text-center font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="<?= ROOT ?>/dons/showAddDon/">
+                        <a class="w-full bg-text hover:bg-text hover:bg-opacity-90 text-bg text-center font-poppins font-bold p-4 rounded-[10px] focus:outline-none focus:shadow-outline" href="<?= ROOT . '/dons/showAddDon/ ' ?>">
                             <button>
                                 Faire un don
                             </button>
@@ -242,14 +242,12 @@ class DonsView
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->dob); ?></p>
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->aid_type); ?></p>
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->description); ?></p>
-
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($request->created_at); ?></p>
 
                                         <?php
-                                        $documentPath = htmlspecialchars($request->document);
+                                        $documentPath = ROOT . htmlspecialchars($request->document);
                                         $documentName = basename($documentPath);
                                         ?>
-
-
 
                                         <a href="<?= $documentPath ?>"
                                             class="text-white  bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
@@ -313,7 +311,7 @@ class DonsView
                                     <p class="text-center  w-1/6  text-principale "> <strong class="text-text"> categorie</strong> <?= htmlspecialchars($don->donation_category_id ?? 'N/A'); ?> </p>
 
                                     <?php
-                                        $documentPath = htmlspecialchars($don->document);
+                                        $documentPath = ROOT . htmlspecialchars($don->document);
                                         $documentName = basename($documentPath);
                                         ?>
 
@@ -342,16 +340,11 @@ class DonsView
                                         <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->full_name); ?></p>
                                         <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Somme </strong>  <?= htmlspecialchars($donDone->somme); ?>DA</p>
                                         <p class="text-center w-1/6  text-principale "> <strong class="text-text"> Catégorie </strong>  <?= htmlspecialchars($donDone->category_name); ?></p>
-
+                                        <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($donDone->created_at); ?></p>
                                         <?php
-                                        $recuPath = htmlspecialchars($donDone->recu);
+                                       $recuPath = ROOT . htmlspecialchars($donDone->recu);
                                         $recuName = basename($recuPath);
                                         ?>
-
-
-
-
-
 
                                         <a href="<?= $recuPath ?>"
                                             class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"

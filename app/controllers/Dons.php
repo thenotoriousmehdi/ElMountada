@@ -29,9 +29,8 @@ class Dons {
     
 
     public function showAddDon() {
-        $this ->checkLogin();
+        $this -> checkLogin();
         $this->View('dons');
-     
             $view = new donsView();
             $sessionData = $this->getSessionData();
             $view->Head();
@@ -127,10 +126,9 @@ class Dons {
             $aid_type = $_POST['aid_type'] ?? null;
             $description = $_POST['description'] ?? null;
             $document = null;
-
             if (!empty($_FILES['document']['name'])) {
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/donationsRequests/';
-                $relativePath = '<?= ROOT ?>/public/uploads/donationsRequests/';
+                $targetDir = '<?= ROOTUPL ?>' . '/donationsRequests/';
+                $relativePath = '/public/uploads/donationsRequests/';
                 
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);

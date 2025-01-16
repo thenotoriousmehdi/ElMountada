@@ -19,18 +19,29 @@ class HistoryView
 
                 <div class="bg-text/5 shadow-sm w-full h-[470px] overflow-y-auto rounded-[15px] p-6">
                     <div class="flex flex-wrap gap-4">
+
+                   
                         <?php foreach ($mesDons as $mesdons): ?>
                             <div class="flex flex-col justify-between  md:flex-row flex-wrap w-full items-center  border border-primary/10  bg-white hover:bg-[#E76F51] hover:bg-opacity-10 p-4 rounded-lg shadow-md ">
                                 <h3 class="text-lg w-1/6 font-semibold  text-text text-center"><?= htmlspecialchars($mesdons->somme); ?>DA</h3>
                                 <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($mesdons->category_name); ?></p>
                                 <p class="text-center w-1/6  text-principale "> <?= htmlspecialchars($mesdons->created_at); ?></p>
-                                <a href="<?= htmlspecialchars($mesdons->recu); ?>"
+
+                                <?php
+                                   $recuPath = ROOT . htmlspecialchars($mesdons->recu);
+                                    $recuName = basename($recuPath);
+                                        
+                                ?>
+                                <a href="<?= $recuPath ;?>"
                                     class="text-white   bg-text hover:bg-text/80 px-4 py-2 rounded-lg text-sm"
-                                    download="<?= htmlspecialchars($mesdons->recu); ?>">
+                                    download="<?= $recuName ; ?>">
                                     Reçu
                                 </a>
-                            </div>
+
+                                </div>
+                            
                         <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
             <?php endif; ?>
@@ -73,6 +84,7 @@ class HistoryView
 
     <?php
     }
+
     public function MesPayments($subscriptions)
     {
     ?>

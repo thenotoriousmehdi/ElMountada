@@ -12,7 +12,7 @@ class AccueilView
                 <?php
                 foreach ($News as $item) {
                     echo "<div class='w-full h-[600px] flex-shrink-0 relative'>";
-                    echo "<img src='" . $item -> image_path . "' alt='" . $item ->title . "' class='w-full h-full object-cover'>";
+                    echo "<img src='" . ROOT . $item->image_path . "' alt='" . htmlspecialchars($item->title) . "' class='w-full h-full object-cover'>";
                     echo "<div class='absolute top-0 left-0 bottom-0 right-0 bg-primary opacity-30'></div>";
                     echo "<div class='absolute top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center text-white p-4'>";
                     echo "<h2 class='text-3xl font-poppins font-bold '>" . $item -> title . "</h2>";
@@ -63,6 +63,7 @@ class AccueilView
             echo "</td>";
 
             
+
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
             echo isset($offer->partner_name) ? htmlspecialchars($offer->partner_name ?? 'N/A') : 'N/A';
             echo "</td>";
@@ -98,7 +99,7 @@ class AccueilView
         echo '</table>';
 
         echo '<div class="pr-2">';
-        echo '<a href="<?= ROOT ?>/offers/showOffers" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>';
+        echo '<a href="' . ROOT . '/offers/showOffers" class="font-poppins underline text-[16px] font-semibold text-text">Voir plus</a>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
@@ -189,10 +190,10 @@ class AccueilView
                 <?php foreach ($Latest as $item): ?>
                     <div
                         class="bg-white/80 shadow-lg rounded-lg overflow-hidden transition duration-300 ease-in-out transform hover:scale-105 flex flex-col h-full">
-                        <?php if (!empty($item -> image_path)): ?>
-                            <img src="<?php echo htmlspecialchars($item -> image_path); ?>"
-                                alt="<?php echo htmlspecialchars($item -> title); ?>" class="w-full h-48 object-cover">
-                        <?php endif; ?>
+                        <?php if (!empty($item->image_path)): ?>
+                <img src="<?= htmlspecialchars(ROOT . $item->image_path) ?>" alt="<?= htmlspecialchars($item->title) ?>" class="w-full h-48 object-cover">
+            
+            <?php endif; ?>
                         <div class="p-6 flex flex-col flex-grow">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="text-sm rounded-full px-4 py-1 uppercase 

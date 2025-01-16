@@ -168,7 +168,7 @@ class Content {
 
      private function handleImageUpload($file) {
 
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/content/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/content/';
     
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
@@ -190,7 +190,7 @@ class Content {
             throw new Exception('Failed to upload image');
         }
     
-        return '<?= ROOT ?>/public/uploads/content/' . $fileName;
+        return '/public/uploads/content/' . $fileName;
     }
     
 

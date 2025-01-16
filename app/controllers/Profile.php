@@ -53,7 +53,9 @@ class Profile
                 header('Location:' . ROOT . '/profile/showProfilePage?id=' . $id);
                 exit();
             } else {
-                die('Failed to update profile.');
+                $_SESSION['status'] = "Operation echouée";
+                $_SESSION['status_type'] = 'error';
+                header('Location:' . ROOT . '/profile/showProfilePage?id=' . $id);
             }
         }
     }
