@@ -95,10 +95,21 @@ class UsersView
                 
 
 
-               echo "<form action='" . ROOT . "/users/blockUser' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir bloquer cet utilisateur ?\")'>";
-                echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";
-                echo "<button type='submit' class='bg-black text-white px-4 py-2 rounded-lg'>Bloquer</button>";
-                echo "</form>";
+            
+if ($user->active == 1) {
+    echo "<form action='" . ROOT . "/users/blockUser' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir bloquer cet utilisateur ?\");'>";
+    echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";
+    echo "<button type='submit' class='bg-black text-white px-4 py-2 rounded-lg'>Bloquer</button>";
+    echo "</form>";
+}
+
+
+if ($user->active == 0) {
+    echo "<form action='" . ROOT . "/users/deblockUser' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir debloquer cet utilisateur ?\");'>";
+    echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";
+    echo "<button type='submit' class='bg-[#1c7610] text-white px-4 py-2 rounded-lg'>Débloquer</button>";
+    echo "</form>";
+}
 
                 echo "<form action='" . ROOT . "/users/makeMember' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir rendre cet utilisateur membre ?\")'>";
                 echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";

@@ -126,6 +126,33 @@ class Users
     }
 
 
+    public function deblockUser()
+    {
+        $user_id = $_POST['user_id'] ?? null;
+
+        if ($user_id) {
+            $success = $this->usersModel->deblockUser($user_id);
+
+            if ($success) {
+                $this->startSession();
+                $_SESSION['status'] = "Uilisateur debloqué avec success";
+                $_SESSION['status_type'] = 'success';
+                header('Location:' . ROOT  .'/users/ShowUsers'); 
+                exit;
+            } else {
+                $this->startSession();
+                $_SESSION['status'] = "L'operation a échoué.";
+                $_SESSION['status_type'] = 'error';
+                header('Location:' . ROOT . '/users/ShowUsers'); 
+                exit;
+            }
+           
+        }
+
+    }
+
+
+
     public function makeMember()
     {
         $user_id = $_POST['user_id'] ?? null;

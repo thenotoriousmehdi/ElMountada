@@ -26,6 +26,14 @@ SET Active = 0 WHERE id = :user_id";
         return $this->query($query, $data);
     }
 
+    public function deblockUser($user_id)
+    {
+        $query = "  UPDATE users
+SET Active = 1 WHERE id = :user_id";
+        $data = [':user_id' => $user_id];
+        return $this->query($query, $data);
+    }
+
     public function makeMember($user_id)
     {
         $query = "UPDATE users

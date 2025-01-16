@@ -60,17 +60,4 @@ LEFT JOIN
         return $this->query($query, $data);  
     }
 
-
-
-
-
-
-
-
-
-
-   
-
-
-
 }

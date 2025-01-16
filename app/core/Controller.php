@@ -33,7 +33,6 @@ Trait Controller
 	public function loadHeader($sessionData)
     {
         $user_id = $sessionData["user_id"];
-    
         $unreadCount = $this->notificationsModel->getUnreadNotifications($user_id);
         $notifications = $this->notificationsModel->getNotifications($user_id);
         $this->header($sessionData, $notifications, $unreadCount);
