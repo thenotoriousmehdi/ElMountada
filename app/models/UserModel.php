@@ -14,7 +14,7 @@ class UserModel {
     {
         $query = "DELETE FROM users WHERE id = :user_id";
         $data = [':user_id' => $user_id];
-        $this->query($query, $data);
+        return $this->query($query, $data);
     }
 
 

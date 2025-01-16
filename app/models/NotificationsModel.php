@@ -33,10 +33,10 @@ class NotificationsModel {
                 $this->query($query, $data);
             }
     
-            return true; // Success
+            return true; 
         } catch (PDOException $e) {
             error_log("Error in creating notification: " . $e->getMessage());
-            return false; // Failure
+            return false; 
         }
     }
 

@@ -10,7 +10,7 @@ class UsersView
         
         echo '<div class="flex justify-between items-end mb-4">';
     
-    echo '<form action="<?= ROOT ?>/users/ShowUsers" method="POST" class="flex gap-4 items-end">'; 
+        echo '<form action="' . ROOT . '/users/ShowUsers" method="POST" class="flex gap-4 items-end">';
     
     echo '<div class="flex flex-col w-1/3">'; 
     echo '<label for="type" class="block text-sm font-semibold mb-2">Type</label>'; 

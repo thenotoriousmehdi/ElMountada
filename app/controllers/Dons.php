@@ -127,7 +127,7 @@ class Dons {
             $description = $_POST['description'] ?? null;
             $document = null;
             if (!empty($_FILES['document']['name'])) {
-                $targetDir = '<?= ROOTUPL ?>' . '/donationsRequests/';
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/donationsRequests/';
                 $relativePath = '/public/uploads/donationsRequests/';
                 
                 if (!file_exists($targetDir)) {
