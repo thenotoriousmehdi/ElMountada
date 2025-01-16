@@ -197,9 +197,9 @@ class MembershipView
                   </p>
 
                   <?php
-                  $photoPath = htmlspecialchars($request->photo);
-                  $idPath = htmlspecialchars($request->idpiece);
-                  $recuPath = htmlspecialchars($request->recu);
+                  $photoPath = ROOT. htmlspecialchars($request->photo);
+                  $idPath = ROOT. htmlspecialchars($request->idpiece);
+                  $recuPath = ROOT. htmlspecialchars($request->recu);
                   $photoName = basename($photoPath);
                   $idName = basename($idPath);
                   $recuName = basename($recuPath);

@@ -28,10 +28,17 @@ class Notifications
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = htmlspecialchars($_POST['title']);
         $message = htmlspecialchars($_POST['message']);
-        $this->notificationsModel->createNotification($title, $message);
+        $success= $this->notificationsModel->createNotification($title, $message);
+
+if ($success)
+{
+    $this->startSession();
         $_SESSION['status'] = "Notification ajoutée avec success.";
         $_SESSION['status_type'] = 'success';
         header('Location:' . ROOT . '');
+        exit;
+}
+
     }
 }
 

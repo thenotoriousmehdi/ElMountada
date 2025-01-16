@@ -115,8 +115,8 @@ class Membership
                     'receipt' => null
                 ];
     
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/memberships/';
-                $relativePath = '<?= ROOT ?>/public/uploads/memberships/'; 
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/public/uploads/memberships/';
+                $relativePath = '/public/uploads/memberships/'; 
                 
                 if (!file_exists($targetDir)) {
                     mkdir($targetDir, 0755, true);
@@ -165,7 +165,7 @@ class Membership
 
     private function handleImageUpload($file) {
 
-        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '<?= ROOT ?>/public/uploads/';
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/public/uploads/';
     
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
@@ -186,11 +186,8 @@ class Membership
             throw new Exception('Failed to upload image');
         }
     
-        return '<?= ROOT ?>/public/uploads/' . $fileName;
+        return 'public/uploads/' . $fileName;
     }
-
-
-
 
 
 

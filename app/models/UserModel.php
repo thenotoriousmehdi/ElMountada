@@ -23,7 +23,7 @@ class UserModel {
         $query = "  UPDATE users
 SET Active = 0 WHERE id = :user_id";
         $data = [':user_id' => $user_id];
-        $this->query($query, $data);
+        return $this->query($query, $data);
     }
 
     public function makeMember($user_id)
@@ -31,7 +31,7 @@ SET Active = 0 WHERE id = :user_id";
         $query = "UPDATE users
    SET is_member = 1 WHERE id = :user_id";
         $data = [':user_id' => $user_id];
-        $this->query($query, $data);
+        return $this->query($query, $data);
     }
 
 

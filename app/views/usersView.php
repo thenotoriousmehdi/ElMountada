@@ -54,7 +54,7 @@ class UsersView
     
             echo '<tbody>';
             foreach ($users as $user) {
-                echo "<tr class='border-t border-primary/5 hover:bg-primary/10' onclick=\"window.location='<?= ROOT ?>/users/showProfilePage?id=" . htmlspecialchars($user->id) . "'\">";
+                echo "<tr class='border-t border-primary/5 hover:bg-primary/10' >";
     
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
                 echo isset($user->id) ? htmlspecialchars($user->id ?? 'N/A') : 'N/A';
@@ -88,18 +88,19 @@ class UsersView
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
                 echo "<div class='flex flex-col gap-2'>";
 
-                echo "<form action='<?= ROOT ?>/users/deleteUser' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cet utilisateur ?\")' >";
+                echo "<form action='" . ROOT . "/users/deleteUser' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cet utilisateur ?\")'>";
                 echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";
                 echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
                 echo "</form>";
+                
 
 
-                echo "<form action='<?= ROOT ?>/users/blockUser' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir bloquer cet utilisateur ?\")' >";
+               echo "<form action='" . ROOT . "/users/blockUser' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir bloquer cet utilisateur ?\")'>";
                 echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";
                 echo "<button type='submit' class='bg-black text-white px-4 py-2 rounded-lg'>Bloquer</button>";
                 echo "</form>";
 
-                echo "<form action='<?= ROOT ?>/users/makeMember' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir rendre cet utilisateur membre ?\")' >";
+                echo "<form action='" . ROOT . "/users/makeMember' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir rendre cet utilisateur membre ?\")'>";
                 echo "<input type='hidden' name='user_id' value='" . htmlspecialchars($user->id) . "'>";
                 echo "<button type='submit' class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Rendre membre</button>";
                 echo "</form>";

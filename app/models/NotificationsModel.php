@@ -14,7 +14,7 @@ class NotificationsModel {
         ':message' => $message
     ];
 
-    $this->query($query, $data);
+   return  $this->query($query, $data);
 }
 
 public function getNotifications()

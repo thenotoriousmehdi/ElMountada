@@ -309,8 +309,7 @@ class Partners
 
     private function handleImageUpload($file)
     {
-        $uploadDir = './public/uploads/partners/';
-
+        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/ElMountada/public/uploads/partners/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
@@ -329,7 +328,7 @@ class Partners
             throw new Exception('Failed to upload logo image.');
         }
 
-        return '<?= ROOT ?>/public/uploads/partners/' . $fileName;
+        return '/public/uploads/partners/' . $fileName;
     }
 
 

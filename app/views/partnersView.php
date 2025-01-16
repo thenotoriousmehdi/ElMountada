@@ -57,75 +57,79 @@ class PartnersView
     {
     ?>
         <div class="flex flex-col justify-start gap-2 mb-8">
-    <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
-    
-    <?php if (isset($_SESSION['status'])): ?>
-        <div class="status-message <?= $_SESSION['status_type'] ?? 'info' ?>">
-            <?= htmlspecialchars($_SESSION['status']) ?>
-        </div>
-        <?php 
-        unset($_SESSION['status']);
-        unset($_SESSION['status_type']);
-        ?>
-    <?php endif; ?>
+            <h2 class="text-start text-[24px] font-poppins font-bold text-text"><?= htmlspecialchars($title) ?></h2>
 
-    <div class="bg-white/80 shadow-md w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
-        <div class="flex flex-wrap gap-4 justify-start">
-            <?php foreach ($partners as $partner): 
-            ?>
-            <div class="w-[300px] flex flex-col justify-center items-center bg-text/5 p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative">
-                <div class="absolute top-2 right-2">
-                    <form action="<?= ROOT ?>/favorite/toggleFavorite/" method="POST" class="inline">
-                        <input type="hidden" name="partner_id" value="<?= htmlspecialchars($partner->partner_id ?? $partner->id) ?>">
-                        <input type="hidden" name="user_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? '') ?>">
-                        <input type="hidden" name="return_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
-                        <button type="submit" 
-                                class="p-2 border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 <?= isset($favoritePartners[$partner->partner_id ?? $partner->id]) ? 'bg-[#E76F51]' : 'bg-[#E76F51] bg-opacity-10' ?>">
-                            <img src="<?= ROOT ?>/public/assets/star.svg" 
-                                 alt="<?= $favoritePartners ? 'Remove from Favorites' : 'Add to Favorites' ?>" 
-                                 class="h-6 w-6 <?= $favoritePartners ? 'brightness-0 invert' : '' ?>">
-                        </button>
-                    </form>
+            <?php if (isset($_SESSION['status'])): ?>
+                <div class="status-message <?= $_SESSION['status_type'] ?? 'info' ?>">
+                    <?= htmlspecialchars($_SESSION['status']) ?>
                 </div>
-                <img src="<?= htmlspecialchars($partner->logo_path ?? '<?= ROOTIMG ?>ElMountada1.svg') ?>"
-                     alt="Partner Logo" 
-                     class="size-28 object-contain">
-                <h3 class="font-poppins font-bold text-lg mb-2">
-                    <?= htmlspecialchars($partner->full_name ?? 'N/A') ?>
-                </h3>
-                <p class="font-openSans font-semibold">
-                    <?= htmlspecialchars($partner->ville ?? 'N/A') ?>
-                </p>
-                <a href="<?= ROOT ?>/partners/showPartnerDetails/?id=<?= htmlspecialchars($partner->partner_id ?? $partner->id) ?>"
-                   class="bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80">
-                    Voir plus
-                </a>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>
+                <?php
+                unset($_SESSION['status']);
+                unset($_SESSION['status_type']);
+                ?>
+            <?php endif; ?>
 
-<style>
-.status-message {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 0.5rem;
-    text-align: center;
-}
-.status-message.success {
-    background-color: #4CAF50;
-    color: white;
-}
-.status-message.error {
-    background-color: #f44336;
-    color: white;
-}
-.status-message.info {
-    background-color: #2196F3;
-    color: white;
-}
-</style>
+            <div class="bg-white/80 shadow-md w-full max-h-[400px] overflow-y-auto rounded-[15px] p-6">
+                <div class="flex flex-wrap gap-4 justify-start">
+                    <?php foreach ($partners as $partner):
+                    ?>
+                        <div class="w-[300px] flex flex-col justify-center items-center bg-text/5 p-4 transition duration-300 ease-in-out transform hover:scale-105 rounded-lg shadow-lg relative">
+                            <div class="absolute top-2 right-2">
+                                <form action="<?= ROOT ?>/favorite/toggleFavorite/" method="POST" class="inline">
+                                    <input type="hidden" name="partner_id" value="<?= htmlspecialchars($partner->partner_id ?? $partner->id) ?>">
+                                    <input type="hidden" name="user_id" value="<?= htmlspecialchars($_SESSION['user_id'] ?? '') ?>">
+                                    <input type="hidden" name="return_url" value="<?= htmlspecialchars($_SERVER['REQUEST_URI']) ?>">
+                                    <button type="submit"
+                                        class="p-2 border border-primary border-opacity-50 rounded-[10px] shadow hover:bg-[#E76F51] hover:bg-opacity-70 <?= isset($favoritePartners[$partner->partner_id ?? $partner->id]) ? 'bg-[#E76F51]' : 'bg-[#E76F51] bg-opacity-10' ?>">
+                                        <img src="<?= ROOT ?>/public/assets/star.svg"
+                                            alt="<?= $favoritePartners ? 'Remove from Favorites' : 'Add to Favorites' ?>"
+                                            class="h-6 w-6 <?= $favoritePartners ? 'brightness-0 invert' : '' ?>">
+                                    </button>
+                                </form>
+                            </div>
+                            <img src="<?= ROOT . htmlspecialchars($partner->logo_path ?? ROOTIMG . 'ElMountada1.svg') ?>"
+                                alt="Partner Logo"
+                                class="size-28 object-contain">
+
+                            <h3 class="font-poppins font-bold text-lg mb-2">
+                                <?= htmlspecialchars($partner->full_name ?? 'N/A') ?>
+                            </h3>
+                            <p class="font-openSans font-semibold">
+                                <?= htmlspecialchars($partner->ville ?? 'N/A') ?>
+                            </p>
+                            <a href="<?= ROOT ?>/partners/showPartnerDetails/?id=<?= htmlspecialchars($partner->partner_id ?? $partner->id) ?>"
+                                class="bg-text text-white py-2 px-4 rounded mt-4 hover:bg-text/80">
+                                Voir plus
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .status-message {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 0.5rem;
+                text-align: center;
+            }
+
+            .status-message.success {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .status-message.error {
+                background-color: #f44336;
+                color: white;
+            }
+
+            .status-message.info {
+                background-color: #2196F3;
+                color: white;
+            }
+        </style>
     <?php
     }
 
@@ -205,7 +209,10 @@ class PartnersView
                 <div class="flex justify-center items-center bg-text pb-8 rounded-[15px] bg-opacity-10 gap-8 mb-8">
                     <div class="flex flex-col items-center">
 
-                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '<?= ROOT ?>/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-32 w-32 object-contain rounded-[10px] mb-4">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? ROOT . $partner->logo_path : ROOT . '/public/assets/ElMountada1.svg') ?>"
+                            alt="Partner Logo"
+                            class="h-32 w-32 object-contain rounded-[10px] mb-4">
+
                         <p class="text-lg text-gray-600"><?= htmlspecialchars($partner->partner_description ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Ville</strong> <?= htmlspecialchars($partner->ville ?? 'N/A') ?></p>
                         <p class="text-md text-gray-500"><strong>Adresse</strong> <?= htmlspecialchars($partner->adresse ?? 'N/A') ?></p>
@@ -502,7 +509,8 @@ class PartnersView
 
         echo '<div class="flex justify-between items-end mb-4">';
 
-        echo '<form action="<?= ROOT ?>/partners/ShowPartners" method="POST" class="flex gap-4 items-end">';
+        echo '<form action="' . ROOT . '/partners/ShowPartners" method="POST" class="flex gap-4 items-end">';
+
 
 
         echo '<div class="flex flex-col w-1/3">';
@@ -533,11 +541,12 @@ class PartnersView
 
 
         echo '<div class="flex gap-2 items-center">';
-        echo '<a href="<?= ROOT ?>/partners/showAddOffer">';
+        echo '<a href="' . ROOT . '/partners/showAddOffer">';
+
         echo '<button class="mt-4 inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter une remise/avantage</button>';
         echo '</a>';
 
-        echo '<a href="<?= ROOT ?>/partners/showAddPartner">';
+        echo '<a href="' . ROOT . '/partners/showAddPartner">';
         echo '<button class="mt-4 inline-flex justify-end gap-2 px-4 py-2 bg-text text-white rounded-lg hover:bg-text/80 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-text focus:ring-offset-2">Ajouter un partenaire</button>';
         echo '</a>';
         echo '</div>';
@@ -595,7 +604,8 @@ class PartnersView
                 echo isset($partner->adresse) ? htmlspecialchars($partner->adresse ?? 'N/A') : 'N/A';
                 echo "</td>";
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-                echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
+                echo isset($partner->logo_path) && !empty($partner->logo_path) ? "<img src='" . ROOT . htmlspecialchars($partner->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
+
                 echo "</td>";
 
 
@@ -603,17 +613,20 @@ class PartnersView
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
 
                 echo "<div class='flex flex-col gap-2'>";
-                echo "<a href='<?= ROOT ?>/partners/showPartnerDetails/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+                echo "<a href='" . ROOT . "/partners/showPartnerDetails/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+
                 echo "<button class='bg-green-500 text-white px-4 py-2 rounded-lg'>Détails</button>";
                 echo "</a>";
 
 
 
-                echo "<a href='<?= ROOT ?>/partners/updatePartner/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+                echo "<a href='" . ROOT . "/partners/updatePartner/?id=" . htmlspecialchars($partner->partner_id) . "'>";
+
                 echo "<button class='bg-blue-500 text-white px-4 py-2 rounded-lg'>Modifier</button>";
                 echo "</a>";
 
-                echo "<form action='<?= ROOT ?>/partners/deletePartner' method='POST'onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")' >";
+                echo "<form action='" . ROOT . "/partners/deletePartner' method='POST' onsubmit='return confirm(\"Etes vous sure de vouloir supprimer cette partenaire ?\")'>";
+
                 echo "<input type='hidden' name='partner_id' value='" . htmlspecialchars($partner->partner_id) . "'>";
                 echo "<button type='submit' class='bg-red-500 text-white px-4 py-2 rounded-lg'>Supprimer</button>";
                 echo "</form>";
