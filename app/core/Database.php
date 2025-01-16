@@ -3,6 +3,7 @@
 Trait Database
 {
 
+
 	public function connectDb() {
 		$dsn = "mysql:host=" . SERVERNAME . ";dbname=" . DATABASE;
 		try {
@@ -36,7 +37,6 @@ Trait Database
     }
     return false;
 }
-
 
 
 	public function disconnectDb(&$conn) {

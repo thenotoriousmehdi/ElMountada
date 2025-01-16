@@ -94,7 +94,7 @@ class Partners
             $sessionData = $this->getSessionData();
             $view->Head();
             $view->loadHeader($sessionData);
-            $view->PartnerDetails($partner);
+            $view->PartnerDetails($partner, $sessionData);
             $view->foot();
             $view->footer();
         } else {

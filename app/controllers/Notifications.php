@@ -42,4 +42,18 @@ if ($success)
     }
 }
 
+
+public function markAsRead()
+{
+    // Get the user ID from session
+    $user_id = $_SESSION["user_id"];
+    
+    // Call the model method to mark notifications as read
+    $success = $this->notificationsModel->markNotificationsAsRead($user_id);
+    
+    // Return JSON response
+    header('Content-Type: application/json');
+    echo json_encode(['success' => $success]);
+    exit();
+}
 }
