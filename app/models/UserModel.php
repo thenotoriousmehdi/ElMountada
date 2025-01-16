@@ -49,7 +49,7 @@ SET Active = 0 WHERE id = :user_id";
             'is_member' => 0,
             'type' => 'simple'
         ];
-        $this->query($query, $params);
+        return $this->query($query, $params);
     }
 
     public function getProfile($id) {

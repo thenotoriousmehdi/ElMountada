@@ -59,7 +59,10 @@ class AccueilView
 
           
             echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
-            echo isset($offer->logo_path) && !empty($offer->logo_path) ? "<img src='" . htmlspecialchars($offer->logo_path) . "' alt='Logo' width='50'>" : 'No Logo';
+            echo isset($offer->logo_path) && !empty($offer->logo_path) 
+            ? "<img src='" . htmlspecialchars(ROOT . '/' . $offer->logo_path) . "' alt='Logo' width='50'>" 
+            : 'No Logo';
+        
             echo "</td>";
 
             
@@ -119,10 +122,15 @@ class AccueilView
             <div class="overflow-hidden">
                 <div class="flex gap-8 animate-slide" style="animation: slide 5s linear infinite;">
                     <?php foreach ($partnersLogos as $partner): ?>
-                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '<?= ROOT ?>/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class=" h-24 w-24 object-contain rounded-[10px] mb-4">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? ROOT . '/' . $partner->logo_path : ROOT . '/public/assets/ElMountada1.svg') ?>" 
+     alt="Partner Logo" 
+     class="h-24 w-24 object-contain rounded-[10px] mb-4">
+
                     <?php endforeach; ?>
                     <?php foreach ($partnersLogos as $partner): ?>
-                        <img src="<?= htmlspecialchars($partner->logo_path ? $partner->logo_path : '<?= ROOT ?>/public/assets/ElMountada1.svg')  ?>" alt="Partner Logo" class="h-24 w-24object-contain rounded-full mb-4">
+                        <img src="<?= htmlspecialchars($partner->logo_path ? ROOT . '/' . $partner->logo_path : ROOT . '/public/assets/ElMountada1.svg') ?>" 
+     alt="Partner Logo" 
+     class="h-24 w-24 object-contain rounded-[10px] mb-4">
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -168,6 +176,30 @@ class AccueilView
         
     <?php
     }
+
+    public function partnerWelcome()
+    
+    {
+    
+    ?>
+    
+<div class="flex items-center h-full w-full justify-center p-48 ">
+
+    <div class="w-full h-full max-w-4xl p-8 bg-white shadow-xl rounded-xl">
+        <h1 class="text-4xl font-bold text-gray-800 text-center mb-6">
+        Bienvenue dans le portail Partenaire!
+        </h1>
+        <p class="text-lg text-gray-600 text-center ">
+        Accédez à votre espace partenaire pour gérer et suivre vos interactions avec nos membres. Simplifiez vos tâches administratives grâce à nos outils dédiés.
+        </p>
+        
+    </div>
+</div>
+
+        
+    <?php
+    }
+
 
 
 

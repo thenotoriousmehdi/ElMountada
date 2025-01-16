@@ -31,7 +31,8 @@ trait View
                 <div class="flex items-center justify-between my-6 gap-2">
                     <div class="hidden lg:flex justify-center items-center flex-grow">
                         <ul class="flex justify-center items-center bg-primary/75 px-[45px] py-[20px] rounded-[20px] gap-6">
-                            <?php if ($sessionData['user_type'] !== 'admin'): ?>
+                            <?php if ($sessionData['user_type'] !== 'admin' && $sessionData['user_type'] !== 'partner'): ?>
+
                                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/') echo 'text-text font-semibold';
                                                                                                 else echo 'text-bg'; ?>">
                                     <a href="<?= ROOT ?>/">Accueil</a>
@@ -67,14 +68,43 @@ trait View
                                     <a href="<?= ROOT ?>/content/showContent">Contenu</a>
                                 </li>
                             <?php endif; ?>
-                            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/benevolat/showBenevolat/') echo 'text-text font-semibold';
-                                                                                            else echo 'text-bg'; ?>">
-                                <a href="<?= ROOT ?>/benevolat/showBenevolat/">Bénévolat</a>
-                            </li>
-                            <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold';
-                                                                                            else echo 'text-bg'; ?>">
-                                <a href="<?= ROOT ?>/dons/showDonsPage/">Dons</a>
-                            </li>
+
+
+
+
+                            <?php if ($sessionData['user_type'] !== 'partner'): ?>
+                                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/benevolat/showBenevolat/') echo 'text-text font-semibold';
+                                                                                                else echo 'text-bg'; ?>">
+                                    <a href="<?= ROOT ?>/benevolat/showBenevolat/">Bénévolat</a>
+                                </li>
+                                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/dons/showDonsPage/') echo 'text-text font-semibold';
+                                                                                                else echo 'text-bg'; ?>">
+                                    <a href="<?= ROOT ?>/dons/showDonsPage/">Dons</a>
+                                </li>
+                            <?php endif; ?>
+
+
+
+                            <?php if ($sessionData['user_type'] == 'partner'): ?>
+
+                                <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/partners/showCheckMembers/') echo 'text-text font-semibold';
+                                                                                                else echo 'text-bg'; ?>">
+                                    <a href="<?= ROOT ?>/partners/showCheckMembers/">Vérifier un membre</a>
+                                </li>
+
+                                <li class="font-poppins font-medium hover:text-principale/80 <?php if (strpos($_SERVER['REQUEST_URI'], '/ElMountada/partners/showPartnerCard/') !== false) echo 'text-text font-semibold';
+                                                                                                else echo 'text-bg'; ?>">
+                                    <a href="<?= ROOT ?>/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id']) ?>">Ma Carte</a>
+                                </li>
+
+                                <li class="font-poppins font-medium hover:text-principale/80 <?php if (strpos($_SERVER['REQUEST_URI'], '/ElMountada/profile/showProfilePage/') !== false) echo 'text-text font-semibold';
+                                                                                                else echo 'text-bg'; ?>">
+                                    <a href="<?= ROOT ?>/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id']) ?>">Mon profile</a>
+                                </li>
+
+
+                            <?php endif; ?>
+
                             <?php if (!isset($sessionData['user_id'])): ?>
                                 <li class="font-poppins font-medium hover:text-principale/80 <?php if ($_SERVER['REQUEST_URI'] == '/ElMountada/auth/showLoginPage/') echo 'text-text font-semibold';
                                                                                                 else echo 'text-bg'; ?>">
@@ -126,6 +156,7 @@ trait View
                                 <!-- Admin -->
                                 <a href="<?= ROOT ?>/notifications/showAddNotification" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ajouter une notification</a>
                                 <a href="<?= ROOT ?>/contact/showMessagesPage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Messages</a>
+                                <a href="<?= ROOT ?>/statistiques/showStatistiques" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Statistiques</a>
                                 <a href="<?= ROOT ?>/membership/showSubscriptionsHistory" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Historique d'abonnement</a>
                             <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'member'): ?>
                                 <!-- Member  -->
@@ -137,10 +168,6 @@ trait View
                                 <a href="/ElMountada/membership/showSubscribePage" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">S'abonner</a>
                                 <a href="<?= ROOT ?>/favorite/showFavorite/?id=<?= htmlspecialchars($sessionData['user_id']) ?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mes Favoris</a>
                                 <!-- Partner -->
-                            <?php elseif (isset($sessionData['user_type']) && $sessionData['user_type'] == 'partner'): ?>
-                                <a href="<?= ROOT ?>/partners/showCheckMembers" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors"> Vérifier un membre</a>
-                                <a href="<?= ROOT ?>/partners/showPartnerCard/?id=<?= htmlspecialchars($sessionData['user_id']) ?>" class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Ma Carte</a>
-                                <!-- Everyone -->
                             <?php endif; ?>
                             <a href="<?= ROOT ?>/profile/showProfilePage/?id=<?= htmlspecialchars($sessionData['user_id']) ?> " class="block py-2 px-4 text-gray-800 hover:bg-gray-200 rounded-lg transition-colors">Mon profil</a>
                             <a href="<?= ROOT ?>/auth/handleLogout" class="block py-2 px-4 text-primary hover:bg-primary/10 rounded-lg transition-colors">Logout</a>
@@ -148,42 +175,42 @@ trait View
                     </div>
 
                     <div class="relative">
-    <!-- Notification Button -->
-    <button id="notification-btn" class="flex items-center bg-primary/75 p-4 rounded-[15px] relative">
-        <!-- Bell Icon -->
-        <img src="<?= ROOTIMG ?>bell.svg" alt="Notifications" class="w-6">
-        <!-- Red Badge for Unread Notifications -->
-        <?php if ($unreadCount > 0): ?>
-            <span id="notification-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
-                <?= $unreadCount ?>
-            </span>
-        <?php endif; ?>
-    </button>
+                       
+                        <button id="notification-btn" class="flex items-center bg-primary/75 p-4 rounded-[15px] relative">
+                        
+                            <img src="<?= ROOTIMG ?>bell.svg" alt="Notifications" class="w-6">
+                        
+                            <?php if ($unreadCount > 0): ?>
+                                <span id="notification-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                                    <?= $unreadCount ?>
+                                </span>
+                            <?php endif; ?>
+                        </button>
 
-    <!-- Notification Dropdown -->
-    <div id="notification-dropdown" class="hidden absolute bg-white h-[300px] overflow-y-auto shadow-lg rounded-lg p-4 w-64 mt-2 right-0 z-10">
-        <h4 class="font-semibold text-gray-800 mb-2">Notifications</h4>
-        <ul>
-            <?php if (!empty($notifications)): ?>
-                <?php foreach ($notifications as $notification): ?>
-                    <li class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors mb-1">
-                        <h2 class="text-md font-semibold text-gray-800"><?= htmlspecialchars($notification->title) ?></h2>
-                        <p class="text-sm text-gray-600"><?= htmlspecialchars($notification->message) ?></p>
-                        <small class="text-xs text-gray-400"><?= $notification->created_at ?></small>
-                    </li>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <li class="text-gray-500 text-sm">No new notifications.</li>
-            <?php endif; ?>
-        </ul>
-    </div>
-</div>
+                        <!-- Notification Dropdown -->
+                        <div id="notification-dropdown" class="hidden absolute bg-white h-[300px] overflow-y-auto shadow-lg rounded-lg p-4 w-64 mt-2 right-0 z-10">
+                            <h4 class="font-semibold text-gray-800 mb-2">Notifications</h4>
+                            <ul>
+                                <?php if (!empty($notifications)): ?>
+                                    <?php foreach ($notifications as $notification): ?>
+                                        <li class="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors mb-1">
+                                            <h2 class="text-md font-semibold text-gray-800"><?= htmlspecialchars($notification->title) ?></h2>
+                                            <p class="text-sm text-gray-600"><?= htmlspecialchars($notification->message) ?></p>
+                                            <small class="text-xs text-gray-400"><?= $notification->created_at ?></small>
+                                        </li>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <li class="text-gray-500 text-sm">No new notifications.</li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
+                    </div>
 
-                
+
                 <?php endif; ?>
             </div>
 
-       
+
             <div class="social-media hidden  xl:flex items-center space-x-4">
                 <a href="https://facebook.com" target="_blank">
                     <img src="<?= ROOTIMG ?>facebook.svg" alt="Facebook" class="w-8 h-8">
@@ -203,57 +230,52 @@ trait View
         </div>
 
         <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const notificationBtn = document.getElementById('notification-btn');
-    const notificationDropdown = document.getElementById('notification-dropdown');
-    const notificationBadge = document.getElementById('notification-badge');
+            document.addEventListener('DOMContentLoaded', function() {
+                const notificationBtn = document.getElementById('notification-btn');
+                const notificationDropdown = document.getElementById('notification-dropdown');
+                const notificationBadge = document.getElementById('notification-badge');
 
-    async function markNotificationsAsRead() {
-        try {
-            const response = await fetch('/ElMountada/notifications/markAsRead', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+                async function markNotificationsAsRead() {
+                    try {
+                        const response = await fetch('/ElMountada/notifications/markAsRead/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+
+                        const data = await response.json();
+                        if (!data.success) {
+                            console.error('Failed to mark notifications as read');
+                        }
+                    } catch (error) {
+                        console.error('Error marking notifications as read:', error);
+                    }
+                }
+
+                if (notificationBtn && notificationDropdown) {
+                    notificationBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+
+                        notificationDropdown.classList.toggle('hidden');
+
+
+                        if (!notificationDropdown.classList.contains('hidden')) {
+                            if (notificationBadge) {
+                                notificationBadge.style.display = 'none';
+                            }
+                            markNotificationsAsRead();
+                        }
+                    });
+
+                    document.addEventListener('click', (e) => {
+                        if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
+                            notificationDropdown.classList.add('hidden');
+                        }
+                    });
                 }
             });
-            
-            const data = await response.json();
-            if (!data.success) {
-                console.error('Failed to mark notifications as read');
-            }
-        } catch (error) {
-            console.error('Error marking notifications as read:', error);
-        }
-    }
-
-    if (notificationBtn && notificationDropdown) {
-        // Toggle dropdown visibility
-        notificationBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent the link from navigating
-            
-            // Toggle dropdown
-            notificationDropdown.classList.toggle('hidden');
-            
-            // If opening the dropdown
-            if (!notificationDropdown.classList.contains('hidden')) {
-                // Hide the red badge
-                if (notificationBadge) {
-                    notificationBadge.style.display = 'none';
-                }
-                // Mark notifications as read
-                markNotificationsAsRead();
-            }
-        });
-
-        // Close the dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!notificationBtn.contains(e.target) && !notificationDropdown.contains(e.target)) {
-                notificationDropdown.classList.add('hidden');
-            }
-        });
-    }
-});
-</script>
+        </script>
         <script>
             const burgerBtn = document.getElementById('burger-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');

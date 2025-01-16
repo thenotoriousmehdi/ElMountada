@@ -28,17 +28,26 @@ class Accueil
          $view ->Head();
          $view ->displaySessionMessage();
          $view->loadHeader($sessionData);
-         if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
-         $view ->diaporama($News);
-         $view ->latest($latest);
-         $view ->offers($offers);
-         $view ->partnersLogos($partnerLogos);
-         $view ->footer();
-        }  else {
-        
-        $view ->adminWelcome();
-
+         if (isset($_SESSION['user_id'])) {
+            if ($_SESSION['user_type'] === 'admin') {
+                $view->adminWelcome();
+            } elseif ($_SESSION['user_type'] === 'partner') {
+                $view->partnerWelcome();
+            } else {
+                $view->diaporama($News);
+                $view->latest($latest);
+                $view->offers($offers);
+                $view->partnersLogos($partnerLogos);
+                $view->footer();
+            }
+        } else {
+            $view->diaporama($News);
+            $view->latest($latest);
+            $view->offers($offers);
+            $view->partnersLogos($partnerLogos);
+            $view->footer();
         }
+        
         
          $view ->foot();
     }

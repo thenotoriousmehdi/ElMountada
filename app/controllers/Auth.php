@@ -87,11 +87,18 @@ class Auth {
                 return;
             }
 
-            $this->userModel->createUser($email, $password, $fullName, $phoneNumber);
+             $success = $this->userModel->createUser($email, $password, $fullName, $phoneNumber);
 
-        
+        if ($success)
+        {
+            $this->startSession();
+            $_SESSION['status'] = "Votre compte est crée avec success";
+            $_SESSION['status_type'] = 'success';
             header("Location:" . ROOT . "/auth/showLoginPage");
             exit();
+
+        }
+            
         }
     }
 

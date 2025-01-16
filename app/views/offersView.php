@@ -118,8 +118,9 @@ class OffersView
                 
                 echo "<td class='py-5 px-4 text-sm font-openSans text-principale'>";
                 echo isset($offer->logo_path) && !empty($offer->logo_path) 
-                    ? "<img src='" . htmlspecialchars($offer->logo_path) . "' alt='Logo' width='50'>" 
-                    : 'No Logo';
+                ? "<img src='" . htmlspecialchars(ROOT . '/' . $offer->logo_path) . "' alt='Logo' width='50'>" 
+                : 'No Logo';
+            
                 echo "</td>";
 
                 
