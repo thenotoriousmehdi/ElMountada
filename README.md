@@ -7,4 +7,5 @@ Back-End : PHP, MySQL.
 
 Architecture : MVC.
 
-<img width="1512" alt="Screenshot 2025-01-17 at 15 14 21" src="https://github.com/user-attachments/assets/ae67f8ea-4969-416e-8d81-9de3a03b2528" />
+
+![Screenshot 2025-01-17 at 15 14 21](https://github.com/user-attachments/assets/ce7110e0-6d61-4fc1-9e32-db15092bf974)
