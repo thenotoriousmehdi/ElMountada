@@ -1,5 +1,5 @@
 # ElMountada
-Une application web dynamique qui permet à une association caritative de gérer ses activités, ses membres, ses partenaires, et ses interactions avec le public.
+A dynamic web application designed to help a nonprofit organization manage its activities, members, partners, and public interactions.
 # Technologies 
 Front-End : HTML5, Tailwind Css, JavaScript, jQuery. 
 
